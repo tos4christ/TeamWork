@@ -1,0 +1,27 @@
+{
+  "name": "team-work",
+  "version": "1.0.0",
+  "description": "an internal scoial network for employees of an organization",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tos4christ/TeamWork.git"
+  },
+  "keywords": [
+    "social",
+    "network",
+    "organization"
+  ],
+  "author": "Tos4christ",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tos4christ/TeamWork/issues"
+  },
+  "homepage": "https://github.com/tos4christ/TeamWork#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
