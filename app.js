@@ -7,9 +7,7 @@ const { Client } = require('pg');
 // Import the cloudinary module for storing gifs
 const cloudinary = require('cloudinary').v2;
 
-const img = cloudinary.image("sample", {format: "png", width: 100, height: 100, crop: "fill"})
-
-console.log(img);
+const img = cloudinary.image("sample", {format: "png", width: 100, height: 100, crop: "fill"});
 
 const client = new Client();
 client.connect()
@@ -18,7 +16,6 @@ client.connect()
 
 client.query('select current_user, now()', (err, res) => {
   if (err) console.error(err);
-  console.log(res.rows);
   client.end();
 });
 
