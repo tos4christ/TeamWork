@@ -12,7 +12,7 @@ before_script:
   - npm install
   - npm install -g jasmine
   - npm run test-init
-  - psql -c "CREATE DATABASE mydb;" -U postgres
+  - psql -c "CREATE DATABASE postgres;" -U postgres
 
 script:
   - npm run coverage
