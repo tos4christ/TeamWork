@@ -6,7 +6,9 @@
   "scripts": {
     "start": "node server/server && npm run test",
     "test-init": "./node_modules/jasmine/bin/jasmine.js init",
-    "test": "jasmine"
+    "test": "jasmine",
+    "coverage": "istanbul cover ./node_modules/jasmine/bin/jasmine.js",
+    "coveralls": "cat ./coverage/lcov.info | coveralls"
   },
   "repository": {
     "type": "git",
@@ -31,12 +33,14 @@
     "request": "^2.88.0"
   },
   "devDependencies": {
+    "coveralls": "^3.0.7",
     "eslint": "^6.6.0",
     "eslint-config-airbnb": "^18.0.1",
     "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.16.0",
     "eslint-plugin-react-hooks": "^1.7.0",
+    "istanbul": "^0.4.5",
     "jasmine": "^3.5.0"
   }
 }
