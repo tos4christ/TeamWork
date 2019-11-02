@@ -2,14 +2,10 @@ language: node_js
 node_js:
 - "10"
 
-env:
-  - DB=postgres://postgres@localhost/mydb
-
 addons:
   postgresql: "12"
 
 before_script:
-  - psql -c 'create database mydb;' -U postgres
   - npm install -g jasmine
   - npm run test-init
 
