@@ -9,7 +9,13 @@ const cloudinary = require('cloudinary').v2;
 
 const img = cloudinary.image("sample", {format: "png", width: 100, height: 100, crop: "fill"});
 
-const client = new Client();
+const client = new Client({
+  user: process.env.PGUSER,
+  host: process.env.PGHOST,
+  databse: process.env.PGDATABASE,
+  password: process.env.PGPASSWORD,
+  port: process.env.PGPASSWORD
+});
 client.connect()
   .then(() => console.log('Connected'))
   .catch(e => console.error('Connection Error:', e.stack));
