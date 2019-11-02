@@ -1,0 +1,37 @@
+{
+  "name": "team-work",
+  "version": "1.0.0",
+  "description": "an internal scoial network for employees of an organization",
+  "main": "app.js",
+  "scripts": {
+    "test": "jasmine"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tos4christ/TeamWork.git"
+  },
+  "keywords": [
+    "social",
+    "network",
+    "organization"
+  ],
+  "author": "Tos4christ",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tos4christ/TeamWork/issues"
+  },
+  "homepage": "https://github.com/tos4christ/TeamWork#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "pg": "^7.12.1"
+  },
+  "devDependencies": {
+    "eslint": "^6.6.0",
+    "eslint-config-airbnb": "^18.0.1",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.16.0",
+    "eslint-plugin-react-hooks": "^1.7.0",
+    "jasmine": "^3.5.0"
+  }
+}
