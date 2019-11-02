@@ -3,4 +3,5 @@ node_js:
 - "10"
 
 before_script:
-  - npm start
+  - npm install -g jasmine
+  - npm run test-init

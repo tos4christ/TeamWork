@@ -2,7 +2,7 @@ const Request = require('request');
 describe('Server setup', () => {
   let server;
   beforeAll(() => {
-    server = require('../server/server')
+    server = require('../server/server');
   });
 
   describe('GET /', () => {
