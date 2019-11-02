@@ -14,8 +14,6 @@ before_script:
   - npm run test-init
   - psql -c "CREATE DATABASE mydb;" -U postgres
 
-env:
-  - global
 script:
   - npm run coverage
 
