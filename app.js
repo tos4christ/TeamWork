@@ -21,6 +21,7 @@ client.connect()
 
 client.query('select current_user, now()', (err, res) => {
   if (err) console.error(err);
+  console.log(res.rows);
   client.end();
 });
 
