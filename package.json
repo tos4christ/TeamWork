@@ -22,8 +22,11 @@
   },
   "homepage": "https://github.com/tos4christ/TeamWork#readme",
   "dependencies": {
+    "cloudinary": "^1.16.0",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "pg": "^7.12.1"
+    "pg": "^7.12.1",
+    "request": "^2.88.0"
   },
   "devDependencies": {
     "eslint": "^6.6.0",
