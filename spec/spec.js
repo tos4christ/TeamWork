@@ -15,14 +15,14 @@ describe('Server setup', () => {
       });
     });
 
-    it('Status 200', () => {
+    it('Should return status 200', () => {
       expect(data.status).toBe(200);
     });
-    it('Body', () => {
+
+    it('Should respond with body message', () => {
       expect(data.body).toBe('Request received');
     });
-    
+
   });
 
-  describe()
 });
