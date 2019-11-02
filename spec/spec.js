@@ -5,7 +5,7 @@ describe('Server setup', () => {
     server = require('../server/server');
   });
 
-  describe('GET /', () => {
+  describe('Test the server', () => {
     const data = {};
     beforeAll((done) => {
       Request.get('http://localhost:3000/', (err, res, body) => {
@@ -14,16 +14,15 @@ describe('Server setup', () => {
         done();
       });
     });
+
     it('Status 200', () => {
       expect(data.status).toBe(200);
     });
     it('Body', () => {
       expect(data.body).toBe('Request received');
     });
+    
   });
+
+  describe()
 });
-
-describe('Database setup', () => {
-
-
-})

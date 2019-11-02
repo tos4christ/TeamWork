@@ -9,15 +9,15 @@ const cloudinary = require('cloudinary').v2;
 
 const img = cloudinary.image("sample", {format: "png", width: 100, height: 100, crop: "fill"});
 
-// const client = new Client();
-// client.connect()
-//   .then(() => console.log('Connected'))
-//   .catch(e => console.error('Connection Error:', e.stack));
+const client = new Client();
+client.connect()
+  .then(() => console.log('Connected'))
+  .catch(e => console.error('Connection Error:', e.stack));
 
-// client.query('select current_user, now()', (err, res) => {
-//   if (err) console.error(err);
-//   client.end();
-// });
+client.query('select current_user, now()', (err, res) => {
+  if (err) console.error(err);
+  client.end();
+});
 
 const app = express();
 

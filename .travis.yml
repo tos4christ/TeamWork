@@ -5,9 +5,13 @@ node_js:
 before_script:
   - npm install -g jasmine
   - npm run test-init
+  - psql -c 'create database mydb;' -U postgres
 
 script:
   - npm run coverage
 
 after_success:
   - npm run coveralls
+
+addons:
+  postgresql: "9.5"
