@@ -9,6 +9,7 @@ const cloudinary = require('cloudinary').v2;
 
 const img = cloudinary.image("sample", {format: "png", width: 100, height: 100, crop: "fill"});
 
+console.log(process.env.PGUSER, 'this one now');
 const client = new Client({
   user: process.env.PGUSER,
   host: process.env.PGHOST,
