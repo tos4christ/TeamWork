@@ -31,7 +31,7 @@ app.use((req, res, next) => {
 });
 
 app.use((err, req, res, next) => {
-    console.log('the error object', err)
+    console.log('the error object', Object.keys(err));
     res.status(err.status).send({
       'Server Error': err.message
     });
