@@ -50,7 +50,7 @@ describe('JWT route protection', () => {
       expect(data.status).toBe(500);
     });
     it('should return unathorized', () => {
-      expect(data.body).toBe('{"Server Error":"Unauthorized access 1"}');
+      expect(data.body).toBe("Error: Unauthorized access 1");
     });
   });
 
@@ -317,7 +317,7 @@ describe('API endpoint tests', () => {
           'content-type': 'application/x-www-form-urlencoded',
           'authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjkwMjMwNywidXNlcm5hbWUiOiJnbnp0cmFkZUBnbWFpbC5jb20iLCJpYXQiOjE1NzMyMjQ2NDEsImV4cCI6MTU3NDY2NDY0MX0.XGlcBEz7rukL9KbrxI2HEcbVSVneFNUD2LTGD09e6Zw'
           },
-          url: 'http://localhost:3000/api/v1/gifs/7'
+          url: 'http://localhost:3000/api/v1/gifs/9'
         }, (err, res, body) => {
           if(err) throw err;
           data.status = res.statusCode;
