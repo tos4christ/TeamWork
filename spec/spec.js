@@ -46,11 +46,11 @@ describe('JWT route protection', () => {
         done();
       });
     });
-    it('should return error 500', () => {
-      expect(data.status).toBe(500);
+    it('should return error 401', () => {
+      expect(data.status).toBe(401);
     });
     it('should return unathorized', () => {
-      expect(data.body).toThrowError('Unauthorized access 1');
+      expect(function() { PerformanceResourceTiming.parse(raw)}).toThrowError('Unauthorized access 1');
     });
   });
 
