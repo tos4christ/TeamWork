@@ -390,9 +390,6 @@ INSERT INTO public.gif_comment (gif_id, comment_id, employee_id) VALUES (7, 14, 
 
 INSERT INTO public.gif_table (gif_id, gif_title, gif_url, appr_status, employee_id, creation_date, gif_public_id) VALUES (7, 'my first gif test', 'https://res.cloudinary.com/tos4christ/image/upload/v1573236276/up6t50h5vdoipqpj0gll.jpg', false, 2, '2019-11-07', 'up6t50h5vdoipqpj0gll');
 INSERT INTO public.gif_table (gif_id, gif_title, gif_url, appr_status, employee_id, creation_date, gif_public_id) VALUES (9, 'my first gif test', 'https://res.cloudinary.com/tos4christ/image/upload/v1573235762/joo8zm36uc1od5e4fg0k.jpg', false, 2, '2019-11-07', 'joo8zm36uc1od5e4fg0k');
-INSERT INTO public.gif_table (gif_id, gif_title, gif_url, appr_status, employee_id, creation_date, gif_public_id) VALUES (10, 'my first gif test', 'https://res.cloudinary.com/tos4christ/image/upload/v1573235762/joo8zm36uc1od5e4fg0k.jpg', false, 2, '2019-11-07', 'joo8zm36uc1od5e4fg0k');
-INSERT INTO public.gif_table (gif_id, gif_title, gif_url, appr_status, employee_id, creation_date, gif_public_id) VALUES (11, 'my first gif test', 'https://res.cloudinary.com/tos4christ/image/upload/v1573235762/joo8zm36uc1od5e4fg0k.jpg', false, 2, '2019-11-07', 'joo8zm36uc1od5e4fg0k');
-
 
 --
 -- Name: gif_table_gif_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
