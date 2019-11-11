@@ -49,9 +49,7 @@ describe('JWT route protection', () => {
     it('should return error 401', () => {
       expect(data.status).toBe(401);
     });
-    it('should return unathorized', () => {
-      expect(function() { parser.parse(raw)}).toThrowError('Unauthorized access 1');
-    });
+    
   });
 
   describe('authenticated user should access protected routes', () => {

@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 const jwtCheck = (req, res, next) => {
 
   if(!req.headers.authorization) {
-    throw new Error('Unauthorized access 1');
+    const err = new Error('Unauthorized access 1');
     res.status(401);
     err.status = 401;
     next(err);
