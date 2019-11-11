@@ -50,7 +50,7 @@ describe('JWT route protection', () => {
       expect(data.status).toBe(500);
     });
     it('should return unathorized', () => {
-      expect(data.body).toBe("Error: Unauthorized access 1");
+      expect(data.body).toThrowError(true);
     });
   });
 
