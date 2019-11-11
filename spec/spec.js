@@ -50,7 +50,7 @@ describe('JWT route protection', () => {
       expect(data.status).toBe(401);
     });
     it('should return unathorized', () => {
-      expect(function() { PerformanceResourceTiming.parse(raw)}).toThrowError('Unauthorized access 1');
+      expect(function() { parser.parse(raw)}).toThrowError('Unauthorized access 1');
     });
   });
 
