@@ -1,11 +1,12 @@
-const Request = require('request');
-const fs = require('fs');
+import Request from 'request';
+import fs from 'fs';
+import servers from '../server/server';
 
 //DONE
 describe('Server setup', () => {
   let server;
   beforeAll(() => {
-    server = require('../server/server');
+    server = servers;
   });
   describe('Test the server', () => {
     const data = {};
@@ -29,7 +30,7 @@ describe('Server setup', () => {
 describe('JWT route protection', () => {
   let server;
   beforeAll(() => {
-    server = require('../server/server');
+    server = servers;
   });
 
   describe('unauthenticated user should not access protected routes', () => {
@@ -81,9 +82,8 @@ describe('JWT route protection', () => {
 //DONE
 describe('API endpoint tests', () => {
   let server;
-  let giffile;
   beforeAll(() => {
-    server = require('../server/server');
+    server = servers;
   });
 
   // DONE
@@ -315,7 +315,7 @@ describe('API endpoint tests', () => {
           'content-type': 'application/x-www-form-urlencoded',
           'authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjkwMjMwNywidXNlcm5hbWUiOiJnbnp0cmFkZUBnbWFpbC5jb20iLCJpYXQiOjE1NzMyMjQ2NDEsImV4cCI6MTU3NDY2NDY0MX0.XGlcBEz7rukL9KbrxI2HEcbVSVneFNUD2LTGD09e6Zw'
           },
-          url: 'http://localhost:3000/api/v1/gifs/9'
+          url: 'http://localhost:3000/api/v1/gifs/27'
         }, (err, res, body) => {
           if(err) throw err;
           data.status = res.statusCode;
@@ -366,7 +366,7 @@ describe('API endpoint tests', () => {
           'content-type': 'application/x-www-form-urlencoded',
           'authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjkwMjMwNywidXNlcm5hbWUiOiJnbnp0cmFkZUBnbWFpbC5jb20iLCJpYXQiOjE1NzMyMjQ2NDEsImV4cCI6MTU3NDY2NDY0MX0.XGlcBEz7rukL9KbrxI2HEcbVSVneFNUD2LTGD09e6Zw'
         },
-        url: 'http://localhost:3000/api/v1/gifs/7'
+        url: 'http://localhost:3000/api/v1/gifs/19'
       }, (err, resp, body) => {
         if(err) throw err;
         data.status = resp.statusCode;

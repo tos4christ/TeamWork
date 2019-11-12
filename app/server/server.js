@@ -1,5 +1,8 @@
-const http = require('http');
-const app = require('../app/app');
+// const http = require('http');
+import http from 'http';
+
+import app from '../app/app';
+// const app = require('../app/app');
 
 const port = process.env.PORT;
 const host = process.env.HOST;
@@ -10,4 +13,4 @@ server.listen(port, host, () => {
   console.log(`server listening on port ${port}`);
 });
 
-module.exports = server;
+export default server;

@@ -1,7 +1,14 @@
-const bcrypt = require('bcrypt');
-const pool = require('../Models/poolConnection');
-const signInQuery = require('../Models/signInModel');
-const jwt = require('jsonwebtoken');
+// const bcrypt = require('bcrypt');
+import bcrypt from 'bcrypt';
+
+// const pool = require('../Models/poolConnection');
+import pool from '../Models/poolConnection';
+
+// const signInQuery = require('../Models/signInModel');
+import signInQuery from '../Models/signInModel';
+
+// const jwt = require('jsonwebtoken');
+import jwt from 'jsonwebtoken';
 
 const signIn = (req, res, next) => {
   const body = req.body;
@@ -51,4 +58,4 @@ const signIn = (req, res, next) => {
     });
 }
 
-module.exports = signIn;
+export default signIn;

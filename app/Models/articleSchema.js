@@ -15,4 +15,4 @@ articleSchema.deleteAnArticle = `DELETE FROM articles WHERE article_id=$1 and em
 
 articleSchema.getEmployeeId = `SELECT employee_id FROM employees WHERE email=$1`;
 
-module.exports = articleSchema;
+export default articleSchema;

@@ -1,4 +1,5 @@
-const jwt = require('jsonwebtoken');
+// const jwt = require('jsonwebtoken');
+import jwt from 'jsonwebtoken';
 
 const jwtCheck = (req, res, next) => {
 
@@ -15,7 +16,8 @@ const jwtCheck = (req, res, next) => {
       
       if(!tokers) {
         const err = new Error('Unauthorized access 2');
-        res.status(410);''
+        res.status(410);
+        err.status = 401;
         next(err);
       } else  if(tokers) {
         res.status(200);
@@ -27,4 +29,4 @@ const jwtCheck = (req, res, next) => {
   }   
 }
 
-module.exports = jwtCheck;
+export default jwtCheck;

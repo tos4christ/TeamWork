@@ -1,5 +1,9 @@
-const router = require('express').Router();
-const articleController = require('../Controllers/articleController');
+// const router = require('express').Router();
+import { Router } from 'express';
+const router = Router();
+
+// const articleController = require('../Controllers/articleController');
+import articleController from '../Controllers/articleController';
 
 router.post('/', articleController.createArticle);
 
@@ -11,4 +15,4 @@ router.delete('/:articleId', articleController.deleteAnArticle);
 
 router.post('/:articleId/comment', articleController.postAnArticleComment);
 
-module.exports = router;
+export default router;

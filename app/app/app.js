@@ -1,7 +1,12 @@
-require('dotenv').config();
-const express = require('express');
-const cloudinary = require('cloudinary').v2;
-const routeAdmin = require('../Routers/routeAdmin');
+//require('dotenv').config();
+import { config } from 'dotenv' ;
+config();
+import express from 'express';
+//const express = require('express');
+import { v2  as cloudinary } from 'cloudinary';
+//const cloudinary = require('cloudinary').v2;
+import routeAdmin from '../Routers/routeAdmin';
+//const routeAdmin = require('../Routers/routeAdmin');
 
 // Already using cloudinary in the env file this is just for alternatives
 // Enter your cloudinary credentials below                                           
@@ -31,10 +36,9 @@ app.use((req, res, next) => {
 });
 
 app.use((err, req, res, next) => {
-    console.log('the error object', typeof err.stack);
     res.status(err.status).send({
       'Server Error': err.message
     });
 });
 
-module.exports = app;
+export default app;

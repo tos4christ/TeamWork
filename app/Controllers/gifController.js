@@ -1,7 +1,14 @@
-const pool = require('../Models/poolConnection');
-const userDetails = require('../utilities/getTokenUser');
-const gifSchema = require('../Models/gifSchema');
-const cloudinary = require('cloudinary').v2;
+// const pool = require('../Models/poolConnection');
+import pool from '../Models/poolConnection';
+
+// const userDetails = require('../utilities/getTokenUser');
+import userDetails from '../utilities/getTokenUser';
+
+// const gifSchema = require('../Models/gifSchema');
+import gifSchema from '../Models/gifSchema';
+
+// const cloudinary = require('cloudinary').v2;
+import { v2 as cloudinary } from 'cloudinary';
 
 const gifController = {};
 
@@ -133,4 +140,4 @@ gifController.postAGifComment = (req, res, next) => {
 
 }
 
-module.exports = gifController;
+export default gifController;
