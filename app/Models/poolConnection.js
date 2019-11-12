@@ -2,9 +2,7 @@
 import { Pool } from 'pg';
 
 // const query2 = require('./2ndpoolQuery');
-// import query2 from './2ndpoolQuery';
-
-console.log('processes', process.env);
+import query2 from './2ndpoolQuery';
 
 // for the connection string use process.env.DATABASE_URL
 const pool = new Pool({
