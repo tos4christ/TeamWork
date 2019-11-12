@@ -4,7 +4,7 @@
   "description": "an internal scoial network for employees of an organization",
   "main": "app.js",
   "scripts": {
-    "start": "npm run build && npm run started",
+    "start": "npm run started",
     "test-init": "./node_modules/jasmine/bin/jasmine.js init",
     "test": "jasmine build/spec/spec.js",
     "coverage": "istanbul cover ./node_modules/jasmine/bin/jasmine.js build/spec/spec.js",
