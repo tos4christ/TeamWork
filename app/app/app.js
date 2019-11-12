@@ -36,7 +36,7 @@ app.use((req, res, next) => {
 });
 
 app.use((err, req, res, next) => {
-    res.status(err.status).send({
+    res.send({
       'Server Error': err.message
     });
 });
