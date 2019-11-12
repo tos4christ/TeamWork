@@ -18,11 +18,10 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 // const http = require('http');
 var port = process.env.PORT || 3000;
-var host = process.env.HOST || 'localhost';
 
 var server = _http2.default.createServer(_app2.default);
 
-server.listen(port, host, function () {
+server.listen(port, function () {
   console.log('server listening on port ' + port);
 });
 
