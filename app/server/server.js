@@ -4,8 +4,8 @@ import http from 'http';
 import app from '../app/app';
 // const app = require('../app/app');
 
-const port = process.env.PORT;
-const host = process.env.HOST;
+const port = process.env.PORT || 3000;
+const host = process.env.HOST || localhost;
 
 const server = http.createServer(app);
 
