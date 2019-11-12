@@ -1,9 +1,8 @@
-const pool = require('../Models/poolConnection');
-const feedSchema = require('../Models/feedSchema');
+// const pool = require('../Models/poolConnection');
+import pool from '../Models/poolConnection';
 
-const sortFunction = (a, b) => {
-  return a - b;
-}
+// const feedSchema = require('../Models/feedSchema');
+import feedSchema from '../Models/feedSchema';
 
 const getFeed = (req, res, next) => {
 
@@ -23,4 +22,4 @@ const getFeed = (req, res, next) => {
     .catch( e => next(e));
 }
 
-module.exports = getFeed;
+export default getFeed;

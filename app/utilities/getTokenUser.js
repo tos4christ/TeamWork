@@ -1,4 +1,5 @@
-const jwt = require('jsonwebtoken');
+// const jwt = require('jsonwebtoken');
+import jwt from 'jsonwebtoken';
 
 const details = (token) => {
   const toker = jwt.verify(token, process.env.TOKENKEY, (err, token) => {
@@ -8,4 +9,4 @@ const details = (token) => {
   return toker;
 }
 
-module.exports = details;
+export default details;

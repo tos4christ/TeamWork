@@ -1,7 +1,15 @@
-const bcrypt = require('bcrypt');
-const pool = require('../Models/poolConnection');
-const newUserQuery = require('../Models/newUserModel');
-const jwt = require('jsonwebtoken');
+// const bcrypt = require('bcrypt');
+import bcrypt from 'bcrypt';
+
+// const pool = require('../Models/poolConnection');
+import pool from '../Models/poolConnection';
+
+// const newUserQuery = require('../Models/newUserModel');
+import newUserQuery from '../Models/newUserModel';
+
+// const jwt = require('jsonwebtoken');
+import jwt from 'jsonwebtoken';
+
 
 // create a new user for the new employee inserting their records in the database
 // ensure to hash their password with bcrypt before it goes into the database
@@ -35,4 +43,4 @@ const createUser = (req, res, next) => {
     .catch( e => next(e));
 }
 
-module.exports = createUser;
+export default createUser;

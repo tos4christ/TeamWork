@@ -13,4 +13,4 @@ gifSchema.updateGifCommentTable = `INSERT INTO gif_comment(gif_id, comment_id, e
 
 gifSchema.getEmployeeId = `SELECT employee_id FROM employees WHERE email=$1`;
 
-module.exports = gifSchema;
+export default gifSchema;

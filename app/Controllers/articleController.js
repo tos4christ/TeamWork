@@ -1,6 +1,11 @@
-const pool = require('../Models/poolConnection');
-const userDetails = require('../utilities/getTokenUser');
-const articleSchema = require('../Models/articleSchema');
+// const pool = require('../Models/poolConnection');
+import pool from '../Models/poolConnection';
+
+// const userDetails = require('../utilities/getTokenUser');
+import userDetails from '../utilities/getTokenUser';
+
+// const articleSchema = require('../Models/articleSchema');
+import articleSchema from '../Models/articleSchema';
 
 const articleController = {};
 
@@ -140,4 +145,4 @@ articleController.deleteAnArticle = (req, res, next) => {
   
 }
 
-module.exports = articleController;
+export default articleController;
