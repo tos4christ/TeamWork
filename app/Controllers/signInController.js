@@ -7,6 +7,8 @@ import pool from '../Models/poolConnection';
 // const signInQuery = require('../Models/signInModel');
 import signInQuery from '../Models/signInModel';
 
+console.log('signed in')
+
 // const jwt = require('jsonwebtoken');
 import jwt from 'jsonwebtoken';
 
@@ -23,6 +25,7 @@ const signIn = (req, res, next) => {
   // check if user exists in database
   pool.query(signInQuery, [body.username])
     .then( user => {
+      console.log('the user', user)
       
       // send back token if the user is in our database
       if(user) {
