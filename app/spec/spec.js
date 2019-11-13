@@ -90,13 +90,13 @@ describe('API endpoint tests', () => {
         },
         url: 'http://localhost:3000/api/v1/auth/create-user',
         form: {
-          firstname: 'yinka11',
+          firstname: 'yinka1113',
           lastname: 'fetuga',
-          email: 'yinka11@gmail.com',
-          employee_password: 'yinka11',
+          email: 'yinka1113@gmail.com',
+          employee_password: 'yinka1113',
           gender: 'female',
           jobrole: 'I.T',
-          employee_no: 4110112,
+          employee_no: 411011213,
           department: 'Admin',
         },
       }, (err, res, body) => {
@@ -344,7 +344,7 @@ describe('API endpoint tests', () => {
           'content-type': 'application/x-www-form-urlencoded',
           authorization: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjkwMjMwNywidXNlcm5hbWUiOiJnbnp0cmFkZUBnbWFpbC5jb20iLCJpYXQiOjE1NzMyMjQ2NDEsImV4cCI6MTU3NDY2NDY0MX0.XGlcBEz7rukL9KbrxI2HEcbVSVneFNUD2LTGD09e6Zw',
         },
-        url: 'http://localhost:3000/api/v1/gifs/12',
+        url: 'http://localhost:3000/api/v1/gifs/13',
       }, (err, resp, body) => {
         if (err) throw err;
         data.status = resp.statusCode;
