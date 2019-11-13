@@ -1,46 +1,39 @@
-// const bcrypt = require('bcrypt');
 import bcrypt from 'bcrypt';
-
-// const pool = require('../Models/poolConnection');
+import jwt from 'jsonwebtoken';
 import pool from '../Models/poolConnection';
-
-// const newUserQuery = require('../Models/newUserModel');
 import newUserQuery from '../Models/newUserModel';
 
-// const jwt = require('jsonwebtoken');
-import jwt from 'jsonwebtoken';
-
-
-// create a new user for the new employee inserting their records in the database
-// ensure to hash their password with bcrypt before it goes into the database
 const createUser = (req, res, next) => {
-  const body = req.body;
+  const {
+    firstname, lastname, email, gender, jobrole, employee_no, department, employee_password,
+  } = req.body;
   // check if email and password was sent
-  if(!body.email || !body.employee_password) {
+  if (!email || !employee_password) {
     res.status(400).json({
-      "status": "error",
-      "error": " Email or Password field cannot be empty"
+      status: 'error',
+      error: ' Email or Password field cannot be empty',
     });
     next();
   }
-  const hash = bcrypt.hashSync(body.employee_password, 9);
+  const hash = bcrypt.hashSync(employee_password, 9);
   const creation_date = Date().split('GMT')[0];
-  pool.query(newUserQuery, [body.firstname, body.lastname, body.email, hash, body.gender, body.jobrole, body.employee_no, body.department, creation_date])
-    .then( user => {
+  pool.query(newUserQuery,
+    [firstname, lastname, email, hash, gender, jobrole, employee_no, department, creation_date])
+    .then((user) => {
       const token = jwt.sign({
         sub: user.rows[0].employee_no,
-        email: user.rows[0].email
-      }, process.env.TOKENKEY, {expiresIn: 1440});
+        email: user.rows[0].email,
+      }, process.env.TOKENKEY, { expiresIn: 1440 });
       res.status(201).json({
-      "status": "success",
-      "data": {
-        "message": "User account successfully created",
-        "token": token,
-        "userId": user.rows[0].employee_no
-      }
+        status: 'success',
+        data: {
+          message: 'User account successfully created',
+          token,
+          userId: user.rows[0].employee_no,
+        },
       });
     })
-    .catch( e => next(e));
-}
+    .catch(e => next(e));
+};
 
 export default createUser;

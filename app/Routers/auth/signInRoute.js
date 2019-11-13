@@ -1,9 +1,7 @@
-// const router = require('express').Router();
 import { Router } from 'express';
-const router = Router();
-
-// const signInController = require('../../Controllers/signInController');
 import signInController from '../../Controllers/signInController';
+
+const router = Router();
 
 router.post('/', signInController);
 

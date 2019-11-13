@@ -1,9 +1,7 @@
-// const router = require('express').Router();
 import { Router } from 'express';
-const router = Router();
-
-// const articleController = require('../Controllers/articleController');
 import articleController from '../Controllers/articleController';
+
+const router = Router();
 
 router.post('/', articleController.createArticle);
 
