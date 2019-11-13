@@ -53,7 +53,7 @@ gifController.createGif = function (req, res, next) {
     // Pool connection goes here
     _poolConnection2.default.query(_gifSchema2.default.getEmployeeId, [user.username]).then(function (id) {
       _poolConnection2.default.query(_gifSchema2.default.newGif, [gif_title, fileUrl, appr_status, id.rows[0].employee_id, date, filePublicId]).then(function (gif) {
-        res.status(200).json({
+        res.status(201).json({
           "status": "success",
           "data": {
             "message": "GIF image successfully posted",
@@ -133,7 +133,7 @@ gifController.postAGifComment = function (req, res, next) {
     _poolConnection2.default.query(_gifSchema2.default.postAGifComment, [comments, id.rows[0]['employee_id'], date]).then(function (comment) {
       _poolConnection2.default.query(_gifSchema2.default.updateGifCommentTable, [req.params.gifId, comment.rows[0]['comment_id'], comment.rows[0]['employee_id']]).then(function () {
         _poolConnection2.default.query(_gifSchema2.default.getAGif, [req.params.gifId]).then(function (gif) {
-          res.status(200).json({
+          res.status(201).json({
             "status": "success",
             "data": {
               "message": "comment successfully created",

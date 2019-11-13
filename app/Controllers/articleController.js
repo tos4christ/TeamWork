@@ -19,7 +19,7 @@ articleController.createArticle = (req, res, next) => {
     .then( id => {
       pool.query(articleSchema.newArticle, [title, article, appr_status, id.rows[0]['employee_id'], date])
         .then( article => {
-          res.status(200).json({
+          res.status(201).json({
             "status": "Success",
             "data": {
               "message": "Article successfully posted",
@@ -49,7 +49,7 @@ articleController.postAnArticleComment = (req, res, next) => {
             .then(() => {
               pool.query(articleSchema.getAnArticleText, [req.params.articleId])
                 .then( article => {
-                  res.status(200).json({
+                  res.status(201).json({
                     "status": "success",
                     "data": {
                       "message": "comment successfully created",

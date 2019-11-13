@@ -38,7 +38,7 @@ articleController.createArticle = function (req, res, next) {
 
   _poolConnection2.default.query(_articleSchema2.default.getEmployeeId, [user.username]).then(function (id) {
     _poolConnection2.default.query(_articleSchema2.default.newArticle, [title, article, appr_status, id.rows[0]['employee_id'], date]).then(function (article) {
-      res.status(200).json({
+      res.status(201).json({
         "status": "Success",
         "data": {
           "message": "Article successfully posted",
@@ -67,7 +67,7 @@ articleController.postAnArticleComment = function (req, res, next) {
     _poolConnection2.default.query(_articleSchema2.default.postAnArticleComment, [comments, id.rows[0]['employee_id'], date]).then(function (comment) {
       _poolConnection2.default.query(_articleSchema2.default.updateArticleCommentTable, [req.params.articleId, comment.rows[0]['comment_id'], comment.rows[0]['employee_id']]).then(function () {
         _poolConnection2.default.query(_articleSchema2.default.getAnArticleText, [req.params.articleId]).then(function (article) {
-          res.status(200).json({
+          res.status(201).json({
             "status": "success",
             "data": {
               "message": "comment successfully created",

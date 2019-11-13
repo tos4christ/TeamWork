@@ -71,8 +71,8 @@ describe('JWT route protection', () => {
       });
     });
     // specs design
-    it('Should return status 200', () => {
-      expect(data.status).toBe(200);
+    it('Should return status 201', () => {
+      expect(data.status).toBe(201);
     });
     it('Should return a user', () => {
       expect(data.body['data']['title']).toBe('test articles');
@@ -87,37 +87,40 @@ describe('API endpoint tests', () => {
   });
 
   // DONE
-  // describe('POST /auth/create-user', () => {
-  //   const data = {};
-  //   beforeAll((done) => {
-  //     Request.post({
-  //       headers: {
-  //         'content-type': 'x-www-form-urlencoded',
-  //         'authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjkwMjMwNywidXNlcm5hbWUiOiJnbnp0cmFkZUBnbWFpbC5jb20iLCJpYXQiOjE1NzMwNjAzMDIsImV4cCI6MTU3NDUwMDMwMn0.ub6P4wBGuulB_c7TrGv9TtmBvYjMzVx0yfXqWrXDMOE'
-  //       },
-  //       url: 'http://localhost:3000/api/v1/auth/create-user',
-  //       form: {
-  //         firstname: 'bimbo',
-  //         lastname: 'fetuga',
-  //         email: 'bimbo@gmail.com',
-  //         employee_password: 'bimbo',
-  //         gender: 'female',
-  //         jobrole: 'I.T',
-  //         employee_no: 902410,
-  //         department: 'Sales'
-  //       }
-  //     }, (err, res, body) => {
-  //       if(err) throw err;
-  //       data.status = res.statusCode;
-  //       data.body = JSON.parse(body);
-  //       done();
-  //     });
-  //   });
-  //   // test specs
-  //   it('Should return a successfully created employee', () => {
-  //     expect(data.body['data']['message']).toBe('User account successfully created');
-  //   });
-  // });
+  describe('POST /auth/create-user', () => {
+    const data = {};
+    beforeAll((done) => {
+      Request.post({
+        headers: {
+          'content-type': 'x-www-form-urlencoded',
+          'authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjkwMjMwNywidXNlcm5hbWUiOiJnbnp0cmFkZUBnbWFpbC5jb20iLCJpYXQiOjE1NzM1ODE5MjAsImV4cCI6MTU3NTAyMTkyMH0.js2EySKM5sykjUELWrA3jD2acVSwU_1lDooVIGKbp24'
+        },
+        url: 'http://localhost:3000/api/v1/auth/create-user',
+        form: {
+          firstname: 'labake2',
+          lastname: 'fetuga2',
+          email: 'labake2@gmail.com',
+          employee_password: 'labake',
+          gender: 'female',
+          jobrole: 'I.T',
+          employee_no: 9024101,
+          department: 'Admin'
+        }
+      }, (err, res, body) => {
+        if(err) throw err;
+        data.status = res.statusCode;
+        data.body = JSON.parse(body);
+        done();
+      });
+    });
+    // test specs
+    it('Should return a successfully created employee', () => {
+      expect(data.body['data']['message']).toBe('User account successfully created');
+    });
+    it('Should return a status of 201', () => {
+      expect(data.status).toBe(201);
+    });
+  });
 // DONE
   describe('POST /auth/signin', () => {
     const data = {};
@@ -169,6 +172,9 @@ describe('API endpoint tests', () => {
     it('Should create and article and return article id', () => {
       expect(data.body['data']['message']).toBe('Article successfully posted');
     });
+    it('Should return a status code 201', () => {
+      expect(data.status).toBe(201);
+    });
   });
 // Done
   describe('DELETE /articles/:articleId', () => {
@@ -190,6 +196,9 @@ describe('API endpoint tests', () => {
     // test specs
     it('Should delete an article', () => {
       expect(data.body["data"]["message"]).toBe("Article successfully deleted");
+    });
+    it('Should return a status code 200', () => {
+      expect(data.status).toBe(200);
     });
 
   });
@@ -248,6 +257,9 @@ describe('API endpoint tests', () => {
     it('Should return a successful creation message', () => {
       expect(data.body['status']).toBe('success');
     });
+    it('Should return a status code 201', () => {
+      expect(data.status).toBe(201);
+    });
 
   });
 // Done
@@ -276,6 +288,9 @@ describe('API endpoint tests', () => {
     it('Should update and article and return the article id', () => {
       expect(data.body['data']['title']).toBe('updated article title');
     });
+    it('Should return a status code 200', () => {
+      expect(data.status).toBe(200);
+    });
 
   });
 // Done
@@ -299,8 +314,8 @@ describe('API endpoint tests', () => {
       });
     });
     //test spec
-    it('should return a status code of 200', () => {
-      expect(data.status).toBe(200);
+    it('should return a status code of 201', () => {
+      expect(data.status).toBe(201);
     });
     it('Should return the new gif comment created', () => {
       expect(data.body["data"]["comment"]).toEqual("This is a new gif comment")
@@ -366,7 +381,7 @@ describe('API endpoint tests', () => {
           'content-type': 'application/x-www-form-urlencoded',
           'authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjkwMjMwNywidXNlcm5hbWUiOiJnbnp0cmFkZUBnbWFpbC5jb20iLCJpYXQiOjE1NzMyMjQ2NDEsImV4cCI6MTU3NDY2NDY0MX0.XGlcBEz7rukL9KbrxI2HEcbVSVneFNUD2LTGD09e6Zw'
         },
-        url: 'http://localhost:3000/api/v1/gifs/22'
+        url: 'http://localhost:3000/api/v1/gifs/16'
       }, (err, resp, body) => {
         if(err) throw err;
         data.status = resp.statusCode;
@@ -404,8 +419,8 @@ describe('API endpoint tests', () => {
       });
     });
     //test spec
-    it('should return a status code of 200', () => {
-      expect(data.status).toBe(200);
+    it('should return a status code of 201', () => {
+      expect(data.status).toBe(201);
     });
     it('Should return the new article comment created', () => {
       expect(data.body["data"]["comment"]).toEqual("This is a new article comment")

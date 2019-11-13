@@ -36,7 +36,8 @@ app.use((req, res, next) => {
 });
 
 app.use((err, req, res, next) => {
-    res.send({
+    const status = err.status ? err.status : 500;
+    res.status(status).send({
       'Server Error': err.message
     });
 });

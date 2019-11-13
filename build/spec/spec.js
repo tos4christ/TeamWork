@@ -82,8 +82,8 @@ describe('JWT route protection', function () {
       });
     });
     // specs design
-    it('Should return status 200', function () {
-      expect(data.status).toBe(200);
+    it('Should return status 201', function () {
+      expect(data.status).toBe(201);
     });
     it('Should return a user', function () {
       expect(data.body['data']['title']).toBe('test articles');
@@ -98,37 +98,40 @@ describe('API endpoint tests', function () {
   });
 
   // DONE
-  // describe('POST /auth/create-user', () => {
-  //   const data = {};
-  //   beforeAll((done) => {
-  //     Request.post({
-  //       headers: {
-  //         'content-type': 'x-www-form-urlencoded',
-  //         'authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjkwMjMwNywidXNlcm5hbWUiOiJnbnp0cmFkZUBnbWFpbC5jb20iLCJpYXQiOjE1NzMwNjAzMDIsImV4cCI6MTU3NDUwMDMwMn0.ub6P4wBGuulB_c7TrGv9TtmBvYjMzVx0yfXqWrXDMOE'
-  //       },
-  //       url: 'http://localhost:3000/api/v1/auth/create-user',
-  //       form: {
-  //         firstname: 'bimbo',
-  //         lastname: 'fetuga',
-  //         email: 'bimbo@gmail.com',
-  //         employee_password: 'bimbo',
-  //         gender: 'female',
-  //         jobrole: 'I.T',
-  //         employee_no: 902410,
-  //         department: 'Sales'
-  //       }
-  //     }, (err, res, body) => {
-  //       if(err) throw err;
-  //       data.status = res.statusCode;
-  //       data.body = JSON.parse(body);
-  //       done();
-  //     });
-  //   });
-  //   // test specs
-  //   it('Should return a successfully created employee', () => {
-  //     expect(data.body['data']['message']).toBe('User account successfully created');
-  //   });
-  // });
+  describe('POST /auth/create-user', function () {
+    var data = {};
+    beforeAll(function (done) {
+      _request2.default.post({
+        headers: {
+          'content-type': 'x-www-form-urlencoded',
+          'authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjkwMjMwNywidXNlcm5hbWUiOiJnbnp0cmFkZUBnbWFpbC5jb20iLCJpYXQiOjE1NzM1ODE5MjAsImV4cCI6MTU3NTAyMTkyMH0.js2EySKM5sykjUELWrA3jD2acVSwU_1lDooVIGKbp24'
+        },
+        url: 'http://localhost:3000/api/v1/auth/create-user',
+        form: {
+          firstname: 'labake',
+          lastname: 'fetuga',
+          email: 'labake@gmail.com',
+          employee_password: 'labake',
+          gender: 'female',
+          jobrole: 'I.T',
+          employee_no: 9024111,
+          department: 'Admin'
+        }
+      }, function (err, res, body) {
+        if (err) throw err;
+        data.status = res.statusCode;
+        data.body = JSON.parse(body);
+        done();
+      });
+    });
+    // test specs
+    it('Should return a successfully created employee', function () {
+      expect(data.body['data']['message']).toBe('User account successfully created');
+    });
+    it('Should return a status of 201', function () {
+      expect(data.status).toBe(201);
+    });
+  });
   // DONE
   describe('POST /auth/signin', function () {
     var data = {};
@@ -180,6 +183,9 @@ describe('API endpoint tests', function () {
     it('Should create and article and return article id', function () {
       expect(data.body['data']['message']).toBe('Article successfully posted');
     });
+    it('Should return a status code 201', function () {
+      expect(data.status).toBe(201);
+    });
   });
   // Done
   describe('DELETE /articles/:articleId', function () {
@@ -201,6 +207,9 @@ describe('API endpoint tests', function () {
     // test specs
     it('Should delete an article', function () {
       expect(data.body["data"]["message"]).toBe("Article successfully deleted");
+    });
+    it('Should return a status code 200', function () {
+      expect(data.status).toBe(200);
     });
   });
   // DONE
@@ -258,6 +267,9 @@ describe('API endpoint tests', function () {
     it('Should return a successful creation message', function () {
       expect(data.body['status']).toBe('success');
     });
+    it('Should return a status code 201', function () {
+      expect(data.status).toBe(201);
+    });
   });
   // Done
   describe('PATCH /articles/:articleId', function () {
@@ -285,6 +297,9 @@ describe('API endpoint tests', function () {
     it('Should update and article and return the article id', function () {
       expect(data.body['data']['title']).toBe('updated article title');
     });
+    it('Should return a status code 200', function () {
+      expect(data.status).toBe(200);
+    });
   });
   // Done
   describe('POST /gifs/:gifId/comment', function () {
@@ -307,8 +322,8 @@ describe('API endpoint tests', function () {
       });
     });
     //test spec
-    it('should return a status code of 200', function () {
-      expect(data.status).toBe(200);
+    it('should return a status code of 201', function () {
+      expect(data.status).toBe(201);
     });
     it('Should return the new gif comment created', function () {
       expect(data.body["data"]["comment"]).toEqual("This is a new gif comment");
@@ -372,7 +387,7 @@ describe('API endpoint tests', function () {
           'content-type': 'application/x-www-form-urlencoded',
           'authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjkwMjMwNywidXNlcm5hbWUiOiJnbnp0cmFkZUBnbWFpbC5jb20iLCJpYXQiOjE1NzMyMjQ2NDEsImV4cCI6MTU3NDY2NDY0MX0.XGlcBEz7rukL9KbrxI2HEcbVSVneFNUD2LTGD09e6Zw'
         },
-        url: 'http://localhost:3000/api/v1/gifs/19'
+        url: 'http://localhost:3000/api/v1/gifs/15'
       }, function (err, resp, body) {
         if (err) throw err;
         data.status = resp.statusCode;
@@ -409,8 +424,8 @@ describe('API endpoint tests', function () {
       });
     });
     //test spec
-    it('should return a status code of 200', function () {
-      expect(data.status).toBe(200);
+    it('should return a status code of 201', function () {
+      expect(data.status).toBe(201);
     });
     it('Should return the new article comment created', function () {
       expect(data.body["data"]["comment"]).toEqual("This is a new article comment");

@@ -35,7 +35,7 @@ gifController.createGif = (req, res, next) => {
         .then( id => {
           pool.query(gifSchema.newGif, [gif_title, fileUrl, appr_status, id.rows[0].employee_id, date, filePublicId ])
             .then( gif => {
-              res.status(200).json({
+              res.status(201).json({
                 "status": "success",
                 "data": {
                   "message": "GIF image successfully posted",
@@ -119,7 +119,7 @@ gifController.postAGifComment = (req, res, next) => {
             .then(() => {
               pool.query(gifSchema.getAGif, [req.params.gifId])
                 .then( gif => {
-                  res.status(200).json({
+                  res.status(201).json({
                     "status": "success",
                     "data": {
                       "message": "comment successfully created",

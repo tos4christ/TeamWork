@@ -54,8 +54,8 @@ app.use(function (req, res, next) {
 });
 
 app.use(function (err, req, res, next) {
-  err.status = 500;
-  res.status(err.status).send({
+  var status = err.status ? err.status : 500;
+  res.status(status).send({
     'Server Error': err.message
   });
 });
