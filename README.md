@@ -3,3 +3,6 @@
 
 # TeamWork
 An internal social network for employees of an organization
+
+# For proper documentation on this API
+visit teamworksng.herokuapp.com/api/v1/docs
