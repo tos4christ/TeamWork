@@ -97,13 +97,13 @@ describe('API endpoint tests', () => {
         },
         url: 'http://localhost:3000/api/v1/auth/create-user',
         form: {
-          firstname: 'labake2343',
-          lastname: 'fetuga2343',
-          email: 'labake2343@gmail.com',
-          employee_password: 'labake2343',
+          firstname: 'labake43',
+          lastname: 'fetuga43',
+          email: 'labake43@gmail.com',
+          employee_password: 'labake43',
           gender: 'female',
           jobrole: 'I.T',
-          employee_no: 902419143,
+          employee_no: 419143,
           department: 'Admin'
         }
       }, (err, res, body) => {
@@ -185,7 +185,7 @@ describe('API endpoint tests', () => {
           'content-type': 'application/x-www-form-urlencoded',
           'authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjkwMjMwNywidXNlcm5hbWUiOiJnbnp0cmFkZUBnbWFpbC5jb20iLCJpYXQiOjE1NzMyMjQ2NDEsImV4cCI6MTU3NDY2NDY0MX0.XGlcBEz7rukL9KbrxI2HEcbVSVneFNUD2LTGD09e6Zw'
         },
-        url: 'http://localhost:3000/api/v1/articles/26'
+        url: 'http://localhost:3000/api/v1/articles/27'
       }, (err, resp, body) => {
         if(err) throw err;
         data.status = resp.statusCode;
@@ -252,7 +252,7 @@ describe('API endpoint tests', () => {
     })
     // spec test
     it('Should return the gif title upon successful creation', () => {
-      expect(data.body['data']['title']).toBe('my first gif test');
+      expect(data.body['data']['title']).toBe('my another gif test');
     });
     it('Should return a successful creation message', () => {
       expect(data.body['status']).toBe('success');
@@ -381,7 +381,7 @@ describe('API endpoint tests', () => {
           'content-type': 'application/x-www-form-urlencoded',
           'authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjkwMjMwNywidXNlcm5hbWUiOiJnbnp0cmFkZUBnbWFpbC5jb20iLCJpYXQiOjE1NzMyMjQ2NDEsImV4cCI6MTU3NDY2NDY0MX0.XGlcBEz7rukL9KbrxI2HEcbVSVneFNUD2LTGD09e6Zw'
         },
-        url: 'http://localhost:3000/api/v1/gifs/18'
+        url: 'http://localhost:3000/api/v1/gifs/19'
       }, (err, resp, body) => {
         if(err) throw err;
         data.status = resp.statusCode;
