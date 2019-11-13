@@ -97,13 +97,13 @@ describe('API endpoint tests', () => {
         },
         url: 'http://localhost:3000/api/v1/auth/create-user',
         form: {
-          firstname: 'labake234',
-          lastname: 'fetuga234',
-          email: 'labake234@gmail.com',
-          employee_password: 'labake234',
+          firstname: 'labake2343',
+          lastname: 'fetuga2343',
+          email: 'labake2343@gmail.com',
+          employee_password: 'labake2343',
           gender: 'female',
           jobrole: 'I.T',
-          employee_no: 90241914,
+          employee_no: 902419143,
           department: 'Admin'
         }
       }, (err, res, body) => {
@@ -185,7 +185,7 @@ describe('API endpoint tests', () => {
           'content-type': 'application/x-www-form-urlencoded',
           'authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjkwMjMwNywidXNlcm5hbWUiOiJnbnp0cmFkZUBnbWFpbC5jb20iLCJpYXQiOjE1NzMyMjQ2NDEsImV4cCI6MTU3NDY2NDY0MX0.XGlcBEz7rukL9KbrxI2HEcbVSVneFNUD2LTGD09e6Zw'
         },
-        url: 'http://localhost:3000/api/v1/articles/25'
+        url: 'http://localhost:3000/api/v1/articles/26'
       }, (err, resp, body) => {
         if(err) throw err;
         data.status = resp.statusCode;
@@ -247,9 +247,8 @@ describe('API endpoint tests', () => {
 
       var form = req.form();
       form.append('gifPost', fs.createReadStream('Certificate.jpg'));
-      form.append('gif_title', 'my first gif test');
-      form.append('appr_status', 'false');
-      // form.append('gif_id', '303030');
+      form.append('gif_title', 'my another gif test');
+      form.append('appr_status', 'true');
     })
     // spec test
     it('Should return the gif title upon successful creation', () => {
@@ -305,7 +304,7 @@ describe('API endpoint tests', () => {
         },
         url: 'http://localhost:3000/api/v1/gifs/9/comment',
         form: {
-          "comments": "This is a new gif comment"
+          "comment": "This is a new gif comment"
         }
       }, (err, res, body) => {
         if(err) throw err;
@@ -382,7 +381,7 @@ describe('API endpoint tests', () => {
           'content-type': 'application/x-www-form-urlencoded',
           'authorization': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjkwMjMwNywidXNlcm5hbWUiOiJnbnp0cmFkZUBnbWFpbC5jb20iLCJpYXQiOjE1NzMyMjQ2NDEsImV4cCI6MTU3NDY2NDY0MX0.XGlcBEz7rukL9KbrxI2HEcbVSVneFNUD2LTGD09e6Zw'
         },
-        url: 'http://localhost:3000/api/v1/gifs/17'
+        url: 'http://localhost:3000/api/v1/gifs/18'
       }, (err, resp, body) => {
         if(err) throw err;
         data.status = resp.statusCode;
@@ -410,7 +409,7 @@ describe('API endpoint tests', () => {
         },
         url: 'http://localhost:3000/api/v1/articles/7/comment',
         form: {
-          "comments": "This is a new article comment"
+          "comment": "This is a new article comment"
         }
       }, (err, res, body) => {
         if(err) throw err;

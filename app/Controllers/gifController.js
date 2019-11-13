@@ -110,10 +110,10 @@ gifController.postAGifComment = (req, res, next) => {
   const user = userDetails(token);
   const date = Date().split('GMT')[0];
 
-  const { comments } = req.body;
+  const { comment } = req.body;
   pool.query(gifSchema.getEmployeeId, [user.username])
     .then( id => {
-      pool.query(gifSchema.postAGifComment, [comments, id.rows[0]['employee_id'], date])
+      pool.query(gifSchema.postAGifComment, [comment, id.rows[0]['employee_id'], date])
         .then( (comment) => {
           pool.query(gifSchema.updateGifCommentTable, [req.params.gifId, comment.rows[0]['comment_id'], comment.rows[0]['employee_id']])
             .then(() => {
