@@ -296,7 +296,7 @@ describe('API endpoint tests', () => {
           employee_password: 'testerrd102',
           gender: 'female',
           jobrole: 'I.T',
-          employee_no: 0909,
+          employee_no: 90923,
           department: 'Admin',
         },
       }, (err, res, body) => {
