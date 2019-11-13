@@ -97,13 +97,13 @@ describe('API endpoint tests', () => {
         },
         url: 'http://localhost:3000/api/v1/auth/create-user',
         form: {
-          firstname: 'labake2',
-          lastname: 'fetuga2',
-          email: 'labake2@gmail.com',
-          employee_password: 'labake',
+          firstname: 'labake23',
+          lastname: 'fetuga23',
+          email: 'labake23@gmail.com',
+          employee_password: 'labake23',
           gender: 'female',
           jobrole: 'I.T',
-          employee_no: 9024101,
+          employee_no: 9024191,
           department: 'Admin'
         }
       }, (err, res, body) => {
