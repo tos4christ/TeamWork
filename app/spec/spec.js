@@ -90,19 +90,20 @@ describe('API endpoint tests', () => {
         },
         url: 'http://localhost:3000/api/v1/auth/create-user',
         form: {
-          firstname: 'bolanle',
-          lastname: 'adeka',
-          email: 'bolanle@gmail.com',
-          employee_password: 'bolanle',
+          firstname: 'bolanle1',
+          lastname: 'adeka1',
+          email: 'bolanle@gmail.com1',
+          employee_password: 'bolanle1',
           gender: 'female',
           jobrole: 'I.T',
-          employee_no: 2930394,
+          employee_no: 29303941,
           department: 'Admin',
         },
       }, (err, res, body) => {
         if (err) throw err;
         data.status = res.statusCode;
         data.body = JSON.parse(body);
+        console.log('the body', data);
         done();
       });
     });
@@ -223,6 +224,7 @@ describe('API endpoint tests', () => {
         if (err) throw err;
         data.status = res.statusCode;
         data.body = JSON.parse(body);
+        console.log('post gif data', data);
         done();
       });
       const form = req.form();
@@ -344,11 +346,12 @@ describe('API endpoint tests', () => {
           'content-type': 'application/x-www-form-urlencoded',
           authorization: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjkwMjMwNywidXNlcm5hbWUiOiJnbnp0cmFkZUBnbWFpbC5jb20iLCJpYXQiOjE1NzMyMjQ2NDEsImV4cCI6MTU3NDY2NDY0MX0.XGlcBEz7rukL9KbrxI2HEcbVSVneFNUD2LTGD09e6Zw',
         },
-        url: 'http://localhost:3000/api/v1/gifs/21',
+        url: 'http://localhost:3000/api/v1/gifs/22',
       }, (err, resp, body) => {
         if (err) throw err;
         data.status = resp.statusCode;
         data.body = JSON.parse(body);
+        console.log('the delete body', data);
         done();
       });
     });
