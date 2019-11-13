@@ -17,7 +17,7 @@ const createUser = (req, res, next) => {
   }
   const hash = bcrypt.hashSync(employee_password, 9);
   const creation_date = Date().split('GMT')[0];
-  pool.query(newUserQuery,
+  pool.query(newUserQuery.newUser,
     [firstname, lastname, email, hash, gender, jobrole, employee_no, department, creation_date])
     .then((user) => {
       const token = jwt.sign({
