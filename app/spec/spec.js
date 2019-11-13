@@ -292,11 +292,11 @@ describe('API endpoint tests', () => {
         form: {
           firstname: 'test489',
           lastname: 'testing1234',
-          email: 't34@examplernas.com',
+          email: 't34tt@examplernas.com',
           employee_password: 'testerrd102',
           gender: 'female',
           jobrole: 'I.T',
-          employee_no: 3212,
+          employee_no: 321234,
           department: 'Admin',
         },
       }, (err, res, body) => {
