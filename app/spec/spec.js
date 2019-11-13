@@ -90,7 +90,7 @@ describe('API endpoint tests', () => {
           'content-type': 'application/x-www-form-urlencoded',
           authorization: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjkwMjMwNywidXNlcm5hbWUiOiJnbnp0cmFkZUBnbWFpbC5jb20iLCJpYXQiOjE1NzMyMjQ2NDEsImV4cCI6MTU3NDY2NDY0MX0.XGlcBEz7rukL9KbrxI2HEcbVSVneFNUD2LTGD09e6Zw',
         },
-        url: 'http://localhost:3000/api/v1/articles/7',
+        url: 'http://localhost:3000/api/v1/articles/8',
       }, (err, resp, body) => {
         if (err) throw err;
         data.status = resp.statusCode;
@@ -290,13 +290,13 @@ describe('API endpoint tests', () => {
         },
         url: 'http://localhost:3000/api/v1/auth/create-user',
         form: {
-          firstname: 'test12',
-          lastname: 'testing12',
-          email: 'test12@example.com',
-          employee_password: 'tested12',
+          firstname: 'test1234',
+          lastname: 'testing1234',
+          email: 'test1234@examples.com',
+          employee_password: 'tested102',
           gender: 'female',
           jobrole: 'I.T',
-          employee_no: 11212,
+          employee_no: 1134123212,
           department: 'Admin',
         },
       }, (err, res, body) => {
@@ -321,7 +321,7 @@ describe('API endpoint tests', () => {
           'content-type': 'application/x-www-form-urlencoded',
           authorization: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjkwMjMwNywidXNlcm5hbWUiOiJnbnp0cmFkZUBnbWFpbC5jb20iLCJpYXQiOjE1NzMyMjQ2NDEsImV4cCI6MTU3NDY2NDY0MX0.XGlcBEz7rukL9KbrxI2HEcbVSVneFNUD2LTGD09e6Zw',
         },
-        url: 'http://localhost:3000/api/v1/gifs/14',
+        url: 'http://localhost:3000/api/v1/gifs/15',
       }, (err, resp, body) => {
         if (err) throw err;
         data.status = resp.statusCode;
