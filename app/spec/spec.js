@@ -337,14 +337,14 @@ describe('API endpoint tests', () => {
       expect(data.status).toBe(200);
     });
   });
-  describe('FLAG AN ARTICLE: POST /articles/:articleId/flag', );
-  describe('FLAG A GIF: POST /gifs/:gifId/flag', );
-  describe('FLAG AN ARTICLE COMMENT: POST /articles/:articleId/comment/:commentId', );
-  describe('FLAG AN GIF COMMENT: POST /gifs/:gifId/comment/:commentId', );
-  describe('DELETE A FLAGGED GIF: /gifs/:gifId/flag', );
-  describe('DELETE A FLAGGED COMMENT: /gifs/:gifId/flag', );
-  describe('DELETE A FLAGGED ARTICLE: /gifs/:gifId/flag', );
-  describe('GET ARTICLES BY TAG NAME: GET /articles?tag={{tag name}}', );
+  // describe('FLAG AN ARTICLE: POST /articles/:articleId/flag', );
+  // describe('FLAG A GIF: POST /gifs/:gifId/flag', );
+  // describe('FLAG AN ARTICLE COMMENT: POST /articles/:articleId/comment/:commentId', );
+  // describe('FLAG AN GIF COMMENT: POST /gifs/:gifId/comment/:commentId', );
+  // describe('DELETE A FLAGGED GIF: /gifs/:gifId/flag', );
+  // describe('DELETE A FLAGGED COMMENT: /gifs/:gifId/flag', );
+  // describe('DELETE A FLAGGED ARTICLE: /gifs/:gifId/flag', );
+  // describe('GET ARTICLES BY TAG NAME: GET /articles?tag={{tag name}}', );
 });
 
 describe('JWT route protection', () => {
