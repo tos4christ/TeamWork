@@ -200,7 +200,7 @@ articleController.flagArticle = (req, res, next) => {
         status: "success",
         data: {
           message: "article successfully flagged",
-          article,
+          article: article.rows[0],
         }
       });
     })
@@ -211,5 +211,154 @@ articleController.flagArticle = (req, res, next) => {
       });
     });
 }
+
+articleController.flagComment = (req, res, next) => {
+  pool.query(articleSchema.getCommentId, [req.params.articleId])
+    .then((id) => {
+      pool.query(articleSchema.flagArticleComment, [req.body.appr_status , id.rows[0].id])
+        .then( (flaggedComment) => {
+          res.status(200).json({
+            status: "success",
+            data: {
+              message: "comment successfully flagged",
+              comment: flaggedComment.rows[0],
+            }
+          });
+        })
+        .catch( e => {
+          res.status(400).json({
+            "status": "error",
+            "error": e.message
+          });
+        })
+    })
+    .catch( e => {
+      res.status(400).json({
+        "status": "error",
+        "error": e.message
+      });
+    });
+}
+
+articleController.deleteFlaggedArticle = (req, res, next) => {
+  const token = req.headers.authorization.split(' ')[1] ? req.headers.authorization.split(' ')[1] : req.headers.authorization;
+  const userToken = userDetails(token);
+  if (!userToken.admin) {
+    res.status(401).json({
+      status: 'error',
+      error: 'Only an Admin user can delete a flagged Article',
+    });
+    return;
+  }
+  pool.query(articleSchema.getFlaggedArticle, [req.params.articleId])
+    .then((article) => {
+      if (article.rows[0].appr_status) {
+        pool.query(articleSchema.deleteFlaggedArticle, [req.params.articleId])
+          .then( () => {
+              res.status(200).json({
+                "status": "success",
+                "data": {
+                  message: "flagged article successfully deleted"
+                }
+              });
+            })
+      }  else {
+          res.status(401).json({
+            status: "error",
+            error: {
+              message: "Admin can only delete flagged articles",
+            }
+          });
+      }
+    })
+    .catch( e => {
+      res.status(400).json({
+        "status": "error",
+        "error": e.message
+      });
+    });
+}
+
+articleController.deleteFlaggedComment = (req, res, next) => {
+  const token = req.headers.authorization.split(' ')[1] ? req.headers.authorization.split(' ')[1] : req.headers.authorization;
+  const userToken = userDetails(token);
+  if (!userToken.admin) {
+    res.status(401).json({
+      status: 'error',
+      error: 'Only an Admin user can delete a flagged Comment',
+    });
+    return;
+  }
+  pool.query(articleSchema.getCommentId, [req.params.articleId])
+    .then((id) => {
+      pool.query(articleSchema.getFlaggedComment, [id.rows[0].id])
+        .then( (comment) => {
+          if(comment.rows[0].appr_status) {
+            pool.query(articleSchema.deleteFlaggedComment, [comment.rows[0].comment_id])
+              .then( () => {
+                res.status(200).json({
+                  status: "success",
+                  data: {
+                    message: "flagged comment successfully deleted",
+                  }
+                });
+              })
+              .catch( e => {
+                res.status(400).json({
+                  "status": "error",
+                  "error": e.message
+                });
+              });
+          } else {
+            res.status(401).json({
+              status: "error",
+              error: {
+                message: "Admin can only delete flagged comments",
+              }
+            });
+          }
+        })
+        .catch( e => {
+          res.status(400).json({
+            "status": "error",
+            "error": e.message
+          });
+        });
+    })
+    .catch( e => {
+      res.status(400).json({
+        "status": "error",
+        "error": e.message
+      });
+    });
+}
+
+articleController.getArticleByTag = (req, res, next) => {
+
+  pool.query(articleSchema.getTagArticleText, [req.query.tag])
+    .then((article) => {
+      pool.query(articleSchema.getAnArticleComment, [article.rows[0].article_id])
+        .then((comments) => {
+          res.status(200).json({
+            status: 'success',
+            data: {
+              article: article.rows,
+            },
+          });
+        })
+        .catch(e => {
+          res.status(400).json({
+            "status": "error",
+            "error": e.message
+          });
+        });
+    })
+    .catch(e => {
+      res.status(400).json({
+        "status": "error",
+        "error": e.message
+      });
+    });
+};
 
 export default articleController;

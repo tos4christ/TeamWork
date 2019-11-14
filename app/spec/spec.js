@@ -113,7 +113,7 @@ describe('API endpoint tests', () => {
           'content-type': 'application/x-www-form-urlencoded',
           authorization: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjkwMjMwNywidXNlcm5hbWUiOiJnbnp0cmFkZUBnbWFpbC5jb20iLCJpYXQiOjE1NzMyMjQ2NDEsImV4cCI6MTU3NDY2NDY0MX0.XGlcBEz7rukL9KbrxI2HEcbVSVneFNUD2LTGD09e6Zw',
         },
-        url: 'http://localhost:3000/api/v1/articles/2',
+        url: 'http://localhost:3000/api/v1/articles/3',
       }, (err, res, body) => {
         if (err) throw err;
         data.status = res.statusCode;
@@ -121,11 +121,11 @@ describe('API endpoint tests', () => {
         done();
       });
     });
-    it('Should return an article with article id equals to 2', () => {
-      expect(data.body.data.id).toBe(2);
+    it('Should return an article with article id equals to 3', () => {
+      expect(data.body.data.id).toBe(3);
     });
     it('Should return an article with title', () => {
-      expect(data.body.data.title).toEqual('the changed article title');
+      expect(data.body.data.title).toEqual('updated article title');
     });
   });
   describe('PATCH /articles/:articleId', () => {
@@ -232,7 +232,7 @@ describe('API endpoint tests', () => {
           'content-type': 'application/x-www-form-urlencoded',
           authorization: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjkwMjMwNywidXNlcm5hbWUiOiJnbnp0cmFkZUBnbWFpbC5jb20iLCJpYXQiOjE1NzMyMjQ2NDEsImV4cCI6MTU3NDY2NDY0MX0.XGlcBEz7rukL9KbrxI2HEcbVSVneFNUD2LTGD09e6Zw',
         },
-        url: 'http://localhost:3000/api/v1/articles/2/comment',
+        url: 'http://localhost:3000/api/v1/articles/3/comment',
         form: {
           comment: 'This is a new article comment',
         },
@@ -269,7 +269,6 @@ describe('API endpoint tests', () => {
       form.append('gifPost', fs.createReadStream('Certificate.jpg'));
       form.append('gif_title', 'my another gif test');
       form.append('appr_status', 'true');
-      form.append('gif_id', '1');
     });
     it('Should return the gif title upon successful creation', () => {
       expect(data.body.data.title).toBe('my another gif test');
@@ -337,14 +336,140 @@ describe('API endpoint tests', () => {
       expect(data.status).toBe(200);
     });
   });
-  // describe('FLAG AN ARTICLE: POST /articles/:articleId/flag', );
-  // describe('FLAG A GIF: POST /gifs/:gifId/flag', );
-  // describe('FLAG AN ARTICLE COMMENT: POST /articles/:articleId/comment/:commentId', );
-  // describe('FLAG AN GIF COMMENT: POST /gifs/:gifId/comment/:commentId', );
-  // describe('DELETE A FLAGGED GIF: /gifs/:gifId/flag', );
+  describe('FLAG AN ARTICLE: POST /articles/:articleId/flag', () => {
+    const data = {};
+    beforeAll((done) => {
+      Request.post({
+        headers: {
+          'content-type': 'application/x-www-form-urlencoded',
+          authorization: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjkwMjMwNywidXNlcm5hbWUiOiJnbnp0cmFkZUBnbWFpbC5jb20iLCJpYXQiOjE1NzMyMjQ2NDEsImV4cCI6MTU3NDY2NDY0MX0.XGlcBEz7rukL9KbrxI2HEcbVSVneFNUD2LTGD09e6Zw',
+        },
+        url: 'http://localhost:3000/api/v1/articles/14/flag',
+        form: {
+          'appr_status': true,
+        }
+      }, (err, resp, body) => {
+        if (err) throw err;
+        data.status = resp.statusCode;
+        data.body = JSON.parse(body);
+        done();
+      });
+    });
+    it('Should flag an article as inappropriate', () => {
+      expect(data.body.data.article['appr_status']).toBe(true);
+    });
+  });
+  describe('FLAG A GIF: POST /gifs/:gifId/flag', () => {
+    const data = {};
+    beforeAll((done) => {
+      Request.post({
+        headers: {
+          'content-type': 'application/x-www-form-urlencoded',
+          authorization: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjkwMjMwNywidXNlcm5hbWUiOiJnbnp0cmFkZUBnbWFpbC5jb20iLCJpYXQiOjE1NzMyMjQ2NDEsImV4cCI6MTU3NDY2NDY0MX0.XGlcBEz7rukL9KbrxI2HEcbVSVneFNUD2LTGD09e6Zw',
+        },
+        url: 'http://localhost:3000/api/v1/gifs/27/flag',
+        form: {
+          'appr_status': true,
+        }
+      }, (err, resp, body) => {
+        if (err) throw err;
+        data.status = resp.statusCode;
+        data.body = JSON.parse(body);
+        done();
+      });
+    });
+    it('Should flag an article as inappropriate', () => {
+      expect(data.body.data.gif['appr_status']).toBe(true);
+    });
+  });
+  describe('FLAG AN ARTICLE COMMENT: POST /articles/:articleId/comment/:commentId', () => {
+  const data = {};
+  beforeAll((done) => {
+    Request.post({
+      headers: {
+        'content-type': 'application/x-www-form-urlencoded',
+        authorization: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjkwMjMwNywidXNlcm5hbWUiOiJnbnp0cmFkZUBnbWFpbC5jb20iLCJpYXQiOjE1NzMyMjQ2NDEsImV4cCI6MTU3NDY2NDY0MX0.XGlcBEz7rukL9KbrxI2HEcbVSVneFNUD2LTGD09e6Zw',
+      },
+      url: 'http://localhost:3000/api/v1/articles/15/comment/69/flag',
+      form: {
+        'appr_status': true,
+      }
+    }, (err, resp, body) => {
+      if (err) throw err;
+      data.status = resp.statusCode;
+      data.body = JSON.parse(body);
+      done();
+    });
+  });
+  it('Should flag an article comment as inappropriate', () => {
+    expect(data.body.data.comment['appr_status']).toBe(true);
+  });
+ });
+  describe('FLAG AN GIF COMMENT: POST /gifs/:gifId/comment/:commentId', () => {
+    const data = {};
+    beforeAll((done) => {
+      Request.post({
+        headers: {
+          'content-type': 'application/x-www-form-urlencoded',
+          authorization: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjkwMjMwNywidXNlcm5hbWUiOiJnbnp0cmFkZUBnbWFpbC5jb20iLCJpYXQiOjE1NzMyMjQ2NDEsImV4cCI6MTU3NDY2NDY0MX0.XGlcBEz7rukL9KbrxI2HEcbVSVneFNUD2LTGD09e6Zw',
+        },
+        url: 'http://localhost:3000/api/v1/gifs/7/comment/30/flag',
+        form: {
+          'appr_status': true,
+        }
+      }, (err, resp, body) => {
+        if (err) throw err;
+        data.status = resp.statusCode;
+        data.body = JSON.parse(body);
+        done();
+      });
+    });
+    it('Should flag a gif comment as inappropriate', () => {
+      expect(data.body.data.comment['appr_status']).toBe(true);
+    });
+   });
+  describe('DELETE A FLAGGED GIF: /gifs/:gifId/flag', () => {
+    const data = {};
+    beforeAll((done) => {
+      Request.delete({
+        headers: {
+          'content-type': 'application/x-www-form-urlencoded',
+          authorization: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjkwMjMwNywidXNlcm5hbWUiOiJnbnp0cmFkZUBnbWFpbC5jb20iLCJhZG1pbiI6dHJ1ZSwiaWF0IjoxNTczNzM5Mjg3LCJleHAiOjE1NzUxNzkyODd9.7mTyUljIPfi2S4fF3Tr2kEwqWeRWPSqZI0fSfC17QLE',
+        },
+        url: 'http://localhost:3000/api/v1/gifs/13/flag',
+      }, (err, resp, body) => {
+        if (err) throw err;
+        data.status = resp.statusCode;
+        data.body = JSON.parse(body);
+        done();
+      });
+    });
+    it('Admin Should delete a gif flagged as inappropriate', () => {
+      expect(data.body.data.message).toBe('flagged gif successfully deleted');
+    });
+   });
   // describe('DELETE A FLAGGED COMMENT: /gifs/:gifId/flag', );
   // describe('DELETE A FLAGGED ARTICLE: /gifs/:gifId/flag', );
-  // describe('GET ARTICLES BY TAG NAME: GET /articles?tag={{tag name}}', );
+  describe('GET ARTICLES BY TAG NAME: GET /articles?tag={{tag name}}', () => {
+    const data = {};
+    beforeAll((done) => {
+      Request.get({
+        headers: {
+          'content-type': 'x-www-form-urlencoded',
+          authorization: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjkwMjMwNywidXNlcm5hbWUiOiJnbnp0cmFkZUBnbWFpbC5jb20iLCJhZG1pbiI6dHJ1ZSwiaWF0IjoxNTczNzM5Mjg3LCJleHAiOjE1NzUxNzkyODd9.7mTyUljIPfi2S4fF3Tr2kEwqWeRWPSqZI0fSfC17QLE',
+        },
+        url: 'http://localhost:3000/api/v1/articles?tag=commerce',
+      }, (err, res, body) => {
+        if (err) throw err;
+        data.status = res.statusCode;
+        data.body = JSON.parse(body);
+        done();
+      });
+    });
+    it('Should return articles with tag commerce', () => {
+      expect(data.body.data.article[0].tag).toEqual('commerce');
+    });
+  });
 });
 
 describe('JWT route protection', () => {
