@@ -287,7 +287,7 @@ describe('API endpoint tests', () => {
       Request.post({
         headers: {
           'content-type': 'x-www-form-urlencoded',
-          authorization: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjkwMjMwNywidXNlcm5hbWUiOiJnbnp0cmFkZUBnbWFpbC5jb20iLCJpYXQiOjE1NzM1ODE5MjAsImV4cCI6MTU3NTAyMTkyMH0.js2EySKM5sykjUELWrA3jD2acVSwU_1lDooVIGKbp24',
+          authorization: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjkwMjMwNywidXNlcm5hbWUiOiJnbnp0cmFkZUBnbWFpbC5jb20iLCJhZG1pbiI6dHJ1ZSwiaWF0IjoxNTczNzM5Mjg3LCJleHAiOjE1NzUxNzkyODd9.7mTyUljIPfi2S4fF3Tr2kEwqWeRWPSqZI0fSfC17QLE',
         },
         url: 'http://localhost:3000/api/v1/auth/create-user',
         form: {
