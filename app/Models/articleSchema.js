@@ -15,4 +15,6 @@ articleSchema.deleteAnArticle = 'DELETE FROM articles WHERE article_id=$1 and em
 
 articleSchema.getEmployeeId = 'SELECT employee_id FROM employees WHERE email=$1';
 
+articleSchema.flagArticle = 'UPDATE articles SET appr_status=$1 WHERE article_id=$2 RETURNING *';
+
 export default articleSchema;

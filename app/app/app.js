@@ -5,9 +5,9 @@ import routeAdmin from '../Routers/routeAdmin';
 
 config();
 cloudinary.config({
-  cloud_name: 'tos4christ',
-  api_key: '594949515392786',
-  api_secret: 'N0E0H0bfxGI_4CEFvgWfwNBjJWY',
+  cloud_name: process.env.CCN,
+  api_key: process.env.CAK,
+  api_secret: process.env.CAS,
 });
 
 const app = express();
@@ -22,14 +22,16 @@ app.use('/test', (req, res) => {
 app.use('/api/v1', routeAdmin);
 
 app.use((req, res, next) => {
-  const err = new Error('Not Found at all');
-  err.status = 404;
-  next(err);
+  res.status(404).send({
+    status: 'error',
+    error: 'Not Found: Route does not exist',
+  });
 });
 
 app.use((err, req, res) => {
   const status = err.status ? err.status : 500;
   res.status(status).send({
+    'status': 'error',
     'Server Error': err.message,
   });
 });

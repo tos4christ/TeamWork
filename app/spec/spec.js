@@ -269,6 +269,7 @@ describe('API endpoint tests', () => {
       form.append('gifPost', fs.createReadStream('Certificate.jpg'));
       form.append('gif_title', 'my another gif test');
       form.append('appr_status', 'true');
+      form.append('gif_id', '1');
     });
     it('Should return the gif title upon successful creation', () => {
       expect(data.body.data.title).toBe('my another gif test');
@@ -290,13 +291,13 @@ describe('API endpoint tests', () => {
         },
         url: 'http://localhost:3000/api/v1/auth/create-user',
         form: {
-          firstname: 'tttest49',
-          lastname: 'tetttsti34',
-          email: 't0sdsf9tt@examplernas.com',
-          employee_password: 'testerrd102',
+          firstname: 'testing',
+          lastname: 'testing',
+          email: 'testing@examples.com',
+          employee_password: 'testing',
           gender: 'female',
           jobrole: 'I.T',
-          employee_no: 9120923,
+          employee_no: 99999,
           department: 'Admin',
         },
       }, (err, res, body) => {
@@ -336,6 +337,14 @@ describe('API endpoint tests', () => {
       expect(data.status).toBe(200);
     });
   });
+  describe('FLAG AN ARTICLE: POST /articles/:articleId/flag', );
+  describe('FLAG A GIF: POST /gifs/:gifId/flag', );
+  describe('FLAG AN ARTICLE COMMENT: POST /articles/:articleId/comment/:commentId', );
+  describe('FLAG AN GIF COMMENT: POST /gifs/:gifId/comment/:commentId', );
+  describe('DELETE A FLAGGED GIF: /gifs/:gifId/flag', );
+  describe('DELETE A FLAGGED COMMENT: /gifs/:gifId/flag', );
+  describe('DELETE A FLAGGED ARTICLE: /gifs/:gifId/flag', );
+  describe('GET ARTICLES BY TAG NAME: GET /articles?tag={{tag name}}', );
 });
 
 describe('JWT route protection', () => {
@@ -346,12 +355,11 @@ describe('JWT route protection', () => {
   describe('unauthenticated user should not access protected routes', () => {
     const data = {};
     beforeAll((done) => {
-      Request.post({
+      Request.get({
         headers: { 'content-type': 'application/x-www-form-urlencoded' },
-        url: 'http://localhost:3000/api/v1/articles',
-        form: { title: 'test article', article: 'this is a test article', appr_status: true },
+        url: 'http://localhost:3000/api/v1/articles/2',
       }, (err, res, body) => {
-        if (err) console.error(err);
+        if (err) console.error(err.message);
         data.status = res.statusCode;
         data.body = body;
         done();
@@ -364,13 +372,12 @@ describe('JWT route protection', () => {
   describe('authenticated user should access protected routes', () => {
     const data = {};
     beforeAll((done) => {
-      Request.post({
+      Request.get({
         headers: {
           'content-type': 'application/x-www-form-urlencoded',
           authorization: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjkwMjMwNywidXNlcm5hbWUiOiJnbnp0cmFkZUBnbWFpbC5jb20iLCJpYXQiOjE1NzMyMjQ2NDEsImV4cCI6MTU3NDY2NDY0MX0.XGlcBEz7rukL9KbrxI2HEcbVSVneFNUD2LTGD09e6Zw',
         },
-        url: 'http://localhost:3000/api/v1/articles',
-        form: { title: 'test articles', article: 'this is a test article', appr_status: true },
+        url: 'http://localhost:3000/api/v1/articles/1',
       }, (err, res, body) => {
         if (err) throw err;
         data.status = res.statusCode;
@@ -378,11 +385,11 @@ describe('JWT route protection', () => {
         done();
       });
     });
-    it('Should return status 201', () => {
-      expect(data.status).toBe(201);
+    it('Should return status 200', () => {
+      expect(data.status).toBe(200);
     });
-    it('Should return a user', () => {
-      expect(data.body.data.title).toBe('test articles');
+    it('Should return an article', () => {
+      expect(data.body.data.title).toBe('my first article');
     });
   });
 });

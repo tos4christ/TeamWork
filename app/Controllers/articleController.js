@@ -27,9 +27,19 @@ articleController.createArticle = (req, res, next) => {
             },
           });
         })
-        .catch(e => next(e));
+        .catch(e => {
+          res.status(400).json({
+            "status": "error",
+            "error": e.message
+          });
+        });
     })
-    .catch(e => next(e));
+    .catch(e => {
+      res.status(400).json({
+        "status": "error",
+        "error": e.message
+      });
+    });
 };
 
 articleController.postAnArticleComment = (req, res, next) => {
@@ -58,13 +68,33 @@ articleController.postAnArticleComment = (req, res, next) => {
                     },
                   });
                 })
-                .catch(e => next(e));
+                .catch(e => {
+                  res.status(400).json({
+                    "status": "error",
+                    "error": e.message
+                  });
+                });
             })
-            .catch(e => next(e));
+            .catch(e => {
+              res.status(400).json({
+                "status": "error",
+                "error": e.message
+              });
+            });
         })
-        .catch(e => next(e));
+        .catch(e => {
+          res.status(400).json({
+            "status": "error",
+            "error": e.message
+          });
+        });
     })
-    .catch(e => next(e));
+    .catch(e => {
+      res.status(400).json({
+        "status": "error",
+        "error": e.message
+      });
+    });
 };
 
 articleController.getAnArticle = (req, res, next) => {
@@ -83,9 +113,19 @@ articleController.getAnArticle = (req, res, next) => {
             },
           });
         })
-        .catch(e => next(e));
+        .catch(e => {
+          res.status(400).json({
+            "status": "error",
+            "error": e.message
+          });
+        });
     })
-    .catch(e => next(e));
+    .catch(e => {
+      res.status(400).json({
+        "status": "error",
+        "error": e.message
+      });
+    });
 };
 
 articleController.updateAnArticle = (req, res, next) => {
@@ -108,9 +148,19 @@ articleController.updateAnArticle = (req, res, next) => {
             },
           });
         })
-        .catch(e => next(e));
+        .catch(e => {
+          res.status(400).json({
+            "status": "error",
+            "error": e.message
+          });
+        });
     })
-    .catch(e => next(e));
+    .catch(e => {
+      res.status(400).json({
+        "status": "error",
+        "error": e.message
+      });
+    });
 };
 
 articleController.deleteAnArticle = (req, res, next) => {
@@ -125,13 +175,41 @@ articleController.deleteAnArticle = (req, res, next) => {
             status: 'success',
             data: {
               message: 'Article successfully deleted',
-              'deleted message': resp.rows[0],
             },
           });
         })
-        .catch(e => next(e));
+        .catch(e => {
+          res.status(400).json({
+            "status": "error",
+            "error": e.message
+          });
+        });
     })
-    .catch(e => next(e));
+    .catch(e => {
+      res.status(400).json({
+        "status": "error",
+        "error": e.message
+      });
+    });
 };
+
+articleController.flagArticle = (req, res, next) => {
+  pool.query(articleSchema.flagArticle, [req.body.appr_status, req.params.articleId])
+    .then((article) => {
+      res.status(200).json({
+        status: "success",
+        data: {
+          message: "article successfully flagged",
+          article,
+        }
+      });
+    })
+    .catch( e => {
+      res.status(400).json({
+        "status": "error",
+        "error": e.message
+      });
+    });
+}
 
 export default articleController;

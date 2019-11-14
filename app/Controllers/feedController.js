@@ -13,9 +13,19 @@ const getFeed = (req, res, next) => {
             data: feedRow,
           });
         })
-        .catch(e => next(e));
+        .catch(e => {
+          res.status(400).json({
+            "status": "error",
+            "error": e.message
+          });
+        });
     })
-    .catch(e => next(e));
+    .catch(e => {
+      res.status(400).json({
+        "status": "error",
+        "error": e.message
+      });
+    });
 };
 
 export default getFeed;

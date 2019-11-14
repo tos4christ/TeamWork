@@ -13,4 +13,6 @@ router.delete('/:articleId', articleController.deleteAnArticle);
 
 router.post('/:articleId/comment', articleController.postAnArticleComment);
 
+router.post('/:articleId/flag', articleController.flagArticle);
+
 export default router;

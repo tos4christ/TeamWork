@@ -32,9 +32,19 @@ gifController.createGif = (req, res, next) => {
                 },
               });
             })
-            .catch(e => next(e));
+            .catch(e => {
+              res.status(400).json({
+                "status": "error",
+                "error": e.message
+              });
+            });
         })
-        .catch(e => next(e));
+        .catch(e => {
+          res.status(400).json({
+            "status": "error",
+            "error": e.message
+          });
+        });
     });
 };
 
@@ -54,9 +64,19 @@ gifController.getAGif = (req, res, next) => {
             },
           });
         })
-        .catch(e => next(e));
+        .catch(e => {
+          res.status(400).json({
+            "status": "error",
+            "error": e.message
+          });
+        });
     })
-    .catch(e => next(e));
+    .catch(e => {
+      res.status(400).json({
+        "status": "error",
+        "error": e.message
+      });
+    });
 };
 
 gifController.deleteAGif = (req, res, next) => {
@@ -79,9 +99,19 @@ gifController.deleteAGif = (req, res, next) => {
             },
           });
         })
-        .catch(e => next(e));
+        .catch(e => {
+          res.status(400).json({
+            "status": "error",
+            "error": e.message
+          });
+        });
     })
-    .catch(e => next(e));
+    .catch(e => {
+      res.status(400).json({
+        "status": "error",
+        "error": e.message
+      });
+    });
 };
 
 gifController.postAGifComment = (req, res, next) => {
@@ -110,13 +140,52 @@ gifController.postAGifComment = (req, res, next) => {
                     },
                   });
                 })
-                .catch(e => next(e));
+                .catch(e => {
+                  res.status(400).json({
+                    "status": "error",
+                    "error": e.message
+                  });
+                });
             })
-            .catch(e => next(e));
+            .catch(e => {
+              res.status(400).json({
+                "status": "error",
+                "error": e.message
+              });
+            });
         })
-        .catch(e => next(e));
+        .catch(e => {
+          res.status(400).json({
+            "status": "error",
+            "error": e.message
+          });
+        });
     })
-    .catch(e => next(e));
+    .catch(e => {
+      res.status(400).json({
+        "status": "error",
+        "error": e.message
+      });
+    });
 };
+
+gifController.flagGif = (req, res, next) => {
+  pool.query(gifSchema.flagGif, [req.body.appr_status, req.params.articleId])
+    .then((gif) => {
+      res.status(200).json({
+        status: "success",
+        data: {
+          message: "article successfully flagged",
+          gif,
+        }
+      });
+    })
+    .catch( e => {
+      res.status(400).json({
+        "status": "error",
+        "error": e.message
+      });
+    });
+}
 
 export default gifController;

@@ -13,4 +13,7 @@ gifSchema.updateGifCommentTable = 'INSERT INTO gif_comment(gif_id, comment_id, e
 
 gifSchema.getEmployeeId = 'SELECT employee_id FROM employees WHERE email=$1';
 
+articleSchema.flagGif = 'UPDATE gif_table SET appr_status=$1 WHERE gif_id=$2 RETURNING *';
+
+
 export default gifSchema;
