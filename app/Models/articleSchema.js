@@ -8,7 +8,7 @@ articleSchema.getTagArticleText = 'select a.article_id as id, a.creation_date as
 
 articleSchema.getAnArticleComment = 'SELECT c.comment_id as commentId, c.comment_text as comment, c.employee_id as authorId, c.creation_date as createdOn FROM comments_table c, article_comment ac WHERE ac.article_id=$1 and c.comment_id=ac.comment_id';
 
-articleSchema.postAnArticleComment = 'INSERT INTO comments_table(comment_text, employee_id, creation_date) VALUES($1, $2, $3) RETURNING *';
+articleSchema.postAnArticleComment = 'INSERT INTO comments_table(comment_text, employee_id, creation_date, appr_status) VALUES($1, $2, $3, $4) RETURNING *';
 articleSchema.updateArticleCommentTable = 'INSERT INTO article_comment(article_id, comment_id, employee_id) VALUES($1, $2, $3) RETURNING *';
 
 articleSchema.updateAnArticle = 'UPDATE articles SET article_title=$1, article_text=$2 WHERE article_id=$3 AND employee_id=$4 RETURNING *';
