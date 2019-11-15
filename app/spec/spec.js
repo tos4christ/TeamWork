@@ -46,12 +46,13 @@ describe('API endpoint tests', () => {
       }, (err, res, body) => {
         if (err) throw err;
         data.status = res.statusCode;
-        data.body = JSON.parse(bodybody);
+        data.body = JSON.parse(body);
+        console.log(data);
         done();
       });
     });
     it('Should return a successful login message', () => {
-      expect(data.body.status).toBe('success');
+      expect(data.body.body.status).toBe('success');
     });
   });
   describe('POST /articles', () => {
