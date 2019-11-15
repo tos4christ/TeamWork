@@ -23,10 +23,10 @@ const signIn = (req, response, next) => {
         return;
       }
       if (users.rows[0]) {
-        const passed = bcrypt.compareSync(password, users.rows[0].employee_password);
+        const passed = bcrypt.compareSync(password, users.rows[0].password);
         if (passed) {
           const token = jwt.sign({
-            sub: users.rows[0].employee_no,
+            sub: users.rows[0].employee_id,
             username: users.rows[0].email,
             role: users.rows[0].role,
           }, 

@@ -8,8 +8,8 @@ const gifController = {};
 gifController.createGif = (req, res, next) => {
   const token = req.headers.authorization.split(' ')[1] ? req.headers.authorization.split(' ')[1] : req.headers.authorization;
   const user = userDetails(token);
-  const { gif_title, appr_status } = req.body;
-  const filename = req.files.gifPost.path;
+  const { title, appr_status } = req.body;
+  const filename = req.files.image.path;
 
   cloudinary.uploader.upload(filename, { tags: 'gotemps', resource_type: 'auto' })
     .then((file) => {
@@ -19,7 +19,7 @@ gifController.createGif = (req, res, next) => {
       pool.query(gifSchema.getEmployeeId, [user.username])
         .then((id) => {
           pool.query(gifSchema.newGif,
-            [gif_title, fileUrl, appr_status, id.rows[0].employee_id, date, filePublicId])
+            [title, fileUrl, appr_status, id.rows[0].employee_id, date, filePublicId])
             .then((gif) => {
               res.status(201).json({
                 status: 'success',
