@@ -47,7 +47,6 @@ describe('API endpoint tests', () => {
         if (err) throw err;
         data.status = res.statusCode;
         data.body = JSON.parse(body);
-        console.log(data);
         done();
       });
     });
@@ -308,7 +307,7 @@ describe('API endpoint tests', () => {
       });
     });
     it('Should return a successfully created employee', () => {
-      expect(data.body.data.message).toBe('User account successfully created');
+      expect(data.body.body.data.message).toBe('User account successfully created');
     });
     it('Should return a status of 201', () => {
       expect(data.status).toBe(201);
