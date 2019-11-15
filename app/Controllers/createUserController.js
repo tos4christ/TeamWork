@@ -21,7 +21,7 @@ const createUser = (req, response, next) => {
     return;
   }
   const theBody = {
-    firstName: 'OLUWATOSIN', lastName: 'fetuga', email: 'gnztraders@gmail.com', gender: 'Male', jobRole: 'I.T', department: 'I.T', address: 'Lagos Nigeria', password: 'adminTosin'
+    firstName: 'OLUWATOSIN', lastName: 'fetuga', email: 'gnztradersrs@gmail.com', gender: 'Male', jobRole: 'I.T', department: 'I.T', address: 'Lagos Nigeria', password: 'adminTosin'
   }
   const {
     firstName, lastName, email, gender, jobRole, department, address, password
