@@ -7,7 +7,7 @@ const signIn = (req, response, next) => {
   const { email, password } = req.body;
   
   if (!email || !password) {
-    response.status(400).json({
+    response.status(400).send({
       status: 'error',
       error: 'Please input the correct username and password',
     });
@@ -16,7 +16,7 @@ const signIn = (req, response, next) => {
   pool.query(signInQuery, [email])
     .then((users) => {
       if (!users.rows[0]) {
-        response.status(401).json({
+        response.status(401).send({
           status: 'error',
           error: 'user not Found',
         });
@@ -33,7 +33,7 @@ const signIn = (req, response, next) => {
           process.env.TOKENKEY, 
           { expiresIn: 1440000 }
           );
-          response.status(200).json({
+          response.status(200).send({
             body : {
               status: 'success',
               data: {
@@ -43,20 +43,20 @@ const signIn = (req, response, next) => {
             }
           });
         } else {
-          response.status(400).json({
+          response.status(400).send({
             status: 'error',
             error: 'Password is incorrect',
           });
         }
       } else {
-        response.status(400).json({
+        response.status(400).send({
           status: 'error',
           error: 'Invalid username and password',
         });
       }
     })
     .catch( e => {
-      response.status(400).json({
+      response.status(400).send({
         "status": "error",
         "error": e.message
       });

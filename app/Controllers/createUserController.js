@@ -4,11 +4,11 @@ import pool from '../Models/poolConnection';
 import newUserQuery from '../Models/newUserModel';
 import userDetails from '../utilities/getTokenUser';
 
-const createUser = (req, res, next) => {
+const createUser = (req, response, next) => {
   const token = req.headers.authorization.split(' ')[1] ? req.headers.authorization.split(' ')[1] : req.headers.authorization;
   const userToken = userDetails(token);
   if(!userToken.admin) {
-    res.status(401).json({
+    response.status(401).send({
       status: 'error',
       error: 'Only an Admin user can create new employees',
     });
@@ -19,7 +19,7 @@ const createUser = (req, res, next) => {
   } = req.body;
   // check if email and password was sent
   if (!email || !employee_password) {
-    res.status(400).json({
+    response.status(400).send({
       status: 'error',
       error: ' Email or Password field cannot be empty',
     });
@@ -34,7 +34,7 @@ const createUser = (req, res, next) => {
         sub: user.rows[0].employee_no,
         email: user.rows[0].email,
       }, process.env.TOKENKEY, { expiresIn: 1440 });
-      res.status(201).json({
+      response.status(201).send({
         body: {
           status: 'success',
           data: {
@@ -46,7 +46,7 @@ const createUser = (req, res, next) => {
       });
     })
     .catch(e => {
-      res.status(400).json({
+      response.status(400).send({
         "status": "error",
         "error": e.message
       });
