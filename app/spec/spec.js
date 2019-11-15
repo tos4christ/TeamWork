@@ -113,7 +113,7 @@ describe('API endpoint tests', () => {
           'content-type': 'application/x-www-form-urlencoded',
           authorization: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjkwMjMwNywidXNlcm5hbWUiOiJnbnp0cmFkZUBnbWFpbC5jb20iLCJpYXQiOjE1NzMyMjQ2NDEsImV4cCI6MTU3NDY2NDY0MX0.XGlcBEz7rukL9KbrxI2HEcbVSVneFNUD2LTGD09e6Zw',
         },
-        url: 'http://localhost:3000/api/v1/articles/2',
+        url: 'http://localhost:3000/api/v1/articles/3',
       }, (err, res, body) => {
         if (err) throw err;
         data.status = res.statusCode;
@@ -121,11 +121,11 @@ describe('API endpoint tests', () => {
         done();
       });
     });
-    it('Should return an article with article id equals to 2', () => {
-      expect(data.body.data.id).toBe(2);
+    it('Should return an article with article id equals to 3', () => {
+      expect(data.body.data.id).toBe(3);
     });
     it('Should return an article with title', () => {
-      expect(data.body.data.title).toEqual('the changed article title');
+      expect(data.body.data.title).toEqual('updated article title');
     });
   });
   describe('PATCH /articles/:articleId', () => {
@@ -232,7 +232,7 @@ describe('API endpoint tests', () => {
           'content-type': 'application/x-www-form-urlencoded',
           authorization: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjkwMjMwNywidXNlcm5hbWUiOiJnbnp0cmFkZUBnbWFpbC5jb20iLCJpYXQiOjE1NzMyMjQ2NDEsImV4cCI6MTU3NDY2NDY0MX0.XGlcBEz7rukL9KbrxI2HEcbVSVneFNUD2LTGD09e6Zw',
         },
-        url: 'http://localhost:3000/api/v1/articles/2/comment',
+        url: 'http://localhost:3000/api/v1/articles/3/comment',
         form: {
           comment: 'This is a new article comment',
         },
@@ -286,17 +286,17 @@ describe('API endpoint tests', () => {
       Request.post({
         headers: {
           'content-type': 'x-www-form-urlencoded',
-          authorization: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjkwMjMwNywidXNlcm5hbWUiOiJnbnp0cmFkZUBnbWFpbC5jb20iLCJpYXQiOjE1NzM1ODE5MjAsImV4cCI6MTU3NTAyMTkyMH0.js2EySKM5sykjUELWrA3jD2acVSwU_1lDooVIGKbp24',
+          authorization: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjkwMjMwNywidXNlcm5hbWUiOiJnbnp0cmFkZUBnbWFpbC5jb20iLCJhZG1pbiI6dHJ1ZSwiaWF0IjoxNTczNzM5Mjg3LCJleHAiOjE1NzUxNzkyODd9.7mTyUljIPfi2S4fF3Tr2kEwqWeRWPSqZI0fSfC17QLE',
         },
         url: 'http://localhost:3000/api/v1/auth/create-user',
         form: {
-          firstname: 'tttest49',
-          lastname: 'tetttsti34',
-          email: 't0sdsf9tt@examplernas.com',
-          employee_password: 'testerrd102',
+          firstname: 'testing',
+          lastname: 'testing',
+          email: 'testing@examples.com',
+          employee_password: 'testing',
           gender: 'female',
           jobrole: 'I.T',
-          employee_no: 9120923,
+          employee_no: 99999,
           department: 'Admin',
         },
       }, (err, res, body) => {
@@ -336,6 +336,140 @@ describe('API endpoint tests', () => {
       expect(data.status).toBe(200);
     });
   });
+  describe('FLAG AN ARTICLE: POST /articles/:articleId/flag', () => {
+    const data = {};
+    beforeAll((done) => {
+      Request.post({
+        headers: {
+          'content-type': 'application/x-www-form-urlencoded',
+          authorization: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjkwMjMwNywidXNlcm5hbWUiOiJnbnp0cmFkZUBnbWFpbC5jb20iLCJpYXQiOjE1NzMyMjQ2NDEsImV4cCI6MTU3NDY2NDY0MX0.XGlcBEz7rukL9KbrxI2HEcbVSVneFNUD2LTGD09e6Zw',
+        },
+        url: 'http://localhost:3000/api/v1/articles/14/flag',
+        form: {
+          'appr_status': true,
+        }
+      }, (err, resp, body) => {
+        if (err) throw err;
+        data.status = resp.statusCode;
+        data.body = JSON.parse(body);
+        done();
+      });
+    });
+    it('Should flag an article as inappropriate', () => {
+      expect(data.body.data.article['appr_status']).toBe(true);
+    });
+  });
+  describe('FLAG A GIF: POST /gifs/:gifId/flag', () => {
+    const data = {};
+    beforeAll((done) => {
+      Request.post({
+        headers: {
+          'content-type': 'application/x-www-form-urlencoded',
+          authorization: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjkwMjMwNywidXNlcm5hbWUiOiJnbnp0cmFkZUBnbWFpbC5jb20iLCJpYXQiOjE1NzMyMjQ2NDEsImV4cCI6MTU3NDY2NDY0MX0.XGlcBEz7rukL9KbrxI2HEcbVSVneFNUD2LTGD09e6Zw',
+        },
+        url: 'http://localhost:3000/api/v1/gifs/27/flag',
+        form: {
+          'appr_status': true,
+        }
+      }, (err, resp, body) => {
+        if (err) throw err;
+        data.status = resp.statusCode;
+        data.body = JSON.parse(body);
+        done();
+      });
+    });
+    it('Should flag an article as inappropriate', () => {
+      expect(data.body.data.gif['appr_status']).toBe(true);
+    });
+  });
+  describe('FLAG AN ARTICLE COMMENT: POST /articles/:articleId/comment/:commentId', () => {
+  const data = {};
+  beforeAll((done) => {
+    Request.post({
+      headers: {
+        'content-type': 'application/x-www-form-urlencoded',
+        authorization: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjkwMjMwNywidXNlcm5hbWUiOiJnbnp0cmFkZUBnbWFpbC5jb20iLCJpYXQiOjE1NzMyMjQ2NDEsImV4cCI6MTU3NDY2NDY0MX0.XGlcBEz7rukL9KbrxI2HEcbVSVneFNUD2LTGD09e6Zw',
+      },
+      url: 'http://localhost:3000/api/v1/articles/15/comment/69/flag',
+      form: {
+        'appr_status': true,
+      }
+    }, (err, resp, body) => {
+      if (err) throw err;
+      data.status = resp.statusCode;
+      data.body = JSON.parse(body);
+      done();
+    });
+  });
+  it('Should flag an article comment as inappropriate', () => {
+    expect(data.body.data.comment['appr_status']).toBe(true);
+  });
+ });
+  describe('FLAG AN GIF COMMENT: POST /gifs/:gifId/comment/:commentId', () => {
+    const data = {};
+    beforeAll((done) => {
+      Request.post({
+        headers: {
+          'content-type': 'application/x-www-form-urlencoded',
+          authorization: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjkwMjMwNywidXNlcm5hbWUiOiJnbnp0cmFkZUBnbWFpbC5jb20iLCJpYXQiOjE1NzMyMjQ2NDEsImV4cCI6MTU3NDY2NDY0MX0.XGlcBEz7rukL9KbrxI2HEcbVSVneFNUD2LTGD09e6Zw',
+        },
+        url: 'http://localhost:3000/api/v1/gifs/7/comment/30/flag',
+        form: {
+          'appr_status': true,
+        }
+      }, (err, resp, body) => {
+        if (err) throw err;
+        data.status = resp.statusCode;
+        data.body = JSON.parse(body);
+        done();
+      });
+    });
+    it('Should flag a gif comment as inappropriate', () => {
+      expect(data.body.data.comment['appr_status']).toBe(true);
+    });
+   });
+  describe('DELETE A FLAGGED GIF: /gifs/:gifId/flag', () => {
+    const data = {};
+    beforeAll((done) => {
+      Request.delete({
+        headers: {
+          'content-type': 'application/x-www-form-urlencoded',
+          authorization: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjkwMjMwNywidXNlcm5hbWUiOiJnbnp0cmFkZUBnbWFpbC5jb20iLCJhZG1pbiI6dHJ1ZSwiaWF0IjoxNTczNzM5Mjg3LCJleHAiOjE1NzUxNzkyODd9.7mTyUljIPfi2S4fF3Tr2kEwqWeRWPSqZI0fSfC17QLE',
+        },
+        url: 'http://localhost:3000/api/v1/gifs/13/flag',
+      }, (err, resp, body) => {
+        if (err) throw err;
+        data.status = resp.statusCode;
+        data.body = JSON.parse(body);
+        done();
+      });
+    });
+    it('Admin Should delete a gif flagged as inappropriate', () => {
+      expect(data.body.data.message).toBe('flagged gif successfully deleted');
+    });
+   });
+  // describe('DELETE A FLAGGED COMMENT: /gifs/:gifId/flag', );
+  // describe('DELETE A FLAGGED ARTICLE: /gifs/:gifId/flag', );
+  describe('GET ARTICLES BY TAG NAME: GET /articles?tag={{tag name}}', () => {
+    const data = {};
+    beforeAll((done) => {
+      Request.get({
+        headers: {
+          'content-type': 'x-www-form-urlencoded',
+          authorization: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjkwMjMwNywidXNlcm5hbWUiOiJnbnp0cmFkZUBnbWFpbC5jb20iLCJhZG1pbiI6dHJ1ZSwiaWF0IjoxNTczNzM5Mjg3LCJleHAiOjE1NzUxNzkyODd9.7mTyUljIPfi2S4fF3Tr2kEwqWeRWPSqZI0fSfC17QLE',
+        },
+        url: 'http://localhost:3000/api/v1/articles?tag=commerce',
+      }, (err, res, body) => {
+        if (err) throw err;
+        data.status = res.statusCode;
+        data.body = JSON.parse(body);
+        done();
+      });
+    });
+    it('Should return articles with tag commerce', () => {
+      expect(data.body.data.article[0].tag).toEqual('commerce');
+    });
+  });
 });
 
 describe('JWT route protection', () => {
@@ -346,12 +480,11 @@ describe('JWT route protection', () => {
   describe('unauthenticated user should not access protected routes', () => {
     const data = {};
     beforeAll((done) => {
-      Request.post({
+      Request.get({
         headers: { 'content-type': 'application/x-www-form-urlencoded' },
-        url: 'http://localhost:3000/api/v1/articles',
-        form: { title: 'test article', article: 'this is a test article', appr_status: true },
+        url: 'http://localhost:3000/api/v1/articles/2',
       }, (err, res, body) => {
-        if (err) console.error(err);
+        if (err) console.error(err.message);
         data.status = res.statusCode;
         data.body = body;
         done();
@@ -364,13 +497,12 @@ describe('JWT route protection', () => {
   describe('authenticated user should access protected routes', () => {
     const data = {};
     beforeAll((done) => {
-      Request.post({
+      Request.get({
         headers: {
           'content-type': 'application/x-www-form-urlencoded',
           authorization: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjkwMjMwNywidXNlcm5hbWUiOiJnbnp0cmFkZUBnbWFpbC5jb20iLCJpYXQiOjE1NzMyMjQ2NDEsImV4cCI6MTU3NDY2NDY0MX0.XGlcBEz7rukL9KbrxI2HEcbVSVneFNUD2LTGD09e6Zw',
         },
-        url: 'http://localhost:3000/api/v1/articles',
-        form: { title: 'test articles', article: 'this is a test article', appr_status: true },
+        url: 'http://localhost:3000/api/v1/articles/1',
       }, (err, res, body) => {
         if (err) throw err;
         data.status = res.statusCode;
@@ -378,11 +510,11 @@ describe('JWT route protection', () => {
         done();
       });
     });
-    it('Should return status 201', () => {
-      expect(data.status).toBe(201);
+    it('Should return status 200', () => {
+      expect(data.status).toBe(200);
     });
-    it('Should return a user', () => {
-      expect(data.body.data.title).toBe('test articles');
+    it('Should return an article', () => {
+      expect(data.body.data.title).toBe('my first article');
     });
   });
 });

@@ -32,9 +32,19 @@ gifController.createGif = (req, res, next) => {
                 },
               });
             })
-            .catch(e => next(e));
+            .catch(e => {
+              res.status(400).json({
+                "status": "error",
+                "error": e.message
+              });
+            });
         })
-        .catch(e => next(e));
+        .catch(e => {
+          res.status(400).json({
+            "status": "error",
+            "error": e.message
+          });
+        });
     });
 };
 
@@ -54,9 +64,19 @@ gifController.getAGif = (req, res, next) => {
             },
           });
         })
-        .catch(e => next(e));
+        .catch(e => {
+          res.status(400).json({
+            "status": "error",
+            "error": e.message
+          });
+        });
     })
-    .catch(e => next(e));
+    .catch(e => {
+      res.status(400).json({
+        "status": "error",
+        "error": e.message
+      });
+    });
 };
 
 gifController.deleteAGif = (req, res, next) => {
@@ -79,9 +99,19 @@ gifController.deleteAGif = (req, res, next) => {
             },
           });
         })
-        .catch(e => next(e));
+        .catch(e => {
+          res.status(400).json({
+            "status": "error",
+            "error": e.message
+          });
+        });
     })
-    .catch(e => next(e));
+    .catch(e => {
+      res.status(400).json({
+        "status": "error",
+        "error": e.message
+      });
+    });
 };
 
 gifController.postAGifComment = (req, res, next) => {
@@ -110,13 +140,173 @@ gifController.postAGifComment = (req, res, next) => {
                     },
                   });
                 })
-                .catch(e => next(e));
+                .catch(e => {
+                  res.status(400).json({
+                    "status": "error",
+                    "error": e.message
+                  });
+                });
             })
-            .catch(e => next(e));
+            .catch(e => {
+              res.status(400).json({
+                "status": "error",
+                "error": e.message
+              });
+            });
         })
-        .catch(e => next(e));
+        .catch(e => {
+          res.status(400).json({
+            "status": "error",
+            "error": e.message
+          });
+        });
     })
-    .catch(e => next(e));
+    .catch(e => {
+      res.status(400).json({
+        "status": "error",
+        "error": e.message
+      });
+    });
 };
+
+gifController.flagGif = (req, res, next) => {
+  pool.query(gifSchema.flagGif, [req.body.appr_status, req.params.gifId])
+    .then((gif) => {
+      res.status(200).json({
+        status: "success",
+        data: {
+          message: "gif successfully flagged",
+          gif: gif.rows[0],
+        }
+      });
+    })
+    .catch( e => {
+      res.status(400).json({
+        "status": "error",
+        "error": e.message
+      });
+    });
+}
+
+gifController.flagComment = (req, res, next) => {
+  pool.query(gifSchema.getCommentId, [req.params.gifId])
+    .then((id) => {
+      pool.query(gifSchema.flagGifComment, [req.body.appr_status , id.rows[0].id])
+        .then( (flaggedComment) => {
+          res.status(200).json({
+            status: "success",
+            data: {
+              message: "comment successfully flagged",
+              comment: flaggedComment.rows[0],
+            }
+          });
+        })
+        .catch( e => {
+          res.status(400).json({
+            "status": "error",
+            "error": e.message
+          });
+        })
+    })
+    .catch( e => {
+      res.status(400).json({
+        "status": "error",
+        "error": e.message
+      });
+    });
+}
+
+gifController.deleteFlaggedGif = (req, res, next) => {
+  const token = req.headers.authorization.split(' ')[1] ? req.headers.authorization.split(' ')[1] : req.headers.authorization;
+  const userToken = userDetails(token);
+  if (!userToken.admin) {
+    res.status(401).json({
+      status: 'error',
+      error: 'Only an Admin user can delete a flagged Gif',
+    });
+    return;
+  }
+  pool.query(gifSchema.getFlaggedGif, [req.params.gifId])
+    .then((gif) => {
+      if (gif.rows[0].appr_status) {
+        pool.query(gifSchema.deleteFlaggedGif, [req.params.gifId])
+          .then( () => {
+              res.status(200).json({
+                "status": "success",
+                "data": {
+                  message: "flagged gif successfully deleted"
+                }
+              });
+            })
+      }  else {
+          res.status(401).json({
+            status: "error",
+            error: {
+              message: "Admin can only delete flagged gifs",
+            }
+          });
+      }
+    })
+    .catch( e => {
+      res.status(400).json({
+        "status": "error",
+        "error": e.message
+      });
+    });
+}
+
+gifController.deleteFlaggedComment = (req, res, next) => {
+  const token = req.headers.authorization.split(' ')[1] ? req.headers.authorization.split(' ')[1] : req.headers.authorization;
+  const userToken = userDetails(token);
+  if (!userToken.admin) {
+    res.status(401).json({
+      status: 'error',
+      error: 'Only an Admin user can delete a flagged Comment',
+    });
+    return;
+  }
+  pool.query(gifSchema.getCommentId, [req.params.gifId])
+    .then((id) => {
+      pool.query(gifSchema.getFlaggedComment, [id.rows[0].id])
+        .then( (comment) => {
+          if(comment.rows[0].appr_status) {
+            pool.query(gifSchema.deleteFlaggedComment, [comment.rows[0].comment_id])
+              .then( () => {
+                res.status(200).json({
+                  status: "success",
+                  data: {
+                    message: "flagged comment successfully deleted",
+                  }
+                });
+              })
+              .catch( e => {
+                res.status(400).json({
+                  "status": "error",
+                  "error": e.message
+                });
+              });
+          } else {
+            res.status(401).json({
+              status: "error",
+              error: {
+                message: "Admin can only delete flagged comments",
+              }
+            });
+          }
+        })
+        .catch( e => {
+          res.status(400).json({
+            "status": "error",
+            "error": e.message
+          });
+        });
+    })
+    .catch( e => {
+      res.status(400).json({
+        "status": "error",
+        "error": e.message
+      });
+    });
+}
 
 export default gifController;

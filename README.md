@@ -4,5 +4,19 @@
 # TeamWork
 An internal social network for employees of an organization
 
+# Usage
+## To start server on a local computer
+- Clone the repo
+- cd into repo directory
+- npm install
+- npm run local-server to start the server
+
+## To run test locally
+- Clone the repo
+- cd into repo directory
+- npm install
+- npm run local-test to run test locally
+
+
 # For proper documentation on this API
 visit teamworksng.herokuapp.com/api/v1/docs

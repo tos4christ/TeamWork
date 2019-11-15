@@ -11,8 +11,11 @@
     "coveralls": "cat ./coverage/lcov.info | coveralls",
     "build": "babel app -d build",
     "db": "node build/Models/poolConnection",
+    "resetdb": "npm run build && node build/Models/resetDatabase.js",
+    "remotedb": "npm run build && npm run db",
     "started": "node build/server/server",
-    "local-test": "npm run build && npm run test"
+    "local-test": "npm run resetdb && npm run test",
+    "local-server": "npm run build &&  nodemon build/server/server"
   },
   "engines": {
     "node": "10.16.3"

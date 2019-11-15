@@ -4,29 +4,53 @@ import pool from '../Models/poolConnection';
 import signInQuery from '../Models/signInModel';
 
 const signIn = (req, res, next) => {
-  const { username, password } = req.body;
-  if (!username || !password) {
+  let loggedUser, user, pass, query, mode, userNo, userPass;
+  if (req.body.adminUser) {
+    loggedUser = true;
+    const { adminUser, password } = req.body;
+    user = adminUser;
+    pass = password;
+    query = signInQuery.admin;
+    mode = 1;
+  } else if (req.body.username) {
+    loggedUser = false;
+    const { username, password } = req.body;
+    user = username;
+    pass = password;
+    query = signInQuery.employee;
+    mode = 2;
+  }
+  
+  if (!user || !pass) {
     res.status(400).json({
       status: 'error',
-      error: 'Error: Please input the correct username and password',
+      error: 'Please input the correct username and password',
     });
     return;
   }
-  pool.query(signInQuery, [username])
-    .then((user) => {
-      if (user) {
-        const passed = bcrypt.compareSync(password, user.rows[0].employee_password);
+  pool.query(query, [user])
+    .then((users) => {
+      if (mode == 1) {
+        userNo = users.rows[0].admin_no;
+        userPass = users.rows[0].admin_password;
+      } else if (mode == 2) {
+        userNo = users.rows[0].employee_no;
+        userPass = users.rows[0].employee_password;
+      }
+      if (users) {
+        const passed = bcrypt.compareSync(pass, userPass);
         if (passed) {
           const token = jwt.sign({
-            sub: user.rows[0].employee_no,
-            username: user.rows[0].email,
+            sub: userNo,
+            username: users.rows[0].email,
+            admin: loggedUser,
           }, process.env.TOKENKEY, { expiresIn: 1440000 });
 
           res.status(200).json({
             status: 'success',
             data: {
               token,
-              userId: user.rows[0].employee_id,
+              userId: users.rows[0].employee_id,
             },
           });
         } else {
@@ -42,8 +66,11 @@ const signIn = (req, res, next) => {
         });
       }
     })
-    .catch((e) => {
-      next(e);
+    .catch( e => {
+      res.status(400).json({
+        "status": "error",
+        "error": e.message
+      });
     });
 };
 
