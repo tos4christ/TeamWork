@@ -19,9 +19,12 @@ const createUser = (req, response, next) => {
     });
     return;
   }
+  const theBody = {
+    firstName: 'OLUWATOSIN', lastName: 'fetuga', email: 'gnztraders@gmail.com', gender: 'Male', jobRole: 'I.T', department: 'I.T', address: 'Lagos Nigeria', password: 'adminTosin'
+  }
   const {
     firstName, lastName, email, gender, jobRole, department, address, password
-  } = req.body;
+  } = theBody;
   // check if email and password was sent
   // if (!email || !password) {
   //   response.status(400).send({
@@ -30,6 +33,7 @@ const createUser = (req, response, next) => {
   //   });
   //   return;
   // }
+
   const hash = bcrypt.hashSync(password, 9);
   const creation_date = Date().split('GMT')[0];
   pool.query(newUserQuery.newUser,
