@@ -8,9 +8,10 @@ const pool = new Pool({
   ssl: true,
 });
 
-// pool.query('DELETE FROM gif_table WHERE gif_id=$1',[50], (err) => {
+// const hash = bcrypt.hashSync('adminTosin', 9);
+// pool.query('UPDATE employees SET employee_password=$1 WHERE email=$2', [hash, 'gnztrades@gmail.com'], (err, resp) => {
 //   if (err) console.log(err);
-//   console.log('deleted successfuly');
+//   console.log('deleted successfuly', resp);
 // });
 
 pool.query('DELETE FROM gif_table WHERE gif_id=$1', [12])
