@@ -35,14 +35,12 @@ const createUser = (req, response, next) => {
         email: user.rows[0].email,
       }, process.env.TOKENKEY, { expiresIn: 1440 });
       response.status(201).send({
-        body: {
           status: 'success',
           data: {
             message: 'User account successfully created',
             token,
             userId: user.rows[0].employee_no,
           },
-        }
       });
     })
     .catch(e => {

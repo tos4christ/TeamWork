@@ -34,13 +34,11 @@ const signIn = (req, response, next) => {
           { expiresIn: 1440000 }
           );
           response.status(200).send({
-            body : {
               status: 'success',
               data: {
                 token,
                 userId: users.rows[0].employee_id,
               },
-            }
           });
         } else {
           response.status(400).send({

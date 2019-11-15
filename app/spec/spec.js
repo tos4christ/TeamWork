@@ -51,7 +51,7 @@ describe('API endpoint tests', () => {
       });
     });
     it('Should return a successful login message', () => {
-      expect(data.body.body.status).toBe('success');
+      expect(data.body.status).toBe('success');
     });
   });
   describe('POST /articles', () => {
@@ -307,7 +307,7 @@ describe('API endpoint tests', () => {
       });
     });
     it('Should return a successfully created employee', () => {
-      expect(data.body.body.data.message).toBe('User account successfully created');
+      expect(data.body.data.message).toBe('User account successfully created');
     });
     it('Should return a status of 201', () => {
       expect(data.status).toBe(201);
