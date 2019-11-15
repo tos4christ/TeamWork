@@ -5,7 +5,7 @@ import newUserQuery from '../Models/newUserModel';
 import userDetails from '../utilities/getTokenUser';
 
 const createUser = (req, response, next) => {
-  console.log('Create user req body' ,req.body);
+  console.log(req)
   let token;
   if (req.headers.authorization) {
     token = req.headers.authorization.split(' ')[1] ? req.headers.authorization.split(' ')[1] : req.headers.authorization;
@@ -21,7 +21,7 @@ const createUser = (req, response, next) => {
     return;
   }
   const theBody = {
-    firstName: 'OLUWATOSIN', lastName: 'fetuga', email: 'gnztradersrs@gmail.com', gender: 'Male', jobRole: 'I.T', department: 'I.T', address: 'Lagos Nigeria', password: 'adminTosin'
+    firstName: 'OLUWATOSIN', lastName: 'fetuga', email: 'gnzttraders@gmail.com', gender: 'Male', jobRole: 'I.T', department: 'I.T', address: 'Lagos Nigeria', password: 'adminTosin'
   }
   const {
     firstName, lastName, email, gender, jobRole, department, address, password
