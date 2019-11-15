@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 import pool from '../Models/poolConnection';
 import signInQuery from '../Models/signInModel';
 
-const signIn = (request, response, next) => {
+const signIn = (req, response, next) => {
   const { email, password } = req.body;
   
   if (!email || !password) {
