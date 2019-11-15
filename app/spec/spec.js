@@ -40,7 +40,7 @@ describe('API endpoint tests', () => {
         },
         url: 'http://localhost:3000/api/v1/auth/signin',
         form: {
-          username: 'gnztrade@gmail.com',
+          email: 'gnztrade@gmail.com',
           password: 'tosin',
         },
       }, (err, res, body) => {
