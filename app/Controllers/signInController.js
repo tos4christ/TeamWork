@@ -5,7 +5,8 @@ import signInQuery from '../Models/signInModel';
 
 const signIn = (req, response, next) => {
   console.log('Sign in req body' ,req.body);
-  const { email, password } = req.body;
+  const theBody = {email: 'gnztrades@gmail.com', password: 'adminTosin'}
+  const { email, password } = theBody;
   
   if (!email || !password) {
     response.status(400).send({
