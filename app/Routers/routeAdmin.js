@@ -16,7 +16,7 @@ import jwtCheck from '../utilities/jwtCheck';
 
 const router = Router();
 
-router.use('/auth/create-user', jwtCheck, createUserRoute);
+router.use('/auth/create-user', createUserRoute);
 
 router.use('/auth/signin', signInRoute);
 
