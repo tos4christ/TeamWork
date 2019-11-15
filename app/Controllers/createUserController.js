@@ -5,7 +5,12 @@ import newUserQuery from '../Models/newUserModel';
 import userDetails from '../utilities/getTokenUser';
 
 const createUser = (req, response, next) => {
-  console.log(req)
+  if (Object.keys(req.body).length == 0) {
+    response.status(400).send({
+      error: 'no body'
+    })
+    return;
+  }
   let token;
   if (req.headers.authorization) {
     token = req.headers.authorization.split(' ')[1] ? req.headers.authorization.split(' ')[1] : req.headers.authorization;
