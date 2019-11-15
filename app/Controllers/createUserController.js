@@ -50,6 +50,7 @@ const createUser = (req, response, next) => {
             message: 'User account successfully created',
             token,
             userId: user.rows[0].employee_id,
+            jobRole: user.rows[0].jobRole
           },
       });
     })
