@@ -20,11 +20,11 @@ router.use('/auth/create-user', createUserRoute);
 
 router.use('/auth/signin', signInRoute);
 
-router.use('/gifs', jwtCheck, gifRoutes);
+router.use('/gifs', gifRoutes);
 
-router.use('/articles', jwtCheck, articleRoutes);
+router.use('/articles', articleRoutes);
 
-router.use('/feed', jwtCheck, feedRoute);
+router.use('/feed', feedRoute);
 
 router.use('/docs', docRoutes);
 
