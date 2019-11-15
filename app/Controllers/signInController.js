@@ -3,11 +3,11 @@ import jwt from 'jsonwebtoken';
 import pool from '../Models/poolConnection';
 import signInQuery from '../Models/signInModel';
 
-const signIn = (req, res, next) => {
+const signIn = (request, response, next) => {
   const { email, password } = req.body;
   
   if (!email || !password) {
-    res.status(400).json({
+    response.status(400).json({
       status: 'error',
       error: 'Please input the correct username and password',
     });
@@ -16,7 +16,7 @@ const signIn = (req, res, next) => {
   pool.query(signInQuery, [email])
     .then((users) => {
       if (!users.rows[0]) {
-        res.status(401).json({
+        response.status(401).json({
           status: 'error',
           error: 'user not Found',
         });
@@ -33,7 +33,7 @@ const signIn = (req, res, next) => {
           process.env.TOKENKEY, 
           { expiresIn: 1440000 }
           );
-          res.status(200).json({
+          response.status(200).json({
             status: 'success',
             data: {
               token,
@@ -41,20 +41,20 @@ const signIn = (req, res, next) => {
             },
           });
         } else {
-          res.status(400).json({
+          response.status(400).json({
             status: 'error',
             error: 'Password is incorrect',
           });
         }
       } else {
-        res.status(400).json({
+        response.status(400).json({
           status: 'error',
           error: 'Invalid username and password',
         });
       }
     })
     .catch( e => {
-      res.status(400).json({
+      response.status(400).json({
         "status": "error",
         "error": e.message
       });
