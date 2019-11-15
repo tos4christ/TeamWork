@@ -5,7 +5,7 @@ import newUserQuery from '../Models/newUserModel';
 import userDetails from '../utilities/getTokenUser';
 
 const createUser = (req, response, next) => {
-  let token
+  let token;
   if (req.headers.authorization) {
     token = req.headers.authorization.split(' ')[1] ? req.headers.authorization.split(' ')[1] : req.headers.authorization;
   } else {
@@ -23,13 +23,13 @@ const createUser = (req, response, next) => {
     firstName, lastName, email, gender, jobRole, department, address, password
   } = req.body;
   // check if email and password was sent
-  if (!email || !password) {
-    response.status(400).send({
-      status: 'error',
-      error: ' Email or Password field cannot be empty',
-    });
-    return;
-  }
+  // if (!email || !password) {
+  //   response.status(400).send({
+  //     status: 'error',
+  //     error: ' Email or Password field cannot be empty',
+  //   });
+  //   return;
+  // }
   const hash = bcrypt.hashSync(password, 9);
   const creation_date = Date().split('GMT')[0];
   pool.query(newUserQuery.newUser,
