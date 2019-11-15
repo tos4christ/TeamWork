@@ -46,7 +46,7 @@ describe('API endpoint tests', () => {
       }, (err, res, body) => {
         if (err) throw err;
         data.status = res.statusCode;
-        data.body = JSON.parse(body);
+        data.body = JSON.parse(bodybody);
         done();
       });
     });
