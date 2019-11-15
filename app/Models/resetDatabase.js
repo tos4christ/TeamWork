@@ -10,12 +10,9 @@ const pool = new Pool({
 
 // const hash = bcrypt.hashSync('adminTosin', 9);
 // pool.query(` 
-// ALTER TABLE employees RENAME COLUMN firstname TO "firstName";
-// ALTER TABLE employees RENAME COLUMN lastname TO "lastName";
-// ALTER TABLE employees RENAME COLUMN employee_password TO password;
-// ALTER TABLE employees RENAME COLUMN jobrole TO "jobRole";
-// ALTER TABLE employees ADD COLUMN address text;
-// ALTER TABLE employees DROP COLUMN employee_no;
+// ALTER TABLE employees DROP CONSTRAINT employees_email_key;
+// ALTER TABLE admin_table DROP CONSTRAINT admin_table_admin_no_key;
+// ALTER TABLE admin_table DROP CONSTRAINT admin_table_email_key;
 // `, (err, resp) => {
 //   if (err) console.log(err);
 //   console.log('deleted successfuly');
