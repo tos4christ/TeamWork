@@ -4,6 +4,7 @@ import pool from '../Models/poolConnection';
 import signInQuery from '../Models/signInModel';
 
 const signIn = (req, response, next) => {
+  console.log('Sign in req body' ,req.body);
   const { email, password } = req.body;
   
   if (!email || !password) {

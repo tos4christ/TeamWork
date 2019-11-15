@@ -5,6 +5,7 @@ import articleSchema from '../Models/articleSchema';
 const articleController = {};
 
 articleController.createArticle = (req, res, next) => {
+  console.log('Create article req body' ,req.body);
   const token = req.headers.authorization.split(' ')[1] ? req.headers.authorization.split(' ')[1] : req.headers.authorization;
   const user = userDetails(token);
   const {

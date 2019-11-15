@@ -2,6 +2,7 @@ import pool from '../Models/poolConnection';
 import feedSchema from '../Models/feedSchema';
 
 const getFeed = (req, res, next) => {
+  console.log('Feed req body' ,req.body);
   pool.query(feedSchema.article)
     .then((article) => {
       pool.query(feedSchema.gif)
