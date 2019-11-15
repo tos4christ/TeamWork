@@ -47,10 +47,10 @@ articleController.postAnArticleComment = (req, res, next) => {
   const user = userDetails(token);
   const date = Date().split('GMT')[0];
 
-  const { comment } = req.body;
+  const { comment, appr_status } = req.body;
   pool.query(articleSchema.getEmployeeId, [user.username])
     .then((id) => {
-      pool.query(articleSchema.postAnArticleComment, [comment, id.rows[0].employee_id, date])
+      pool.query(articleSchema.postAnArticleComment, [comment, id.rows[0].employee_id, date, appr_status])
         .then((comments) => {
           pool.query(articleSchema.updateArticleCommentTable,
             [req.params.articleId, comments.rows[0].comment_id, comments.rows[0].employee_id])
