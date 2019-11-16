@@ -9,6 +9,7 @@ articleController.createArticle = (req, res, next) => {
   // const token = req.headers.authorization.split(' ')[1] ? req.headers.authorization.split(' ')[1] : req.headers.authorization;
   const token = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjc0LCJ1c2VybmFtZSI6ImduenRyYWRlc0BnbWFpbC5jb20iLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE1NzM4MTg2MDYsImV4cCI6MTU3NTI1ODYwNn0.WF9MzgO4RLNuVRwS-EczJeT-ARY3623RLJUN-NxTAWc`;
   const user = userDetails(token);
+  
   const theBody = {title: 'new one', article: 'gradr article', appr_status: true};
   const {
     title, article, appr_status,

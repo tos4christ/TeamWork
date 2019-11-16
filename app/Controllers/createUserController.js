@@ -3,8 +3,20 @@ import jwt from 'jsonwebtoken';
 import pool from '../Models/poolConnection';
 import newUserQuery from '../Models/newUserModel';
 import userDetails from '../utilities/getTokenUser';
+import verify from '../utilities/verifyData';
 
 const createUser = (req, response, next) => {
+
+  // Check that the data supplied is not invalid
+  const verified = verify(req.body);
+
+  if (!verified) {
+    response.status(400).json({
+      status: 'error',
+      error: 'Suppply all credentials first'
+    });
+    return;
+  }
  
   let token;
   if (req.headers.authorization) {
