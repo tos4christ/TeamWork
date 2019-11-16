@@ -4,6 +4,7 @@ import pool from '../Models/poolConnection';
 import signInQuery from '../Models/signInModel';
 
 const signIn = (req, res, next) => {
+  console.log('the signin req', req);
  const {email, password} = req.body;
   
   if (!email || !password) {
@@ -51,6 +52,7 @@ const signIn = (req, res, next) => {
       }
     })
     .catch( e => {
+      console.log('the signin error', e)
       res.status(400).json({
         "status": "error",
         "error": e.message
