@@ -1,17 +1,18 @@
 import { Router } from 'express';
 import multipart from 'connect-multiparty';
 import gifController from '../Controllers/gifController';
+import validate from '../utilities/validator';
 
 const router = Router();
 const multipartMiddleware = multipart();
 
-router.post('/', multipartMiddleware, gifController.createGif);
+router.post('/', multipartMiddleware, validate.postGifs, gifController.createGif);
 
 router.get('/:gifId', gifController.getAGif);
 
 router.delete('/:gifId', gifController.deleteAGif);
 
-router.post('/:gifId/comment', gifController.postAGifComment);
+router.post('/:gifId/comment', validate.postGifCom, gifController.postAGifComment);
 
 router.post('/:gifId/flag', gifController.flagGif);
 
