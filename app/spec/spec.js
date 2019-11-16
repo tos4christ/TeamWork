@@ -266,7 +266,7 @@ describe('API endpoint tests', () => {
         done();
       });
       const form = req.form();
-      form.append('image', fs.createReadStream('Certificate.jpg'));
+      form.append('image', fs.createReadStream('tenor.gif'));
       form.append('title', 'my another gif test');
       form.append('appr_status', 'true');
     });
