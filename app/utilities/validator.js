@@ -43,7 +43,7 @@ validate.postGifs = (req, res, next) => {
   const v = new Validator(req.body, {
     image: 'required|mime:gif',
     title: 'required|string',
-    'appr_status': 'string'
+    'appr_status': 'boolean'
   });
   v.check()
     .then( (matched) => {
@@ -59,7 +59,7 @@ validate.postArticles = (req, res, next) => {
   const v = new Validator(req.body, {
     article: 'required|string',
     title: 'required|string',
-    'appr_status': 'string'
+    'appr_status': 'boolean'
   });
   v.check()
     .then( (matched) => {
@@ -89,7 +89,7 @@ validate.patchArticles = (req, res, next) => {
 validate.postArtCom = (req, res, next) => {
   const v = new Validator(req.body, {
     comment: 'required|string',
-    'appr_status': 'string'
+    'appr_status': 'boolean'
   });
   v.check()
     .then( (matched) => {
