@@ -4,48 +4,33 @@ import pool from '../Models/poolConnection';
 import signInQuery from '../Models/signInModel';
 
 const signIn = (req, res, next) => {
-  let loggedUser, user, pass, query, mode, userNo, userPass;
-  if (req.body.adminUser) {
-    loggedUser = true;
-    const { adminUser, password } = req.body;
-    user = adminUser;
-    pass = password;
-    query = signInQuery.admin;
-    mode = 1;
-  } else if (req.body.username) {
-    loggedUser = false;
-    const { username, password } = req.body;
-    user = username;
-    pass = password;
-    query = signInQuery.employee;
-    mode = 2;
-  }
+  console.log('the signin req', req);
+ const {email, password} = req.body;
   
-  if (!user || !pass) {
+  if (!email || !password) {
     res.status(400).json({
       status: 'error',
       error: 'Please input the correct username and password',
     });
     return;
   }
-  pool.query(query, [user])
+  pool.query(signInQuery, [email])
     .then((users) => {
-      if (mode == 1) {
-        userNo = users.rows[0].admin_no;
-        userPass = users.rows[0].admin_password;
-      } else if (mode == 2) {
-        userNo = users.rows[0].employee_no;
-        userPass = users.rows[0].employee_password;
+      if (!users.rows[0]) {
+        res.status(401).send({
+          status: 'error',
+          error: 'user not found'
+        });
+        return;
       }
-      if (users) {
-        const passed = bcrypt.compareSync(pass, userPass);
+      if (users.rows[0]) {
+        const passed = bcrypt.compareSync(password, users.rows[0].password);
         if (passed) {
           const token = jwt.sign({
-            sub: userNo,
+            sub: users.rows[0].employee_id,
             username: users.rows[0].email,
-            admin: loggedUser,
+            role: users.rows[0].role,
           }, process.env.TOKENKEY, { expiresIn: 1440000 });
-
           res.status(200).json({
             status: 'success',
             data: {
@@ -67,6 +52,7 @@ const signIn = (req, res, next) => {
       }
     })
     .catch( e => {
+      console.log('the signin error', e)
       res.status(400).json({
         "status": "error",
         "error": e.message

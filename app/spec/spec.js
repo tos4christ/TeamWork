@@ -40,7 +40,7 @@ describe('API endpoint tests', () => {
         },
         url: 'http://localhost:3000/api/v1/auth/signin',
         form: {
-          username: 'gnztrade@gmail.com',
+          email: 'gnztrade@gmail.com',
           password: 'tosin',
         },
       }, (err, res, body) => {
@@ -266,8 +266,8 @@ describe('API endpoint tests', () => {
         done();
       });
       const form = req.form();
-      form.append('gifPost', fs.createReadStream('Certificate.jpg'));
-      form.append('gif_title', 'my another gif test');
+      form.append('image', fs.createReadStream('tenor.gif'));
+      form.append('title', 'my another gif test');
       form.append('appr_status', 'true');
     });
     it('Should return the gif title upon successful creation', () => {
@@ -286,17 +286,17 @@ describe('API endpoint tests', () => {
       Request.post({
         headers: {
           'content-type': 'x-www-form-urlencoded',
-          authorization: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjkwMjMwNywidXNlcm5hbWUiOiJnbnp0cmFkZUBnbWFpbC5jb20iLCJhZG1pbiI6dHJ1ZSwiaWF0IjoxNTczNzM5Mjg3LCJleHAiOjE1NzUxNzkyODd9.7mTyUljIPfi2S4fF3Tr2kEwqWeRWPSqZI0fSfC17QLE',
+          authorization: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjc0LCJ1c2VybmFtZSI6ImduenRyYWRlc0BnbWFpbC5jb20iLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE1NzM4MTg2MDYsImV4cCI6MTU3NTI1ODYwNn0.WF9MzgO4RLNuVRwS-EczJeT-ARY3623RLJUN-NxTAWc',
         },
         url: 'http://localhost:3000/api/v1/auth/create-user',
         form: {
-          firstname: 'testing',
-          lastname: 'testing',
+          firstName: 'testing',
+          lastName: 'testing',
           email: 'testing@examples.com',
-          employee_password: 'testing',
+          password: 'testing',
           gender: 'female',
-          jobrole: 'I.T',
-          employee_no: 99999,
+          jobRole: 'I.T',
+          address: 'Lagos Nigeria',
           department: 'Admin',
         },
       }, (err, res, body) => {

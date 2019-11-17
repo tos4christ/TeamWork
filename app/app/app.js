@@ -2,6 +2,7 @@ import { config } from 'dotenv';
 import express from 'express';
 import { v2 as cloudinary } from 'cloudinary';
 import routeAdmin from '../Routers/routeAdmin';
+import cors from 'cors';
 
 config();
 cloudinary.config({
@@ -12,6 +13,7 @@ cloudinary.config({
 
 const app = express();
 
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 

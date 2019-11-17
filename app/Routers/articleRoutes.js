@@ -1,17 +1,18 @@
 import { Router } from 'express';
 import articleController from '../Controllers/articleController';
+import validate from '../utilities/validator';
 
 const router = Router();
 
-router.post('/', articleController.createArticle);
+router.post('/', validate.postArticles , articleController.createArticle);
 
-router.patch('/:articleId', articleController.updateAnArticle);
+router.patch('/:articleId', validate.patchArticles, articleController.updateAnArticle);
 
 router.get('/:articleId', articleController.getAnArticle);
 
 router.delete('/:articleId', articleController.deleteAnArticle);
 
-router.post('/:articleId/comment', articleController.postAnArticleComment);
+router.post('/:articleId/comment', validate.postArtCom, articleController.postAnArticleComment);
 
 router.post('/:articleId/flag', articleController.flagArticle);
 
