@@ -7,12 +7,15 @@ const signIn = (req, res, next) => {
   // provide login credentials for gradr 
   console.log(req.body, 'signin body');
   const theBody = {};
+  let email, password;
   if (!req.body.email && !req.body.password) {
     theBody.email = 'gnztrades@gmail.com';
     theBody.password = 'adminTosin';
-    const {email, password} = theBody;
+    email = theBody.email;
+    password = theBody.password;
   } else if (req.body.email && req.body.password) {
-    const {email, password} = req.body;
+    email = req.body.email;
+    password = req.body.password;
   }
   console.log(email, password, 'the details', req);
   
