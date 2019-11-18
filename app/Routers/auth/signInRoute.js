@@ -4,6 +4,6 @@ import validate from '../../utilities/validator';
 
 const router = Router();
 
-router.post('/', validate.signin, signInController);
+router.post('/', signInController);
 
 export default router;

@@ -9,7 +9,7 @@ const createUser = (req, res, next) => {
   // if(!token) {
   const  token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjc0LCJ1c2VybmFtZSI6ImduenRyYWRlc0BnbWFpbC5jb20iLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE1NzQwNjA1ODYsImV4cCI6MTU3NTUwMDU4Nn0.LYOMxg0uO0nn3xRvWOH8N0F2heE3SZW-_YGcxE9kYVQ';
   // }
-  console.log(req.body);
+  console.log(req.body, 'create body');
   const userToken = userDetails(token);
   if(userToken.role !== 'admin') {
     console.log('not seeing the admin token');
