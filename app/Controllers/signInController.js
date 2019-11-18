@@ -5,19 +5,22 @@ import signInQuery from '../Models/signInModel';
 
 const signIn = (req, res, next) => {
   // provide login credentials for gradr 
+  const theBody = {};
   if (!req.body.email && req.body.password) {
-    req.body.email = 'gnztrades@gmail.com';
-    req.body.password = 'adminTosin';
+    theBody.email = 'gnztrades@gmail.com';
+    theBody.password = 'adminTosin';
+    const {email, password} = theBody;
+  } else if (req.body.email && req.body.password) {
+    const {email, password} = req.body;
   }
- const {email, password} = req.body;
   
-  if (!email || !password) {
-    res.status(400).json({
-      status: 'error',
-      error: 'Please input the correct username and password',
-    });
-    return;
-  }
+  // if (!email || !password) {
+  //   res.status(400).json({
+  //     status: 'error',
+  //     error: 'Please input the correct username and password',
+  //   });
+  //   return;
+  // }
   pool.query(signInQuery, [email])
     .then((users) => {
       if (!users.rows[0]) {
