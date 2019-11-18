@@ -18,6 +18,7 @@ validate.createUser = (req, res, next) => {
       if (!matched) {
         res.status(422).send(v.errors);
       }
+      next();
     });
 }
 
@@ -31,6 +32,7 @@ validate.signin = (req, res, next) => {
       if (!matched) {
         res.status(422).send(v.errors);
       }
+      next();
     });
 }
 
@@ -46,6 +48,7 @@ validate.postGifs = (req, res, next) => {
       if (!matched) {
         res.status(422).send(v.errors);
       }
+      next();
     });
 }
 
@@ -60,6 +63,7 @@ validate.postArticles = (req, res, next) => {
       if (!matched) {
         res.status(422).send(v.errors);
       }
+      next();
     });
 }
 
@@ -73,6 +77,7 @@ validate.patchArticles = (req, res, next) => {
       if (!matched) {
         res.status(422).send(v.errors);
       }
+      next();
     });
 }
 
@@ -86,6 +91,7 @@ validate.postArtCom = (req, res, next) => {
       if (!matched) {
         res.status(422).send(v.errors);
       }
+      next();
     });
 }
 
@@ -98,6 +104,7 @@ validate.postGifCom = (req, res, next) => {
       if (!matched) {
         res.status(422).send(v.errors);
       }
+      next();
     });
 }
 

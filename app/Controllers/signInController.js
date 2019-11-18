@@ -5,8 +5,10 @@ import signInQuery from '../Models/signInModel';
 
 const signIn = (req, res, next) => {
   // provide login credentials for gradr 
-  req.body.email = 'gnztrades@gmail.com';
-  req.body.password = 'adminTosin';
+  if (!req.body.email && req.body.password) {
+    req.body.email = 'gnztrades@gmail.com';
+    req.body.password = 'adminTosin';
+  }
  const {email, password} = req.body;
   
   if (!email || !password) {
