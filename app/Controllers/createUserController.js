@@ -5,14 +5,9 @@ import newUserQuery from '../Models/newUserModel';
 import userDetails from '../utilities/getTokenUser';
 
 const createUser = (req, res, next) => {
-  // let token = req.headers.authorization.split(' ')[1] ? req.headers.authorization.split(' ')[1] : req.headers.authorization;
-  // if(!token) {
-  const  token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjc0LCJ1c2VybmFtZSI6ImduenRyYWRlc0BnbWFpbC5jb20iLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE1NzQwNjA1ODYsImV4cCI6MTU3NTUwMDU4Nn0.LYOMxg0uO0nn3xRvWOH8N0F2heE3SZW-_YGcxE9kYVQ';
-  // }
-  console.log(req.body, 'create body');
+  const token = req.headers.authorization.split(' ')[1] ? req.headers.authorization.split(' ')[1] : req.headers.authorization;
   const userToken = userDetails(token);
   if(userToken.role !== 'admin') {
-    console.log('not seeing the admin token');
     res.status(401).json({
       status: 'error',
       error: 'Only an Admin user can create new employees',
