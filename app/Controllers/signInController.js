@@ -30,13 +30,13 @@ const signIn = (req, res, next) => {
             username: users.rows[0].email,
             role: users.rows[0].role,
           }, process.env.TOKENKEY, { expiresIn: 1440000 });
-          res.status(200).json({
+          res.status(200).json({body: {
             status: 'success',
             data: {
               token,
               userId: users.rows[0].employee_id,
             },
-          });
+          }});
         } else {
           res.status(400).json({
             status: 'error',

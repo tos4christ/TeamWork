@@ -34,7 +34,7 @@ const createUser = (req, res, next) => {
         sub: user.rows[0].employee_id,
         email: user.rows[0].email,
       }, process.env.TOKENKEY, { expiresIn: 1440 });
-      res.status(201).json({
+      res.status(201).json({body: {
         status: 'success',
         data: {
           message: 'User account successfully created',
@@ -42,7 +42,7 @@ const createUser = (req, res, next) => {
           userId: user.rows[0].employee_id,
           jobRole: user.rows[0].jobRole
         },
-      });
+      }});
     })
     .catch(e => {
       console.log('Create user error', e);
