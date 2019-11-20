@@ -20,7 +20,7 @@ app.use(bodyParser.json());
 app.use(cors());
 
 app.use('/test', (req, res) => {
-  res.status(200).send({body: 'Request received'});
+  res.status(200).send('Request received');
 });
 
 app.use('/api/v1', routeAdmin);
