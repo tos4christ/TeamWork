@@ -14,12 +14,13 @@ cloudinary.config({
 
 const app = express();
 
-app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+app.use(cors());
+
 app.use('/test', (req, res) => {
-  res.status(200).send('Request received');
+  res.status(200).send({body: 'Request received'});
 });
 
 app.use('/api/v1', routeAdmin);
