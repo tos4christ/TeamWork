@@ -131,7 +131,7 @@ articleController.getAllArticle = (req, res, next) => {
           res.status(200).json({
             status: 'success',
             data: {
-              articles: articles.rows[0]
+              articles: articles.rows
             },
           });
     })
