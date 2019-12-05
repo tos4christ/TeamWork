@@ -348,10 +348,11 @@ articleController.deleteComment = (req, res, next) => {
   pool.query(articleSchema.getEmployeeId, [user.username])
     .then((id) => {
       pool.query(articleSchema.deleteComment, [req.params.commentId, id.rows[0].employee_id])
-        .then(() => {
+        .then((result) => {
           res.status(200).json({
             "status": "success",
             "data": {
+              result,
               message: "comment successfully deleted"
             }
           });
