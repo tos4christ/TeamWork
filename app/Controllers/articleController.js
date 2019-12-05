@@ -358,6 +358,7 @@ articleController.deleteComment = (req, res, next) => {
           });
         })
         .catch( e => {
+          console.log(e.message);
           res.status(400).json({
             "status": "error",
             "error": e.message
