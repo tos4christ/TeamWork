@@ -10,6 +10,8 @@ router.post('/', multipartMiddleware, validate.postGifs, gifController.createGif
 
 router.get('/:gifId', gifController.getAGif);
 
+router.get('/:userId', gifController.getAllGif);
+
 router.delete('/:gifId', gifController.deleteAGif);
 
 router.post('/:gifId/comment', validate.postGifCom, gifController.postAGifComment);

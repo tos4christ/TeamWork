@@ -41,7 +41,6 @@ articleController.createArticle = (req, res, next) => {
       });
     });
 };
-
 articleController.postAnArticleComment = (req, res, next) => {
   const token = req.headers.authorization.split(' ')[1] ? req.headers.authorization.split(' ')[1] : req.headers.authorization;
   const user = userDetails(token);
@@ -96,7 +95,6 @@ articleController.postAnArticleComment = (req, res, next) => {
       });
     });
 };
-
 articleController.getAnArticle = (req, res, next) => {
   pool.query(articleSchema.getAnArticleText, [req.params.articleId])
     .then((article) => {
@@ -127,7 +125,23 @@ articleController.getAnArticle = (req, res, next) => {
       });
     });
 };
-
+articleController.getAllArticle = (req, res, next) => {
+  pool.query(articleSchema.getAllArticleText, [req.params.userId])
+    .then((articles) => {
+          res.status(200).json({
+            status: 'success',
+            data: {
+              articles
+            },
+          });
+    })
+    .catch(e => {
+      res.status(400).json({
+        "status": "error",
+        "error": e.message
+      });
+    });
+};
 articleController.updateAnArticle = (req, res, next) => {
   const token = req.headers.authorization.split(' ')[1] ? req.headers.authorization.split(' ')[1] : req.headers.authorization;
   const user = userDetails(token);
@@ -162,7 +176,6 @@ articleController.updateAnArticle = (req, res, next) => {
       });
     });
 };
-
 articleController.deleteAnArticle = (req, res, next) => {
   const token = req.headers.authorization.split(' ')[1] ? req.headers.authorization.split(' ')[1] : req.headers.authorization;
   const user = userDetails(token);
@@ -192,7 +205,6 @@ articleController.deleteAnArticle = (req, res, next) => {
       });
     });
 };
-
 articleController.flagArticle = (req, res, next) => {
   pool.query(articleSchema.flagArticle, [req.body.appr_status, req.params.articleId])
     .then((article) => {
@@ -211,7 +223,6 @@ articleController.flagArticle = (req, res, next) => {
       });
     });
 }
-
 articleController.flagComment = (req, res, next) => {
   pool.query(articleSchema.getCommentId, [req.params.articleId])
     .then((id) => {
@@ -239,7 +250,6 @@ articleController.flagComment = (req, res, next) => {
       });
     });
 }
-
 articleController.deleteFlaggedArticle = (req, res, next) => {
   const token = req.headers.authorization.split(' ')[1] ? req.headers.authorization.split(' ')[1] : req.headers.authorization;
   const userToken = userDetails(token);
@@ -278,7 +288,6 @@ articleController.deleteFlaggedArticle = (req, res, next) => {
       });
     });
 }
-
 articleController.deleteFlaggedComment = (req, res, next) => {
   const token = req.headers.authorization.split(' ')[1] ? req.headers.authorization.split(' ')[1] : req.headers.authorization;
   const userToken = userDetails(token);
@@ -332,7 +341,6 @@ articleController.deleteFlaggedComment = (req, res, next) => {
       });
     });
 }
-
 articleController.getArticleByTag = (req, res, next) => {
 
   pool.query(articleSchema.getTagArticleText, [req.query.tag])

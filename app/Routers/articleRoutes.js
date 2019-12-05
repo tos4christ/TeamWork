@@ -10,6 +10,8 @@ router.patch('/:articleId', validate.patchArticles, articleController.updateAnAr
 
 router.get('/:articleId', articleController.getAnArticle);
 
+router.get('/:userId', articleController.getAllArticle);
+
 router.delete('/:articleId', articleController.deleteAnArticle);
 
 router.post('/:articleId/comment', validate.postArtCom, articleController.postAnArticleComment);

@@ -47,7 +47,6 @@ gifController.createGif = (req, res, next) => {
         });
     });
 };
-
 gifController.getAGif = (req, res, next) => {
   pool.query(gifSchema.getAGif, [req.params.gifId])
     .then((gif) => {
@@ -78,14 +77,39 @@ gifController.getAGif = (req, res, next) => {
       });
     });
 };
-
+gifController.getAllGif = (req, res, next) => {
+  pool.query(gifSchema.getAGif, [req.params.gifId])
+    .then((gif) => {
+      pool.query(gifSchema.getAGifComment, [req.params.gifId])
+        .then((comments) => {
+          res.status(200).json({
+            status: 'success',
+            data: {
+              id: gif.rows[0].id,
+              createdOn: gif.rows[0].createdOn,
+              title: gif.rows[0].title,
+              url: gif.rows[0].url,
+              comments: comments.rows,
+            },
+          });
+        })
+        .catch(e => {
+          res.status(400).json({
+            "status": "error",
+            "error": e.message
+          });
+        });
+    })
+    .catch(e => {
+      res.status(400).json({
+        "status": "error",
+        "error": e.message
+      });
+    });
+};
 gifController.deleteAGif = (req, res, next) => {
-  // delete an article from cloudinary
-  // cloudinary.uploader.destroy('zombie', function(result) { console.log(result) });
-
   const token = req.headers.authorization.split(' ')[1] ? req.headers.authorization.split(' ')[1] : req.headers.authorization;
   const user = userDetails(token);
-
   pool.query(gifSchema.getEmployeeId, [user.username])
     .then((id) => {
       pool.query(gifSchema.deleteAGif, [req.params.gifId, id.rows[0].employee_id])
@@ -113,9 +137,7 @@ gifController.deleteAGif = (req, res, next) => {
       });
     });
 };
-
 gifController.postAGifComment = (req, res, next) => {
-  // request comes with gifId
   const token = req.headers.authorization.split(' ')[1] ? req.headers.authorization.split(' ')[1] : req.headers.authorization;
   const user = userDetails(token);
   const date = Date().split('GMT')[0];
@@ -168,7 +190,6 @@ gifController.postAGifComment = (req, res, next) => {
       });
     });
 };
-
 gifController.flagGif = (req, res, next) => {
   pool.query(gifSchema.flagGif, [req.body.appr_status, req.params.gifId])
     .then((gif) => {
@@ -187,7 +208,6 @@ gifController.flagGif = (req, res, next) => {
       });
     });
 }
-
 gifController.flagComment = (req, res, next) => {
   pool.query(gifSchema.getCommentId, [req.params.gifId])
     .then((id) => {
@@ -215,7 +235,6 @@ gifController.flagComment = (req, res, next) => {
       });
     });
 }
-
 gifController.deleteFlaggedGif = (req, res, next) => {
   const token = req.headers.authorization.split(' ')[1] ? req.headers.authorization.split(' ')[1] : req.headers.authorization;
   const userToken = userDetails(token);
@@ -254,7 +273,6 @@ gifController.deleteFlaggedGif = (req, res, next) => {
       });
     });
 }
-
 gifController.deleteFlaggedComment = (req, res, next) => {
   const token = req.headers.authorization.split(' ')[1] ? req.headers.authorization.split(' ')[1] : req.headers.authorization;
   const userToken = userDetails(token);
