@@ -21,6 +21,8 @@ articleSchema.getEmployeeId = 'SELECT employee_id FROM employees WHERE email=$1'
 
 articleSchema.flagArticle = 'UPDATE articles SET appr_status=$1 WHERE article_id=$2 RETURNING *';
 
+articleSchema.deleteComment = 'DELETE FROM comments_table WHERE comment_id=$1 and employee_id=$2 RETURNING *';
+
 articleSchema.getCommentId = 'SELECT comment_id as id FROM article_comment WHERE article_id=$1';
 articleSchema.flagArticleComment = 'UPDATE comments_table SET appr_status=$1 WHERE comment_id=$2 RETURNING *';
 

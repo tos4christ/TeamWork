@@ -341,6 +341,36 @@ articleController.deleteFlaggedComment = (req, res, next) => {
       });
     });
 }
+articleController.deleteComment = (req, res, next) => {
+  const token = req.headers.authorization.split(' ')[1] ? req.headers.authorization.split(' ')[1] : req.headers.authorization;
+  const user = userDetails(token);
+  
+  pool.query(articleSchema.getEmployeeId, [user.username])
+    .then((id) => {
+      pool.query(articleSchema.deleteComment, [req.params.commentId, id.rows[0].employee_id])
+        .then(() => {
+          res.status(200).json({
+            "status": "success",
+            "data": {
+              message: "comment successfully deleted"
+            }
+          });
+        })
+        .catch( e => {
+          res.status(400).json({
+            "status": "error",
+            "error": e.message
+          });
+        });
+    })
+    .catch( e => {
+      res.status(400).json({
+        "status": "error",
+        "error": e.message
+      });
+    });
+
+}
 articleController.getArticleByTag = (req, res, next) => {
 
   pool.query(articleSchema.getTagArticleText, [req.query.tag])

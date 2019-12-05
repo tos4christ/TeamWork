@@ -24,6 +24,8 @@ router.delete('/:articleId/flag', articleController.deleteFlaggedArticle);
 
 router.delete('/:articleId/comment/:commentId', articleController.deleteFlaggedComment);
 
+router.delete('/:articleId/commented/:commentId', articleController.deleteComment);
+
 router.get('/', articleController.getArticleByTag);
 
 export default router;
