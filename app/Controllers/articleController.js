@@ -107,6 +107,7 @@ articleController.getAnArticle = (req, res, next) => {
               createdOn: article.rows[0].createdOn,
               title: article.rows[0].title,
               article: article.rows[0].article,
+              tag: article.rows[0].tag,
               comments: comments.rows,
             },
           });
