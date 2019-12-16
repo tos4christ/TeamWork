@@ -129,12 +129,38 @@ articleController.getAnArticle = (req, res, next) => {
 articleController.getAllArticle = (req, res, next) => {
   pool.query(articleSchema.getAllArticleText, [req.params.userId])
     .then((articles) => {
-          res.status(200).json({
-            status: 'success',
-            data: {
-              articles: articles.rows
-            },
-          });
+      let artNo = [];
+      articles.rows.forEach( article => {
+        artNo[article.id] = {
+          id: article.id,
+          createdon: article.createdon,
+          title: article.title,
+          article: article.article
+        }
+      });
+      const Articles = artNo.filter( no => no.id !== null );
+      const num = Articles.length;
+      for(let j=0; j < num; j++) {
+        let comments = [];
+        const article = articles.rows.filter( article => article.id == Articles[j].id);
+        for(let i in article) {
+          const newComment = {
+            "status": article[i].status,
+            "cid": article[i].cid,
+            "ctext": article[i].ctext,
+            "cdate": article[i].cdate,
+            "eid": article[i].eid
+          }
+          comments.push(newComment);
+        }
+        Articles[j].comments = comments;
+      }
+      res.status(200).json({
+        status: 'success',
+        data: {
+          articles: Articles
+        },
+      });
     })
     .catch(e => {
       res.status(400).json({

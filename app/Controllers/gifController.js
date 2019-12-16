@@ -79,26 +79,38 @@ gifController.getAGif = (req, res, next) => {
 };
 gifController.getAllGif = (req, res, next) => {
   pool.query(gifSchema.getAllGif, [req.params.userId])
-    .then((gif) => {
-      pool.query(gifSchema.getAllGifComment, [req.params.userId])
-        .then((comments) => {
-          res.status(200).json({
-            status: 'success',
-            data: {
-              id: gif.rows[0].id,
-              createdOn: gif.rows[0].createdOn,
-              title: gif.rows[0].title,
-              url: gif.rows[0].url,
-              comments: comments.rows,
-            },
-          });
-        })
-        .catch(e => {
-          res.status(400).json({
-            "status": "error",
-            "error": e.message
-          });
-        });
+    .then((gifs) => {
+      let gifNo = [];
+      gifs.rows.forEach( gif => {
+        gifNo[gif.id] = {
+          id: gif.id,
+          createdon: gif.createdon,
+          title: gif.title,
+          url: gif.url
+        }
+      });
+      const Gifs = gifNo.filter( no => no.id !== null );
+      const num = Gifs.length;
+      for(let j=0; j < num; j++) {
+        let comments = [];
+        const gif = gifs.rows.filter( gif => gif.id == Gifs[j].id);
+        for(let i in gif) {
+          const newComment = {
+            "status": gif[i].status,
+            "cid": gif[i].cid,
+            "ctext": gif[i].ctext,
+            "cdate": gif[i].cdate,
+            "eid": gif[i].eid
+          }
+          comments.push(newComment);
+        }
+        Gifs[j].comments = comments;
+      }
+
+      res.status(200).json({
+        status: 'success',
+        data: Gifs,
+      });
     })
     .catch(e => {
       res.status(400).json({

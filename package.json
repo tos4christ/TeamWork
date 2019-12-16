@@ -15,7 +15,7 @@
     "remotedb": "npm run build && npm run db",
     "started": "node build/server/server",
     "local-test": "npm run resetdb && npm run test",
-    "local-server": "npm run build &&  nodemon build/server/server"
+    "local-server": "npm run build &&  node build/server/server"
   },
   "engines": {
     "node": "10.16.3"
