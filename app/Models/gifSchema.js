@@ -8,7 +8,7 @@ gifSchema.getAllGif = 'select g.gif_id as id, g.creation_date as "createdOn", g.
 
 gifSchema.getAGifComment = 'SELECT c.comment_id as commentId, c.comment_text as comment, c.employee_id as "authorId", c.creation_date as "createdOn" FROM comments_table c, gif_comment gc WHERE gc.gif_id=$1 and c.comment_id=gc.comment_id';
 
-gifSchema.getAllGifComment = 'SELECT c.comment_id as commentId, c.comment_text as comment, c.employee_id as "authorId", c.creation_date as "createdOn" FROM comments_table c, gif_comment gc WHERE gc.employee_id=$1';
+gifSchema.getAllGifComment = 'SELECT c.comment_id as commentId, c.comment_text as comment, c.employee_id as "authorId", c.creation_date as "createdOn" FROM comments_table c, gif_comment gc WHERE gc.employee_id=$1 and c.employee_id=gc.employee_id';
 
 gifSchema.deleteAGif = 'DELETE FROM gif_table WHERE gif_id=$1 and employee_id=$2 RETURNING *';
 
