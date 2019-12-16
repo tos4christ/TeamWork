@@ -80,6 +80,7 @@ gifController.getAGif = (req, res, next) => {
 gifController.getAllGif = (req, res, next) => {
   pool.query(gifSchema.getAllGif, [req.params.userId])
     .then((gifs) => {
+      console.log('the gif rows', gifs.rows)
       let gifNo = [];
       gifs.rows.forEach( gif => {
         gifNo[gif.id] = {
@@ -97,10 +98,10 @@ gifController.getAllGif = (req, res, next) => {
         for(let i in gif) {
           const newComment = {
             "status": gif[i].status,
-            "cid": gif[i].cid,
-            "ctext": gif[i].ctext,
-            "cdate": gif[i].cdate,
-            "eid": gif[i].eid
+            "commentid": gif[i].commentid,
+            "comment": gif[i].comment,
+            "createdon": gif[i].createdon,
+            "authorid": gif[i].author
           }
           comments.push(newComment);
         }

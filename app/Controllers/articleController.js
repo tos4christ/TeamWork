@@ -146,10 +146,10 @@ articleController.getAllArticle = (req, res, next) => {
         for(let i in article) {
           const newComment = {
             "status": article[i].status,
-            "cid": article[i].cid,
-            "ctext": article[i].ctext,
-            "cdate": article[i].cdate,
-            "eid": article[i].eid
+            "commentid": article[i].commentid,
+            "comment": article[i].comment,
+            "createdon": article[i].createdon,
+            "authorid": article[i].authorid
           }
           comments.push(newComment);
         }

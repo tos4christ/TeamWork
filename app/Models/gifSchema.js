@@ -4,7 +4,7 @@ gifSchema.newGif = 'INSERT INTO gif_table(gif_title, gif_url, appr_status, emplo
 
 gifSchema.getAGif = 'select g.gif_id as id, g.creation_date as "createdOn", g.gif_title as title, g.gif_url as url from gif_table g where g.gif_id=$1';
 
-gifSchema.getAllGif = 'select g.gif_id as id, g.creation_date as "createdOn", g.gif_title as title, g.gif_url as url, ct.appr_status as status, ct.comment_id as cid, ct.comment_text as ctext, ct.creation_date as cdate, ct.employee_id as eid FROM gif_table g, comments_table ct, gif_comment gc WHERE g.employee_id=$1 and g.gif_id=gc.gif_id and gc.comment_id=ct.comment_id';
+gifSchema.getAllGif = 'select g.gif_id as id, g.creation_date as "createdOn", g.gif_title as title, g.gif_url as url, ct.appr_status as status, ct.comment_id as commentid, ct.comment_text as comment, ct.creation_date as createdon, ct.employee_id as authorid FROM gif_table g, comments_table ct, gif_comment gc WHERE g.employee_id=$1 and g.gif_id=gc.gif_id and gc.comment_id=ct.comment_id';
 
 gifSchema.getAGifComment = 'SELECT c.comment_id as commentId, c.comment_text as comment, c.employee_id as "authorId", c.creation_date as "createdOn" FROM comments_table c, gif_comment gc WHERE gc.gif_id=$1 and c.comment_id=gc.comment_id';
 

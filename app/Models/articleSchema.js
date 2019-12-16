@@ -6,7 +6,7 @@ articleSchema.getAnArticleText = 'select a.article_id as id, a.creation_date as 
 
 articleSchema.getTagArticleText = 'select a.article_id as id, a.creation_date as createdOn, a.article_title as title, a.article_text as article, tag from articles a where a.tag=$1';
 
-articleSchema.getAllArticleText = 'select a.article_id as id, a.creation_date as createdOn, a.article_title as title, a.article_text as article, ct.appr_status as status, ct.comment_id as cid, ct.comment_text as ctext, ct.creation_date as cdate, ct.employee_id as eid FROM articles a, comments_table ct, article_comment ac WHERE a.employee_id=$1 and a.article_id=ac.article_id and ac.comment_id=ct.comment_id';
+articleSchema.getAllArticleText = 'select a.article_id as id, a.creation_date as createdOn, a.article_title as title, a.article_text as article, ct.appr_status as status, ct.comment_id as commentid, ct.comment_text as comment, ct.creation_date as createdon, ct.employee_id as authorid FROM articles a, comments_table ct, article_comment ac WHERE a.employee_id=$1 and a.article_id=ac.article_id and ac.comment_id=ct.comment_id';
 
 articleSchema.getAnArticleComment = 'SELECT c.comment_id as commentId, c.comment_text as comment, c.employee_id as authorId, c.creation_date as createdOn FROM comments_table c, article_comment ac WHERE ac.article_id=$1 and c.comment_id=ac.comment_id';
 
