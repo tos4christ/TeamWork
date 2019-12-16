@@ -78,9 +78,9 @@ gifController.getAGif = (req, res, next) => {
     });
 };
 gifController.getAllGif = (req, res, next) => {
-  pool.query(gifSchema.getAGif, [req.params.userId])
+  pool.query(gifSchema.getAllGif, [req.params.userId])
     .then((gif) => {
-      pool.query(gifSchema.getAGifComment, [req.params.userId])
+      pool.query(gifSchema.getAllGifComment, [req.params.userId])
         .then((comments) => {
           res.status(200).json({
             status: 'success',
