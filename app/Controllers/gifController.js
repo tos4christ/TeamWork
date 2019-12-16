@@ -80,8 +80,10 @@ gifController.getAGif = (req, res, next) => {
 gifController.getAllGif = (req, res, next) => {
   pool.query(gifSchema.getAGif, [req.params.gifId])
     .then((gif) => {
+      console.log('the response from gif', gif)
       pool.query(gifSchema.getAGifComment, [req.params.gifId])
         .then((comments) => {
+          console.log('the response from comment', comments)
           res.status(200).json({
             status: 'success',
             data: {
