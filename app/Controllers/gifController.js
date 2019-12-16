@@ -100,7 +100,7 @@ gifController.getAllGif = (req, res, next) => {
             "commentid": gif[i].commentid,
             "comment": gif[i].comment,
             "createdon": gif[i].createdon,
-            "authorid": gif[i].author
+            "authorid": gif[i].authorid
           }
           comments.push(newComment);
         }
