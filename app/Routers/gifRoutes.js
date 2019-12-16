@@ -22,6 +22,8 @@ router.post('/:gifId/comment/:commentId/flag', gifController.flagComment);
 
 router.delete('/:gifId/flag', gifController.deleteFlaggedGif);
 
+router.delete('/:gifId/commented/:commentId', gifController.deleteComment);
+
 router.delete('/:gifId/comment/:commentId', gifController.deleteFlaggedComment);
 
 export default router;

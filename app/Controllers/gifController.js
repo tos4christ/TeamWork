@@ -339,5 +339,37 @@ gifController.deleteFlaggedComment = (req, res, next) => {
       });
     });
 }
+gifController.deleteComment = (req, res, next) => {
+  const token = req.headers.authorization.split(' ')[1] ? req.headers.authorization.split(' ')[1] : req.headers.authorization;
+  const user = userDetails(token);
+  
+  pool.query(gifSchema.getEmployeeId, [user.username])
+    .then((id) => {
+      pool.query(gifSchema.deleteComment, [req.params.commentId, id.rows[0].employee_id])
+        .then((result) => {
+          res.status(200).json({
+            "status": "success",
+            "data": {
+              result,
+              message: "comment successfully deleted"
+            }
+          });
+        })
+        .catch( e => {
+          console.log(e.message);
+          res.status(400).json({
+            "status": "error",
+            "error": e.message
+          });
+        });
+    })
+    .catch( e => {
+      res.status(400).json({
+        "status": "error",
+        "error": e.message
+      });
+    });
+
+}
 
 export default gifController;

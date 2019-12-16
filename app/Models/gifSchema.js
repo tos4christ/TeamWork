@@ -20,6 +20,8 @@ gifSchema.flagGif = 'UPDATE gif_table SET appr_status=$1 WHERE gif_id=$2 RETURNI
 gifSchema.getCommentId = 'SELECT comment_id as id FROM gif_comment WHERE gif_id=$1';
 gifSchema.flagGifComment = 'UPDATE comments_table SET appr_status=$1 WHERE comment_id=$2 RETURNING *';
 
+gifSchema.deleteComment = 'DELETE FROM comments_table WHERE comment_id=$1 and employee_id=$2 RETURNING *';
+
 gifSchema.deleteFlaggedGif = 'DELETE FROM gif_table where gif_id=$1';
 gifSchema.getFlaggedComment = 'SELECT * FROM comments_table WHERE comment_id=$1';
 gifSchema.deleteFlaggedComment = 'DELETE FROM gif_comment where comment_id=$1';
