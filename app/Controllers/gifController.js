@@ -80,7 +80,6 @@ gifController.getAGif = (req, res, next) => {
 gifController.getAllGif = (req, res, next) => {
   pool.query(gifSchema.getAllGif, [req.params.userId])
     .then((gifs) => {
-      console.log('the gif rows', gifs.rows)
       let gifNo = [];
       gifs.rows.forEach( gif => {
         gifNo[gif.id] = {
@@ -356,7 +355,6 @@ gifController.deleteComment = (req, res, next) => {
           });
         })
         .catch( e => {
-          console.log(e.message);
           res.status(400).json({
             "status": "error",
             "error": e.message
