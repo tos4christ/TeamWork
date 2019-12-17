@@ -2,6 +2,9 @@ import Request from 'request';
 import fs from 'fs';
 import servers from '../server/server';
 
+const adminToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjc0LCJ1c2VybmFtZSI6ImduenRyYWRlc0BnbWFpbC5jb20iLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE1NzY2MDg0MDcsImV4cCI6MTU3ODA0ODQwN30.ZGyrdGWbMFwrrFDvE5Zs9Km1uA9jWgodC4MPCeAGdNs';
+const employeeToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjIsInVzZXJuYW1lIjoiZ256dHJhZGVAZ21haWwuY29tIiwicm9sZSI6bnVsbCwiaWF0IjoxNTc2NDgyNDcxLCJleHAiOjE1Nzc5MjI0NzF9.17wnSJUHGhRux9h5hd2p_xulabFZfuf2_ojZhyfnNlA';
+
 describe('Server setup', () => {
   let server;
   beforeAll(() => {
@@ -286,7 +289,7 @@ describe('API endpoint tests', () => {
       Request.post({
         headers: {
           'content-type': 'x-www-form-urlencoded',
-          authorization: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjIsInVzZXJuYW1lIjoiZ256dHJhZGVAZ21haWwuY29tIiwicm9sZSI6bnVsbCwiaWF0IjoxNTc2NDgyNDcxLCJleHAiOjE1Nzc5MjI0NzF9.17wnSJUHGhRux9h5hd2p_xulabFZfuf2_ojZhyfnNlA',
+          authorization: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjc0LCJ1c2VybmFtZSI6ImduenRyYWRlc0BnbWFpbC5jb20iLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE1NzY2MDg0MDcsImV4cCI6MTU3ODA0ODQwN30.ZGyrdGWbMFwrrFDvE5Zs9Km1uA9jWgodC4MPCeAGdNs',
         },
         url: 'http://localhost:3000/api/v1/auth/create-user',
         form: {
@@ -382,6 +385,8 @@ describe('API endpoint tests', () => {
       expect(data.body.data.gif['appr_status']).toBe(true);
     });
   });
+
+  // This one
   describe('FLAG AN ARTICLE COMMENT: POST /articles/:articleId/comment/:commentId', () => {
   const data = {};
   beforeAll((done) => {
@@ -390,7 +395,7 @@ describe('API endpoint tests', () => {
         'content-type': 'application/x-www-form-urlencoded',
         authorization: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjIsInVzZXJuYW1lIjoiZ256dHJhZGVAZ21haWwuY29tIiwicm9sZSI6bnVsbCwiaWF0IjoxNTc2NDgyNDcxLCJleHAiOjE1Nzc5MjI0NzF9.17wnSJUHGhRux9h5hd2p_xulabFZfuf2_ojZhyfnNlA',
       },
-      url: 'http://localhost:3000/api/v1/articles/15/comment/69/flag',
+      url: 'http://localhost:3000/api/v1/articles/3/comment/258/flag',
       form: {
         'appr_status': true,
       }
@@ -405,7 +410,7 @@ describe('API endpoint tests', () => {
     expect(data.body.data.comment['appr_status']).toBe(true);
   });
  });
-  describe('FLAG AN GIF COMMENT: POST /gifs/:gifId/comment/:commentId', () => {
+  describe('FLAG A GIF COMMENT: POST /gifs/:gifId/comment/:commentId', () => {
     const data = {};
     beforeAll((done) => {
       Request.post({
@@ -428,13 +433,15 @@ describe('API endpoint tests', () => {
       expect(data.body.data.comment['appr_status']).toBe(true);
     });
    });
+
+   // This one
   describe('DELETE A FLAGGED GIF: /gifs/:gifId/flag', () => {
     const data = {};
     beforeAll((done) => {
       Request.delete({
         headers: {
           'content-type': 'application/x-www-form-urlencoded',
-          authorization: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjIsInVzZXJuYW1lIjoiZ256dHJhZGVAZ21haWwuY29tIiwicm9sZSI6bnVsbCwiaWF0IjoxNTc2NDgyNDcxLCJleHAiOjE1Nzc5MjI0NzF9.17wnSJUHGhRux9h5hd2p_xulabFZfuf2_ojZhyfnNlA',
+          authorization: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjc0LCJ1c2VybmFtZSI6ImduenRyYWRlc0BnbWFpbC5jb20iLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE1NzY2MDg0MDcsImV4cCI6MTU3ODA0ODQwN30.ZGyrdGWbMFwrrFDvE5Zs9Km1uA9jWgodC4MPCeAGdNs',
         },
         url: 'http://localhost:3000/api/v1/gifs/13/flag',
       }, (err, resp, body) => {
