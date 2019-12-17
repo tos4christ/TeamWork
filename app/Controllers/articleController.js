@@ -290,7 +290,7 @@ articleController.flagComment = (req, res, next) => {
 articleController.deleteFlaggedArticle = (req, res, next) => {
   const token = req.headers.authorization.split(' ')[1] ? req.headers.authorization.split(' ')[1] : req.headers.authorization;
   const userToken = userDetails(token);
-  if (!userToken.admin) {
+  if (userToken.role !== 'admin') {
     res.status(401).json({
       status: 'error',
       error: 'Only an Admin user can delete a flagged Article',
@@ -328,10 +328,10 @@ articleController.deleteFlaggedArticle = (req, res, next) => {
 articleController.deleteFlaggedComment = (req, res, next) => {
   const token = req.headers.authorization.split(' ')[1] ? req.headers.authorization.split(' ')[1] : req.headers.authorization;
   const userToken = userDetails(token);
-  if (!userToken.admin) {
+  if (userToken.role !== 'admin') {
     res.status(401).json({
       status: 'error',
-      error: 'Only an Admin user can delete a flagged Comment',
+      error: 'Only an Admin user can delete a flagged Comment'
     });
     return;
   }

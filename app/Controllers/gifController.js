@@ -259,7 +259,7 @@ gifController.flagComment = (req, res, next) => {
 gifController.deleteFlaggedGif = (req, res, next) => {
   const token = req.headers.authorization.split(' ')[1] ? req.headers.authorization.split(' ')[1] : req.headers.authorization;
   const userToken = userDetails(token);
-  if (!userToken.admin) {
+  if (userToken.role !== 'admin') {
     res.status(401).json({
       status: 'error',
       error: 'Only an Admin user can delete a flagged Gif',
@@ -297,7 +297,7 @@ gifController.deleteFlaggedGif = (req, res, next) => {
 gifController.deleteFlaggedComment = (req, res, next) => {
   const token = req.headers.authorization.split(' ')[1] ? req.headers.authorization.split(' ')[1] : req.headers.authorization;
   const userToken = userDetails(token);
-  if (!userToken.admin) {
+  if (userToken.role !== 'admin') {
     res.status(401).json({
       status: 'error',
       error: 'Only an Admin user can delete a flagged Comment',
