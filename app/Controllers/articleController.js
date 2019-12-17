@@ -155,12 +155,22 @@ articleController.getAllArticle = (req, res, next) => {
         }
         Articles[j].comments = comments;
       }
-      res.status(200).json({
-        status: 'success',
-        data: {
-          articles: Articles
-        },
-      });
+      pool.query(articleSchema.getAllArticleNoComment,[req.params.userId])
+        .then(articlesNoComm => {
+          Articles.push(...articlesNoComm.rows);
+          res.status(200).json({
+            status: 'success',
+            data: {
+              articles: Articles
+            },
+          });
+        })
+        .catch( e => {
+          res.status(400).json({
+            "status": "error",
+            "error": e.message
+          });
+        });      
     })
     .catch(e => {
       res.status(400).json({

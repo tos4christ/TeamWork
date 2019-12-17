@@ -106,11 +106,20 @@ gifController.getAllGif = (req, res, next) => {
         }
         Gifs[j].comments = comments;
       }
-
-      res.status(200).json({
-        status: 'success',
-        data: Gifs,
-      });
+      pool.query(gifSchema.getGifNoComment, [req.params.userId])
+        .then(gifsNoComm => {
+          Gifs.push(...gifsNoComm.rows);
+          res.status(200).json({
+            status: 'success',
+            data: Gifs,
+          });
+        })
+        .catch(e => {
+          res.status(400).json({
+            "status": "error",
+            "error": e.message
+          });
+        });
     })
     .catch(e => {
       res.status(400).json({
