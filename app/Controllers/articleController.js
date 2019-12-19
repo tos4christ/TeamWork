@@ -8,14 +8,17 @@ articleController.createArticle = (req, res, next) => {
   const token = req.headers.authorization.split(' ')[1] ? req.headers.authorization.split(' ')[1] : req.headers.authorization;
   const user = userDetails(token);
   const {
-    title, article, appr_status,
+    title, article, appr_status, tag,
   } = req.body;
+  if (!title || !article) {
+    return;
+  }
   const date = Date().split('GMT')[0];
 
   pool.query(articleSchema.getEmployeeId, [user.username])
     .then((id) => {
       pool.query(articleSchema.newArticle,
-        [title, article, appr_status, id.rows[0].employee_id, date])
+        [title, article, appr_status, id.rows[0].employee_id, date, tag])
         .then((articles) => {
           res.status(201).json({
             status: 'Success',
