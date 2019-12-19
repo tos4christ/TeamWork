@@ -8,14 +8,17 @@ articleController.createArticle = (req, res, next) => {
   const token = req.headers.authorization.split(' ')[1] ? req.headers.authorization.split(' ')[1] : req.headers.authorization;
   const user = userDetails(token);
   const {
-    title, article, appr_status,
+    title, article, appr_status, tag,
   } = req.body;
+  if (!title || !article) {
+    return;
+  }
   const date = Date().split('GMT')[0];
 
   pool.query(articleSchema.getEmployeeId, [user.username])
     .then((id) => {
       pool.query(articleSchema.newArticle,
-        [title, article, appr_status, id.rows[0].employee_id, date])
+        [title, article, appr_status, id.rows[0].employee_id, date, tag])
         .then((articles) => {
           res.status(201).json({
             status: 'Success',
@@ -41,7 +44,6 @@ articleController.createArticle = (req, res, next) => {
       });
     });
 };
-
 articleController.postAnArticleComment = (req, res, next) => {
   const token = req.headers.authorization.split(' ')[1] ? req.headers.authorization.split(' ')[1] : req.headers.authorization;
   const user = userDetails(token);
@@ -96,7 +98,6 @@ articleController.postAnArticleComment = (req, res, next) => {
       });
     });
 };
-
 articleController.getAnArticle = (req, res, next) => {
   pool.query(articleSchema.getAnArticleText, [req.params.articleId])
     .then((article) => {
@@ -109,6 +110,7 @@ articleController.getAnArticle = (req, res, next) => {
               createdOn: article.rows[0].createdOn,
               title: article.rows[0].title,
               article: article.rows[0].article,
+              tag: article.rows[0].tag,
               comments: comments.rows,
             },
           });
@@ -127,7 +129,59 @@ articleController.getAnArticle = (req, res, next) => {
       });
     });
 };
-
+articleController.getAllArticle = (req, res, next) => {
+  pool.query(articleSchema.getAllArticleText, [req.params.userId])
+    .then((articles) => {
+      let artNo = [];
+      articles.rows.forEach( article => {
+        artNo[article.id] = {
+          id: article.id,
+          createdon: article.createdon,
+          title: article.title,
+          article: article.article
+        }
+      });
+      const Articles = artNo.filter( no => no.id !== null );
+      const num = Articles.length;
+      for(let j=0; j < num; j++) {
+        let comments = [];
+        const article = articles.rows.filter( article => article.id == Articles[j].id);
+        for(let i in article) {
+          const newComment = {
+            "status": article[i].status,
+            "commentid": article[i].commentid,
+            "comment": article[i].comment,
+            "createdon": article[i].createdon,
+            "authorid": article[i].authorid
+          }
+          comments.push(newComment);
+        }
+        Articles[j].comments = comments;
+      }
+      pool.query(articleSchema.getAllArticleNoComment,[req.params.userId])
+        .then(articlesNoComm => {
+          Articles.push(...articlesNoComm.rows);
+          res.status(200).json({
+            status: 'success',
+            data: {
+              articles: Articles
+            },
+          });
+        })
+        .catch( e => {
+          res.status(400).json({
+            "status": "error",
+            "error": e.message
+          });
+        });      
+    })
+    .catch(e => {
+      res.status(400).json({
+        "status": "error",
+        "error": e.message
+      });
+    });
+};
 articleController.updateAnArticle = (req, res, next) => {
   const token = req.headers.authorization.split(' ')[1] ? req.headers.authorization.split(' ')[1] : req.headers.authorization;
   const user = userDetails(token);
@@ -162,7 +216,6 @@ articleController.updateAnArticle = (req, res, next) => {
       });
     });
 };
-
 articleController.deleteAnArticle = (req, res, next) => {
   const token = req.headers.authorization.split(' ')[1] ? req.headers.authorization.split(' ')[1] : req.headers.authorization;
   const user = userDetails(token);
@@ -192,7 +245,6 @@ articleController.deleteAnArticle = (req, res, next) => {
       });
     });
 };
-
 articleController.flagArticle = (req, res, next) => {
   pool.query(articleSchema.flagArticle, [req.body.appr_status, req.params.articleId])
     .then((article) => {
@@ -211,7 +263,6 @@ articleController.flagArticle = (req, res, next) => {
       });
     });
 }
-
 articleController.flagComment = (req, res, next) => {
   pool.query(articleSchema.getCommentId, [req.params.articleId])
     .then((id) => {
@@ -239,11 +290,10 @@ articleController.flagComment = (req, res, next) => {
       });
     });
 }
-
 articleController.deleteFlaggedArticle = (req, res, next) => {
   const token = req.headers.authorization.split(' ')[1] ? req.headers.authorization.split(' ')[1] : req.headers.authorization;
   const userToken = userDetails(token);
-  if (!userToken.admin) {
+  if (userToken.role !== 'admin') {
     res.status(401).json({
       status: 'error',
       error: 'Only an Admin user can delete a flagged Article',
@@ -278,14 +328,13 @@ articleController.deleteFlaggedArticle = (req, res, next) => {
       });
     });
 }
-
 articleController.deleteFlaggedComment = (req, res, next) => {
   const token = req.headers.authorization.split(' ')[1] ? req.headers.authorization.split(' ')[1] : req.headers.authorization;
   const userToken = userDetails(token);
-  if (!userToken.admin) {
+  if (userToken.role !== 'admin') {
     res.status(401).json({
       status: 'error',
-      error: 'Only an Admin user can delete a flagged Comment',
+      error: 'Only an Admin user can delete a flagged Comment'
     });
     return;
   }
@@ -332,7 +381,38 @@ articleController.deleteFlaggedComment = (req, res, next) => {
       });
     });
 }
+articleController.deleteComment = (req, res, next) => {
+  const token = req.headers.authorization.split(' ')[1] ? req.headers.authorization.split(' ')[1] : req.headers.authorization;
+  const user = userDetails(token);
+  
+  pool.query(articleSchema.getEmployeeId, [user.username])
+    .then((id) => {
+      pool.query(articleSchema.deleteComment, [req.params.commentId, id.rows[0].employee_id])
+        .then((result) => {
+          res.status(200).json({
+            "status": "success",
+            "data": {
+              result,
+              message: "comment successfully deleted"
+            }
+          });
+        })
+        .catch( e => {
+          console.log(e.message);
+          res.status(400).json({
+            "status": "error",
+            "error": e.message
+          });
+        });
+    })
+    .catch( e => {
+      res.status(400).json({
+        "status": "error",
+        "error": e.message
+      });
+    });
 
+}
 articleController.getArticleByTag = (req, res, next) => {
 
   pool.query(articleSchema.getTagArticleText, [req.query.tag])

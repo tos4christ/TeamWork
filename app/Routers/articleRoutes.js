@@ -10,6 +10,8 @@ router.patch('/:articleId', validate.patchArticles, articleController.updateAnAr
 
 router.get('/:articleId', articleController.getAnArticle);
 
+router.get('/all/:userId', articleController.getAllArticle);
+
 router.delete('/:articleId', articleController.deleteAnArticle);
 
 router.post('/:articleId/comment', validate.postArtCom, articleController.postAnArticleComment);
@@ -21,6 +23,8 @@ router.post('/:articleId/comment/:commentId/flag', articleController.flagComment
 router.delete('/:articleId/flag', articleController.deleteFlaggedArticle);
 
 router.delete('/:articleId/comment/:commentId', articleController.deleteFlaggedComment);
+
+router.delete('/:articleId/commented/:commentId', articleController.deleteComment);
 
 router.get('/', articleController.getArticleByTag);
 

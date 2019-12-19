@@ -3,6 +3,7 @@ import express from 'express';
 import { v2 as cloudinary } from 'cloudinary';
 import routeAdmin from '../Routers/routeAdmin';
 import cors from 'cors';
+import bodyParser from 'body-parser';
 
 config();
 cloudinary.config({
@@ -13,9 +14,10 @@ cloudinary.config({
 
 const app = express();
 
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
 app.use(cors());
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
 
 app.use('/test', (req, res) => {
   res.status(200).send('Request received');

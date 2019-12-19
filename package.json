@@ -15,7 +15,8 @@
     "remotedb": "npm run build && npm run db",
     "started": "node build/server/server",
     "local-test": "npm run resetdb && npm run test",
-    "local-server": "npm run build &&  nodemon build/server/server"
+    "local-server": "npm run build &&  node build/server/server",
+    "update-db": "npm run build && node build/Models/poolConnection"
   },
   "engines": {
     "node": "10.16.3"
@@ -37,6 +38,7 @@
   "homepage": "https://github.com/tos4christ/TeamWork#readme",
   "dependencies": {
     "bcrypt": "^3.0.1",
+    "body-parser": "^1.19.0",
     "cloudinary": "^1.16.0",
     "connect-multiparty": "^2.2.0",
     "cors": "^2.8.5",

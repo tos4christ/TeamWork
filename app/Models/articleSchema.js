@@ -1,10 +1,14 @@
 const articleSchema = {};
 
-articleSchema.newArticle = 'INSERT INTO articles(article_title, article_text, appr_status, employee_id, creation_date) VALUES($1, $2, $3, $4, $5) RETURNING *';
+articleSchema.newArticle = 'INSERT INTO articles(article_title, article_text, appr_status, employee_id, creation_date, tag) VALUES($1, $2, $3, $4, $5, $6) RETURNING *';
 
-articleSchema.getAnArticleText = 'select a.article_id as id, a.creation_date as createdOn, a.article_title as title, a.article_text as article from articles a where a.article_id=$1';
+articleSchema.getAnArticleText = 'select a.article_id as id, a.creation_date as createdOn, a.article_title as title, a.article_text as article, a.tag as tag from articles a where a.article_id=$1';
 
 articleSchema.getTagArticleText = 'select a.article_id as id, a.creation_date as createdOn, a.article_title as title, a.article_text as article, tag from articles a where a.tag=$1';
+
+articleSchema.getAllArticleText = 'select a.article_id as id, a.creation_date as createdOn, a.article_title as title, a.article_text as article, ct.appr_status as status, ct.comment_id as commentid, ct.comment_text as comment, ct.creation_date as createdon, ct.employee_id as authorid FROM articles a, comments_table ct, article_comment ac WHERE a.employee_id=$1 and a.article_id=ac.article_id and ac.comment_id=ct.comment_id';
+
+articleSchema.getAllArticleNoComment = 'select a.article_id as id, a.creation_date as createdOn, a.article_title as title, a.article_text as article FROM articles a WHERE a.employee_id=$1 AND a.article_id NOT IN (SELECT article_id FROM article_comment)';
 
 articleSchema.getAnArticleComment = 'SELECT c.comment_id as commentId, c.comment_text as comment, c.employee_id as authorId, c.creation_date as createdOn FROM comments_table c, article_comment ac WHERE ac.article_id=$1 and c.comment_id=ac.comment_id';
 
@@ -18,6 +22,8 @@ articleSchema.deleteAnArticle = 'DELETE FROM articles WHERE article_id=$1 and em
 articleSchema.getEmployeeId = 'SELECT employee_id FROM employees WHERE email=$1';
 
 articleSchema.flagArticle = 'UPDATE articles SET appr_status=$1 WHERE article_id=$2 RETURNING *';
+
+articleSchema.deleteComment = 'DELETE FROM comments_table WHERE comment_id=$1 and employee_id=$2 RETURNING *';
 
 articleSchema.getCommentId = 'SELECT comment_id as id FROM article_comment WHERE article_id=$1';
 articleSchema.flagArticleComment = 'UPDATE comments_table SET appr_status=$1 WHERE comment_id=$2 RETURNING *';

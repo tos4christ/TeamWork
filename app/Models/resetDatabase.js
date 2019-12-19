@@ -8,9 +8,15 @@ const pool = new Pool({
   ssl: true,
 });
 
-// pool.query('DELETE FROM gif_table WHERE gif_id=$1',[50], (err) => {
+// pool.query(`ALTER TABLE gif_comment DROP CONSTRAINT gif_comment_comment_id_fkey;`, (err) => {
 //   if (err) console.log(err);
-//   console.log('deleted successfuly');
+//   console.log('constraint DROPPED');
+// });
+
+// pool.query(`ALTER TABLE gif_comment
+//     ADD CONSTRAINT gif_comment_comment_id_fkey FOREIGN KEY (comment_id) REFERENCES comments_table(comment_id) ON UPDATE CASCADE ON DELETE CASCADE;`, (err) => {
+//   if (err) console.log(err);
+//   console.log('constraint updated successfuly');
 // });
 
 pool.query('DELETE FROM gif_table WHERE gif_id=$1', [12])

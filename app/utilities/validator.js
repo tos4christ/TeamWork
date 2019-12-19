@@ -19,8 +19,7 @@ validate.createUser = (req, res, next) => {
         res.status(422).send(v.errors);
       }
       next();
-    })
-    .catch( e => res.status(400).json({ error: e.message}));
+    });
 }
 
 validate.signin = (req, res, next) => {
@@ -34,8 +33,7 @@ validate.signin = (req, res, next) => {
         res.status(422).send(v.errors);
       }
       next();
-    })
-    .catch( e => res.status(400).json({ error: e.message}));
+    });
 }
 
 validate.postGifs = (req, res, next) => {
@@ -51,8 +49,7 @@ validate.postGifs = (req, res, next) => {
         res.status(422).send(v.errors);
       }
       next();
-    })
-    .catch( e => res.status(400).json({ error: e.message}));
+    });
 }
 
 validate.postArticles = (req, res, next) => {
@@ -67,8 +64,7 @@ validate.postArticles = (req, res, next) => {
         res.status(422).send(v.errors);
       }
       next();
-    })
-    .catch( e => res.status(400).json({ error: e.message}));
+    });
 }
 
 validate.patchArticles = (req, res, next) => {
@@ -82,8 +78,7 @@ validate.patchArticles = (req, res, next) => {
         res.status(422).send(v.errors);
       }
       next();
-    })
-    .catch( e => res.status(400).json({ error: e.message}));
+    });
 }
 
 validate.postArtCom = (req, res, next) => {
@@ -97,8 +92,7 @@ validate.postArtCom = (req, res, next) => {
         res.status(422).send(v.errors);
       }
       next();
-    })
-    .catch( e => res.status(400).json({ error: e.message}));
+    });
 }
 
 validate.postGifCom = (req, res, next) => {
@@ -111,8 +105,7 @@ validate.postGifCom = (req, res, next) => {
         res.status(422).send(v.errors);
       }
       next();
-    })
-    .catch( e => res.status(400).json({ error: e.message}));
+    });
 }
 
 export default validate;

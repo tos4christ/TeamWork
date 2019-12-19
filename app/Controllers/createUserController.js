@@ -5,7 +5,6 @@ import newUserQuery from '../Models/newUserModel';
 import userDetails from '../utilities/getTokenUser';
 
 const createUser = (req, res, next) => {
-  console.log('createUser Req', req);
   const token = req.headers.authorization.split(' ')[1] ? req.headers.authorization.split(' ')[1] : req.headers.authorization;
   const userToken = userDetails(token);
   if(userToken.role !== 'admin') {
@@ -35,15 +34,16 @@ const createUser = (req, res, next) => {
         sub: user.rows[0].employee_id,
         email: user.rows[0].email,
       }, process.env.TOKENKEY, { expiresIn: 1440 });
-      res.status(201).json({
+      const body = {
         status: 'success',
         data: {
           message: 'User account successfully created',
           token,
           userId: user.rows[0].employee_id,
           jobRole: user.rows[0].jobRole
-        },
-      });
+      }
+    };
+      res.status(201).json(body);
     })
     .catch(e => {
       console.log('Create user error', e);

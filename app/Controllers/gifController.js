@@ -47,7 +47,6 @@ gifController.createGif = (req, res, next) => {
         });
     });
 };
-
 gifController.getAGif = (req, res, next) => {
   pool.query(gifSchema.getAGif, [req.params.gifId])
     .then((gif) => {
@@ -78,14 +77,60 @@ gifController.getAGif = (req, res, next) => {
       });
     });
 };
-
+gifController.getAllGif = (req, res, next) => {
+  pool.query(gifSchema.getAllGif, [req.params.userId])
+    .then((gifs) => {
+      let gifNo = [];
+      gifs.rows.forEach( gif => {
+        gifNo[gif.id] = {
+          id: gif.id,
+          createdon: gif.createdon,
+          title: gif.title,
+          url: gif.url
+        }
+      });
+      const Gifs = gifNo.filter( no => no.id !== null );
+      const num = Gifs.length;
+      for(let j=0; j < num; j++) {
+        let comments = [];
+        const gif = gifs.rows.filter( gif => gif.id == Gifs[j].id);
+        for(let i in gif) {
+          const newComment = {
+            "status": gif[i].status,
+            "commentid": gif[i].commentid,
+            "comment": gif[i].comment,
+            "createdon": gif[i].createdon,
+            "authorid": gif[i].authorid
+          }
+          comments.push(newComment);
+        }
+        Gifs[j].comments = comments;
+      }
+      pool.query(gifSchema.getGifNoComment, [req.params.userId])
+        .then(gifsNoComm => {
+          Gifs.push(...gifsNoComm.rows);
+          res.status(200).json({
+            status: 'success',
+            data: Gifs,
+          });
+        })
+        .catch(e => {
+          res.status(400).json({
+            "status": "error",
+            "error": e.message
+          });
+        });
+    })
+    .catch(e => {
+      res.status(400).json({
+        "status": "error",
+        "error": e.message
+      });
+    });
+};
 gifController.deleteAGif = (req, res, next) => {
-  // delete an article from cloudinary
-  // cloudinary.uploader.destroy('zombie', function(result) { console.log(result) });
-
   const token = req.headers.authorization.split(' ')[1] ? req.headers.authorization.split(' ')[1] : req.headers.authorization;
   const user = userDetails(token);
-
   pool.query(gifSchema.getEmployeeId, [user.username])
     .then((id) => {
       pool.query(gifSchema.deleteAGif, [req.params.gifId, id.rows[0].employee_id])
@@ -113,9 +158,7 @@ gifController.deleteAGif = (req, res, next) => {
       });
     });
 };
-
 gifController.postAGifComment = (req, res, next) => {
-  // request comes with gifId
   const token = req.headers.authorization.split(' ')[1] ? req.headers.authorization.split(' ')[1] : req.headers.authorization;
   const user = userDetails(token);
   const date = Date().split('GMT')[0];
@@ -168,7 +211,6 @@ gifController.postAGifComment = (req, res, next) => {
       });
     });
 };
-
 gifController.flagGif = (req, res, next) => {
   pool.query(gifSchema.flagGif, [req.body.appr_status, req.params.gifId])
     .then((gif) => {
@@ -187,7 +229,6 @@ gifController.flagGif = (req, res, next) => {
       });
     });
 }
-
 gifController.flagComment = (req, res, next) => {
   pool.query(gifSchema.getCommentId, [req.params.gifId])
     .then((id) => {
@@ -215,11 +256,10 @@ gifController.flagComment = (req, res, next) => {
       });
     });
 }
-
 gifController.deleteFlaggedGif = (req, res, next) => {
   const token = req.headers.authorization.split(' ')[1] ? req.headers.authorization.split(' ')[1] : req.headers.authorization;
   const userToken = userDetails(token);
-  if (!userToken.admin) {
+  if (userToken.role !== 'admin') {
     res.status(401).json({
       status: 'error',
       error: 'Only an Admin user can delete a flagged Gif',
@@ -254,11 +294,10 @@ gifController.deleteFlaggedGif = (req, res, next) => {
       });
     });
 }
-
 gifController.deleteFlaggedComment = (req, res, next) => {
   const token = req.headers.authorization.split(' ')[1] ? req.headers.authorization.split(' ')[1] : req.headers.authorization;
   const userToken = userDetails(token);
-  if (!userToken.admin) {
+  if (userToken.role !== 'admin') {
     res.status(401).json({
       status: 'error',
       error: 'Only an Admin user can delete a flagged Comment',
@@ -307,6 +346,37 @@ gifController.deleteFlaggedComment = (req, res, next) => {
         "error": e.message
       });
     });
+}
+gifController.deleteComment = (req, res, next) => {
+  const token = req.headers.authorization.split(' ')[1] ? req.headers.authorization.split(' ')[1] : req.headers.authorization;
+  const user = userDetails(token);
+  
+  pool.query(gifSchema.getEmployeeId, [user.username])
+    .then((id) => {
+      pool.query(gifSchema.deleteComment, [req.params.commentId, id.rows[0].employee_id])
+        .then((result) => {
+          res.status(200).json({
+            "status": "success",
+            "data": {
+              result,
+              message: "comment successfully deleted"
+            }
+          });
+        })
+        .catch( e => {
+          res.status(400).json({
+            "status": "error",
+            "error": e.message
+          });
+        });
+    })
+    .catch( e => {
+      res.status(400).json({
+        "status": "error",
+        "error": e.message
+      });
+    });
+
 }
 
 export default gifController;
