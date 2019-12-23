@@ -13,7 +13,7 @@ articleController.createArticle = (req, res, next) => {
   if (!title || !article) {
     return;
   }
-  const date = Date().split('GMT')[0];
+  const date = new Date();
 
   pool.query(articleSchema.getEmployeeId, [user.username])
     .then((id) => {
@@ -47,7 +47,7 @@ articleController.createArticle = (req, res, next) => {
 articleController.postAnArticleComment = (req, res, next) => {
   const token = req.headers.authorization.split(' ')[1] ? req.headers.authorization.split(' ')[1] : req.headers.authorization;
   const user = userDetails(token);
-  const date = Date().split('GMT')[0];
+  const date = new Date();
 
   const { comment, appr_status } = req.body;
   pool.query(articleSchema.getEmployeeId, [user.username])

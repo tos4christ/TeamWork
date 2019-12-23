@@ -15,7 +15,7 @@ gifController.createGif = (req, res, next) => {
     .then((file) => {
       const fileUrl = file.url;
       const filePublicId = file.public_id;
-      const date = Date().split('GMT')[0];
+      const date = new Date();
       pool.query(gifSchema.getEmployeeId, [user.username])
         .then((id) => {
           pool.query(gifSchema.newGif,
@@ -161,7 +161,7 @@ gifController.deleteAGif = (req, res, next) => {
 gifController.postAGifComment = (req, res, next) => {
   const token = req.headers.authorization.split(' ')[1] ? req.headers.authorization.split(' ')[1] : req.headers.authorization;
   const user = userDetails(token);
-  const date = Date().split('GMT')[0];
+  const date = new Date();
 
   const { comment } = req.body;
   pool.query(gifSchema.getEmployeeId, [user.username])

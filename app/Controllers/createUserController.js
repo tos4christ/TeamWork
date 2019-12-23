@@ -26,7 +26,7 @@ const createUser = (req, res, next) => {
     return;
   }
   const hash = bcrypt.hashSync(password, 9);
-  const creation_date = Date().split('GMT')[0];
+  const creation_date = new Date();
   pool.query(newUserQuery.newUser,
     [firstName, lastName, email, hash, gender, jobRole, address, department, creation_date])
     .then((user) => {
