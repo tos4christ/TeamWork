@@ -6,7 +6,7 @@ gifSchema.getAGif = 'select g.employee_id as authorId, g.gif_id as id, g.creatio
 
 gifSchema.getAllGif = 'select g.employee_id as authorId, g.gif_id as id, g.creation_date as "createdOn", g.gif_title as title, g.gif_url as url, ct.appr_status as status, ct.comment_id as commentid, ct.comment_text as comment, ct.creation_date as createdon, ct.employee_id as authorid FROM gif_table g, comments_table ct, gif_comment gc WHERE g.employee_id=$1 and g.gif_id=gc.gif_id and gc.comment_id=ct.comment_id';
 
-gifSchema.getGifNoComment = 'select g.employee_id as authorId, g.gif_id as id, g.creation_date as "createdOn", g.gif_title as title, g.gif_url as url FROM gif_table g WHERE g.employee_id=$1 AND g.gif_id NOT IN (SELECT gif_id FROM gif_comment)';
+gifSchema.getGifNoComment = 'select g.employee_id as author, g.gif_id as id, g.creation_date as "createdOn", g.gif_title as title, g.gif_url as url FROM gif_table g WHERE g.employee_id=$1 AND g.gif_id NOT IN (SELECT gif_id FROM gif_comment)';
 
 gifSchema.getAGifComment = 'SELECT c.comment_id as commentId, c.comment_text as comment, c.employee_id as "authorId", c.creation_date as "createdOn" FROM comments_table c, gif_comment gc WHERE gc.gif_id=$1 and c.comment_id=gc.comment_id';
 
