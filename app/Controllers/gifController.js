@@ -58,6 +58,7 @@ gifController.getAGif = (req, res, next) => {
               id: gif.rows[0].id,
               createdOn: gif.rows[0].createdOn,
               title: gif.rows[0].title,
+              author: gif.rows[0].authorid,
               url: gif.rows[0].url,
               comments: comments.rows,
             },
@@ -85,6 +86,7 @@ gifController.getAllGif = (req, res, next) => {
         gifNo[gif.id] = {
           id: gif.id,
           createdon: gif.createdon,
+          author: gif.authorid,
           title: gif.title,
           url: gif.url
         }

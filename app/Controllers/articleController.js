@@ -110,6 +110,7 @@ articleController.getAnArticle = (req, res, next) => {
               createdOn: article.rows[0].createdOn,
               title: article.rows[0].title,
               article: article.rows[0].article,
+              author: article.rows[0].authorid,
               tag: article.rows[0].tag,
               comments: comments.rows,
             },
@@ -138,7 +139,8 @@ articleController.getAllArticle = (req, res, next) => {
           id: article.id,
           createdon: article.createdon,
           title: article.title,
-          article: article.article
+          article: article.article,
+          author: article.authorid,
         }
       });
       const Articles = artNo.filter( no => no.id !== null );

@@ -2,11 +2,11 @@ const articleSchema = {};
 
 articleSchema.newArticle = 'INSERT INTO articles(article_title, article_text, appr_status, employee_id, creation_date, tag) VALUES($1, $2, $3, $4, $5, $6) RETURNING *';
 
-articleSchema.getAnArticleText = 'select a.article_id as id, a.creation_date as createdOn, a.article_title as title, a.article_text as article, a.tag as tag from articles a where a.article_id=$1';
+articleSchema.getAnArticleText = 'select a.employee_id as authorId, a.article_id as id, a.creation_date as createdOn, a.article_title as title, a.article_text as article, a.tag as tag from articles a where a.article_id=$1';
 
 articleSchema.getTagArticleText = 'select a.article_id as id, a.creation_date as createdOn, a.article_title as title, a.article_text as article, tag from articles a where a.tag=$1';
 
-articleSchema.getAllArticleText = 'select a.article_id as id, a.creation_date as createdOn, a.article_title as title, a.article_text as article, ct.appr_status as status, ct.comment_id as commentid, ct.comment_text as comment, ct.creation_date as createdon, ct.employee_id as authorid FROM articles a, comments_table ct, article_comment ac WHERE a.employee_id=$1 and a.article_id=ac.article_id and ac.comment_id=ct.comment_id';
+articleSchema.getAllArticleText = 'select a.employee_id as authorId, a.article_id as id, a.creation_date as createdOn, a.article_title as title, a.article_text as article, ct.appr_status as status, ct.comment_id as commentid, ct.comment_text as comment, ct.creation_date as createdon, ct.employee_id as authorid FROM articles a, comments_table ct, article_comment ac WHERE a.employee_id=$1 and a.article_id=ac.article_id and ac.comment_id=ct.comment_id';
 
 articleSchema.getAllArticleNoComment = 'select a.article_id as id, a.creation_date as createdOn, a.article_title as title, a.article_text as article FROM articles a WHERE a.employee_id=$1 AND a.article_id NOT IN (SELECT article_id FROM article_comment)';
 
