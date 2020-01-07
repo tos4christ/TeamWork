@@ -19,5 +19,10 @@ const pool = new Pool({
 
 // }()
 
+// pool.query('DELETE FROM employees where employee_id=4');
+// pool.query('DELETE FROM employees where employee_id=29');
+// pool.query('DELETE FROM employees where employee_id=39');
+// pool.query('DELETE FROM employees where employee_id=40');
+
     
 export default pool;

@@ -36,6 +36,7 @@ const signIn = (req, res, next) => {
               token,
               userId: users.rows[0].employee_id,
               userName: users.rows[0].firstName + ' ' + users.rows[0].lastName,
+              allDetails: users.rows[0]
             },
           };
           res.status(200).json(body);
