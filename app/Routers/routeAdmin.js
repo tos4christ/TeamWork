@@ -1,18 +1,12 @@
 import { Router } from 'express';
-
 import createUserRoute from './auth/createUserRoute';
-
 import signInRoute from './auth/signInRoute';
-
 import gifRoutes from './gifRoutes';
-
 import articleRoutes from './articleRoutes';
-
 import feedRoute from './feedRoute';
-
 import docRoutes from './docsRoute';
-
 import jwtCheck from '../utilities/jwtCheck';
+import profileRoute from '../Routers/profileRoute';
 
 const router = Router();
 
@@ -27,5 +21,7 @@ router.use('/articles', jwtCheck, articleRoutes);
 router.use('/feed', jwtCheck, feedRoute);
 
 router.use('/docs', docRoutes);
+
+router.use('/profile', jwtCheck, profileRoute);
 
 export default router;

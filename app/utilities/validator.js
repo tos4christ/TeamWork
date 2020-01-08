@@ -21,7 +21,6 @@ validate.createUser = (req, res, next) => {
       next();
     });
 }
-
 validate.signin = (req, res, next) => {
   const v = new Validator(req.body, {
     email: 'required|email',
@@ -35,7 +34,6 @@ validate.signin = (req, res, next) => {
       next();
     });
 }
-
 validate.postGifs = (req, res, next) => {
   req.body.image = req.files.image;
   const v = new Validator(req.body, {
@@ -51,7 +49,6 @@ validate.postGifs = (req, res, next) => {
       next();
     });
 }
-
 validate.postArticles = (req, res, next) => {
   const v = new Validator(req.body, {
     article: 'required|string',
@@ -66,7 +63,6 @@ validate.postArticles = (req, res, next) => {
       next();
     });
 }
-
 validate.patchArticles = (req, res, next) => {
   const v = new Validator(req.body, {
     article: 'required|string',
@@ -80,7 +76,6 @@ validate.patchArticles = (req, res, next) => {
       next();
     });
 }
-
 validate.postArtCom = (req, res, next) => {
   const v = new Validator(req.body, {
     comment: 'required|string',
@@ -94,10 +89,22 @@ validate.postArtCom = (req, res, next) => {
       next();
     });
 }
-
 validate.postGifCom = (req, res, next) => {
   const v = new Validator(req.body, {
     comment: 'required|string',
+  });
+  v.check()
+    .then( (matched) => {
+      if (!matched) {
+        res.status(422).send(v.errors);
+      }
+      next();
+    });
+}
+validate.profile = (req, res, next) => {
+  req.body.image = req.files.image;
+  const v = new Validator(req.body, {
+    image: 'required|mime:jpg,jpeg,png',
   });
   v.check()
     .then( (matched) => {
