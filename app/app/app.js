@@ -1,9 +1,9 @@
 import { config } from 'dotenv';
 import express from 'express';
 import { v2 as cloudinary } from 'cloudinary';
-import routeAdmin from '../Routers/routeAdmin';
 import cors from 'cors';
 import bodyParser from 'body-parser';
+import routeAdmin from '../Routers/routeAdmin';
 
 config();
 cloudinary.config({

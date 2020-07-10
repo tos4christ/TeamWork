@@ -3,9 +3,8 @@ import jwt from 'jsonwebtoken';
 import pool from '../Models/poolConnection';
 import signInQuery from '../Models/signInModel';
 
-const signIn = (req, res, next) => {
- const {email, password} = req.body;
-  
+const signIn = (req, res) => {
+  const { email, password } = req.body;
   if (!email || !password) {
     res.status(400).json({
       status: 'error',
@@ -18,7 +17,7 @@ const signIn = (req, res, next) => {
       if (!users.rows[0]) {
         res.status(401).send({
           status: 'error',
-          error: 'user not found'
+          error: 'user not found',
         });
         return;
       }
@@ -35,8 +34,8 @@ const signIn = (req, res, next) => {
             data: {
               token,
               userId: users.rows[0].employee_id,
-              userName: users.rows[0].firstName + ' ' + users.rows[0].lastName,
-              allDetails: users.rows[0]
+              userName: `${users.rows[0].firstName} ${users.rows[0].lastName}`,
+              allDetails: users.rows[0],
             },
           };
           res.status(200).json(body);
@@ -53,11 +52,11 @@ const signIn = (req, res, next) => {
         });
       }
     })
-    .catch( e => {
-      console.log('the signin error', e)
+    .catch((e) => {
+      // console.log('the signin error', e);
       res.status(400).json({
-        "status": "error",
-        "error": e.message
+        status: 'error',
+        error: e.message,
       });
     });
 };

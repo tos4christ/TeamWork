@@ -6,7 +6,7 @@ import articleRoutes from './articleRoutes';
 import feedRoute from './feedRoute';
 import docRoutes from './docsRoute';
 import jwtCheck from '../utilities/jwtCheck';
-import profileRoute from '../Routers/profileRoute';
+import profileRoute from './profileRoute';
 
 const router = Router();
 

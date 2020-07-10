@@ -3,8 +3,8 @@ import jwt from 'jsonwebtoken';
 const jwtCheck = (req, res, next) => {
   if (!req.headers.authorization) {
     res.status(401).json({
-      'status': 'error',
-      'error': 'Unauthorized access 1',
+      status: 'error',
+      error: 'Unauthorized access 1',
     });
     return;
   }
@@ -19,12 +19,10 @@ const jwtCheck = (req, res, next) => {
         return;
       }
       if (!tokers) {
-        const err2 = new Error();
         res.status(410).json({
           status: 'error',
-          error: 'Unauthorized access 2'
+          error: 'Unauthorized access 2',
         });
-        return;
       } else if (tokers) {
         next();
       }
